@@ -1,0 +1,220 @@
+<template>
+<style>
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: #1a1a17;
+    overflow: hidden;
+  }
+  .f01-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 70% 30%, #eaf4e8 0%, #fdfbf7 70%);
+  }
+  .f01-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(rgba(46, 125, 50, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(46, 125, 50, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .f01-badge {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 18px;
+    background: rgba(46, 125, 50, 0.12);
+    border: 1.5px solid #1b5e20;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #1b5e20;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .f01-badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #b84600;
+  }
+  .f01-headline-box {
+    position: absolute;
+    top: 130px;
+    left: 80px;
+    max-width: 720px;
+  }
+  .f01-title {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.2;
+    color: #142312;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px 0;
+  }
+  .f01-title span {
+    color: #1b5e20;
+  }
+  .f01-title em {
+    color: #b84600;
+    font-style: normal;
+  }
+  .f01-sub {
+    font-size: 22px;
+    color: #3b5039;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+  .f01-stats-strip {
+    display: flex;
+    gap: 24px;
+  }
+  .f01-stat-card {
+    background: #ffffff;
+    border: 1px solid #d9e6d8;
+    padding: 16px 24px;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(46, 125, 50, 0.06);
+  }
+  .f01-stat-val {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1b5e20;
+  }
+  .f01-stat-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #40583f;
+    text-transform: uppercase;
+  }
+
+  /* Dual Mobile Mockup Staging */
+  .f01-phones-container {
+    position: absolute;
+    right: 80px;
+    top: 50px;
+    width: 840px;
+    height: 800px;
+  }
+  .f01-phone {
+    position: absolute;
+    width: 365px;
+    height: 760px;
+    border-radius: 46px;
+    background: #000000;
+    border: 8px solid #142312;
+    box-shadow: 0 35px 80px rgba(20, 35, 18, 0.28);
+    overflow: hidden;
+  }
+  .f01-phone-left {
+    left: 20px;
+    top: 30px;
+    transform: rotate(-4deg);
+  }
+  .f01-phone-right {
+    right: 40px;
+    top: 10px;
+    transform: rotate(3deg);
+  }
+  .f01-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95px;
+    height: 22px;
+    border-radius: 14px;
+    background: #000;
+    z-index: 50;
+  }
+  .f01-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f01-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+</style>
+
+<div id="root" data-composition-id="01-hook" data-width="1920" data-height="1080" data-duration="17.5">
+  <div class="clip f01-bg">
+    <div class="f01-grid"></div>
+  </div>
+
+  <div class="f01-badge" id="f01-badge">
+    <img src="assets/foodlink-logo-official.png" alt="FoodLink Logo" style="width: 24px; height: 24px; object-fit: contain;" />
+    <span>FoodLink Platform Pitch</span>
+  </div>
+
+  <div class="f01-headline-box" id="f01-headline">
+    <h1 class="f01-title">
+      <div>Turn <span>Surplus Food</span></div>
+      <div>into <em>Instant Value</em>.</div>
+    </h1>
+    <p class="f01-sub">
+      A mobile-first marketplace empowering local merchants to sell surplus meals to hungry customers before closing time.
+    </p>
+    <div class="f01-stats-strip" id="f01-stats">
+      <div class="f01-stat-card">
+        <div class="f01-stat-val">30%+</div>
+        <div class="f01-stat-label">Food Produced Discarded</div>
+      </div>
+      <div class="f01-stat-card">
+        <div class="f01-stat-val">60% OFF</div>
+        <div class="f01-stat-label">Average Meal Discount</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="f01-phones-container" id="f01-phones">
+    <!-- Merchant App Mobile Screenshot -->
+    <div class="f01-phone f01-phone-left" id="f01-phone-left" data-layout-allow-overflow>
+      <div class="f01-notch"></div>
+      <div class="f01-screen">
+        <img src="assets/mob-merchant-dash.png" alt="Merchant Mobile App" />
+      </div>
+    </div>
+
+    <!-- Customer App Mobile Screenshot -->
+    <div class="f01-phone f01-phone-right" id="f01-phone-right" data-layout-allow-overflow>
+      <div class="f01-notch"></div>
+      <div class="f01-screen">
+        <img src="assets/mob-customer-feed.png" alt="Customer Mobile App" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from("#f01-badge", { y: -20, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+    tl.from("#f01-headline", { x: -40, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.4);
+    tl.from("#f01-stats", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, 1.2);
+    tl.from("#f01-phone-left", { y: 100, opacity: 0, rotation: -8, duration: 1.2, ease: "back.out(1.2)" }, 1.0);
+    tl.from("#f01-phone-right", { y: 120, opacity: 0, rotation: 8, duration: 1.2, ease: "back.out(1.2)" }, 1.4);
+
+    tl.to("#f01-phone-left", { y: "+=12", rotation: -3, duration: 3.5, ease: "sine.inOut", yoyo: true, repeat: 3 }, 2.6);
+    tl.to("#f01-phone-right", { y: "-=12", rotation: 2, duration: 3.7, ease: "sine.inOut", yoyo: true, repeat: 3 }, 2.6);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["01-hook"] = tl;
+  });
+</script>
+</template>

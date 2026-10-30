@@ -1,0 +1,214 @@
+{
+  "typography": [
+    {
+      "role": "heading",
+      "fontFamily": "Poppins",
+      "fontSize": "20px",
+      "fontWeight": "900",
+      "lineHeight": "28px",
+      "letterSpacing": "-0.5px",
+      "color": "#1C1C1E",
+      "sampleText": "New on FoodLink"
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Poppins",
+      "fontSize": "16px",
+      "fontWeight": "800",
+      "lineHeight": "24px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.216 0.006 56.043)",
+      "sampleText": "Golden Gate Bakery & Cafe"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Roboto",
+      "fontSize": "12px",
+      "fontWeight": "500",
+      "lineHeight": "16px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.553 0.013 58.071)",
+      "sampleText": "Surplus Food Bag"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      20
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "12px",
+    "24px",
+    "3.35544e+07px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "count": 33
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+      "count": 22
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "count": 20
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.378 -0.0755699 0.0147714 / 0.2) 0px 1px 3px 0px, oklab(0.378 -0.0755699 0.0147714 / 0.2) 0px 1px 2px -1px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "label": "button",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#2E7D32",
+      "padding": "0px",
+      "borderRadius": "3.35544e+07px",
+      "border": "1px solid oklab(0.923 0.00197934 0.00225438 / 0.9)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "44px"
+    },
+    {
+      "label": "All",
+      "background": "#2E7D32",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "8px 16px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, oklab(0.378 -0.0755699 0.0147714 / 0.2) 0px 1px 3px 0px, oklab(0.378 -0.0755699 0.0147714 / 0.2) 0px 1px 2px -1px",
+      "fontSize": "12px",
+      "fontWeight": "800",
+      "height": "32px"
+    },
+    {
+      "label": "Pastry",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.374 0.01 67.558)",
+      "padding": "8px 16px",
+      "borderRadius": "3.35544e+07px",
+      "border": "1px solid oklab(0.923 0.00197934 0.00225438 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "12px",
+      "fontWeight": "700",
+      "height": "34px"
+    },
+    {
+      "label": "See All",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#2E7D32",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "none",
+      "fontSize": "12px",
+      "fontWeight": "800",
+      "height": "16px"
+    },
+    {
+      "label": "Add",
+      "background": "oklch(0.979 0.021 166.113)",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#2E7D32",
+      "padding": "4px 10px",
+      "borderRadius": "12px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "12px",
+      "fontWeight": "800",
+      "height": "24px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.216 0.006 56.043)",
+      "padding": "0px",
+      "borderRadius": "24px",
+      "border": "1px solid oklab(0.923 0.00197934 0.00225438 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "307px"
+    },
+    {
+      "label": "card",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.216 0.006 56.043)",
+      "padding": "0px",
+      "borderRadius": "24px",
+      "border": "1px solid oklab(0.869 0.00276943 0.00416296 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "307px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)",
+    "backgroundImage": "",
+    "backdropFilter": "blur(12px)",
+    "color": "#1C1C1E",
+    "padding": "8px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "65.5px"
+  },
+  "chips": [
+    {
+      "label": "SOLD OUT",
+      "background": "oklab(0.216 0.00335142 0.00497674 / 0.9)",
+      "color": "oklch(0.923 0.003 48.717)",
+      "padding": "4px 10px",
+      "borderRadius": "12px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "fontSize": "10px",
+      "fontWeight": "900",
+      "height": "23px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": [
+    {
+      "backdropFilter": "blur(12px)",
+      "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)",
+      "border": "",
+      "borderRadius": "0px",
+      "boxShadow": "",
+      "area": 125760
+    }
+  ]
+}

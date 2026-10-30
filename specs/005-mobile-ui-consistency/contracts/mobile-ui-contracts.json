@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "MobileUiContracts",
+  "description": "Component contracts for mobile-first layout and ergonomics",
+  "definitions": {
+    "ListingCardProps": {
+      "type": "object",
+      "required": ["id", "storeName", "title", "imageUrl", "discountedPrice", "originalPrice", "pickupWindow"],
+      "properties": {
+        "id": { "type": "string" },
+        "storeName": { "type": "string" },
+        "title": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "discountedPrice": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "pickupWindow": { "type": "string" },
+        "rating": { "type": "number" },
+        "formattedDistance": { "type": "string" }
+      }
+    },
+    "BottomNavTabProps": {
+      "type": "object",
+      "required": ["id", "label", "isActive", "onClick"],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "badgeCount": { "type": "integer" }
+      }
+    }
+  }
+}
+

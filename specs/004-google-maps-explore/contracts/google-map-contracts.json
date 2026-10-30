@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GoogleMapContracts",
+  "description": "Contracts for Google Maps style explore component and place card",
+  "definitions": {
+    "GoogleMapStorePin": {
+      "type": "object",
+      "required": ["id", "storeName", "position", "category", "discountedPrice", "originalPrice", "discountPercentage"],
+      "properties": {
+        "id": { "type": "string" },
+        "storeName": { "type": "string" },
+        "category": { "type": "string", "enum": ["Bakery", "Meals", "Groceries"] },
+        "position": {
+          "type": "object",
+          "required": ["lat", "lng"],
+          "properties": {
+            "lat": { "type": "number" },
+            "lng": { "type": "number" }
+          }
+        },
+        "address": { "type": "string" },
+        "rating": { "type": "number" },
+        "discountedPrice": { "type": "number" },
+        "originalPrice": { "type": "number" },
+        "discountPercentage": { "type": "integer" },
+        "bagsAvailable": { "type": "integer" },
+        "badgeText": { "type": "string" }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,250 @@
+<template>
+<style>
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: #1a1a17;
+    overflow: hidden;
+  }
+  .f04-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 65% 50%, #eff7ed 0%, #f9fbf9 70%);
+  }
+  .f04-pill {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    padding: 6px 16px;
+    background: #1b5e20;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .f04-narrative {
+    position: absolute;
+    top: 120px;
+    left: 80px;
+    max-width: 620px;
+  }
+  .f04-title {
+    font-size: 56px;
+    font-weight: 800;
+    color: #142312;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+  }
+  .f04-title span {
+    color: #1b5e20;
+  }
+  .f04-desc {
+    font-size: 20px;
+    color: #3b5039;
+    line-height: 1.5;
+  }
+  .f04-points {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .f04-point-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #263824;
+  }
+  .f04-point-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #1b5e20;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  /* Customer Phone Center-Right */
+  .f04-phone-stage {
+    position: absolute;
+    right: 160px;
+    top: 40px;
+    width: 440px;
+    height: 820px;
+  }
+  .f04-phone {
+    width: 380px;
+    height: 790px;
+    border-radius: 48px;
+    background: #000000;
+    border: 9px solid #142312;
+    box-shadow: 0 40px 90px rgba(20, 35, 18, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .f04-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 24px;
+    border-radius: 16px;
+    background: #000;
+    z-index: 50;
+  }
+  .f04-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f04-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  /* Authentic Pass Callout Banner */
+  .f04-callout-pill {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+    background: rgba(20, 35, 18, 0.94);
+    backdrop-filter: blur(8px);
+    border: 1.5px solid rgba(46, 125, 50, 0.5);
+    border-radius: 18px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    z-index: 45;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.3);
+  }
+  .f04-callout-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .f04-callout-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: #2e7d32;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+  .f04-callout-title {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.2;
+  }
+  .f04-callout-sub {
+    font-size: 11px;
+    color: #a5d6a7;
+    font-weight: 500;
+  }
+  .f04-callout-code {
+    font-family: monospace;
+    font-size: 16px;
+    font-weight: 900;
+    background: #ffffff;
+    color: #1b5e20;
+    padding: 4px 10px;
+    border-radius: 8px;
+    letter-spacing: 0.12em;
+  }
+</style>
+
+<div id="root" data-composition-id="04-reservation-code" data-width="1920" data-height="1080" data-duration="13.5">
+  <div class="clip f04-bg"></div>
+
+  <div class="f04-pill" id="f04-pill">Step 03 — Instant Mobile Reservation</div>
+
+  <div class="f04-narrative" id="f04-narrative">
+    <h1 class="f04-title">Reserve in Few Taps. <span>Get 6-Digit Code</span>.</h1>
+    <p class="f04-desc">
+      In just a few taps, customers lock in their surprise surplus bag before it sells out. An authentic six-digit pickup pass is generated with pickup window and order confirmation.
+    </p>
+
+    <div class="f04-points">
+      <div class="f04-point-item" id="f04-p1">
+        <div class="f04-point-badge">1</div>
+        <span>Select quantity and confirm in just a few taps</span>
+      </div>
+      <div class="f04-point-item" id="f04-p2">
+        <div class="f04-point-badge">2</div>
+        <span>Authentic 6-digit digital pickup pass (249 726)</span>
+      </div>
+      <div class="f04-point-item" id="f04-p3">
+        <div class="f04-point-badge">3</div>
+        <span>Pickup window & store directions ready for counter handoff</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="f04-phone-stage" id="f04-phone">
+    <div class="f04-phone" data-layout-allow-overflow>
+      <div class="f04-notch"></div>
+      
+      <!-- Authentic Customer Active Pickup Screen -->
+      <div class="f04-screen">
+        <img src="assets/mob-customer-active-pickup-real.png" alt="Customer Active Digital Pickup Pass" />
+      </div>
+
+      <!-- Live Code Overlay Badge -->
+      <div class="f04-callout-pill" id="f04-callout" data-layout-allow-overlap data-layout-allow-occlusion>
+        <div class="f04-callout-left">
+          <div class="f04-callout-icon">🎟️</div>
+          <div>
+            <div class="f04-callout-title">Digital Pickup Pass</div>
+            <div class="f04-callout-sub">Show at counter to redeem</div>
+          </div>
+        </div>
+        <div class="f04-callout-code">249726</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from("#f04-pill", { x: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#f04-narrative", { x: -40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.from("#f04-phone", { y: 60, opacity: 0, duration: 0.9, ease: "power3.out" }, 0.5);
+
+    // Callout springs in at 2s
+    tl.from("#f04-callout", { y: 30, opacity: 0, duration: 0.7, ease: "back.out(1.8)" }, 2.0);
+
+    tl.from("#f04-p1", { x: -20, opacity: 0, duration: 0.5 }, 3.5);
+    tl.from("#f04-p2", { x: -20, opacity: 0, duration: 0.5 }, 6.2);
+    tl.from("#f04-p3", { x: -20, opacity: 0, duration: 0.5 }, 9.0);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["04-reservation-code"] = tl;
+  });
+</script>
+</template>

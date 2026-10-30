@@ -1,0 +1,40 @@
+{
+  "provider": "auto",
+  "speed": 1,
+  "lines": [
+    {
+      "id": "01",
+      "text": "Every day, local bakeries and restaurants discard fresh, delicious food simply because it went unsold. Meet FoodLink—the smart marketplace turning surplus food into affordable meals."
+    },
+    {
+      "id": "02",
+      "text": "It begins with the merchant. In seconds, a bakery owner lists excess croissants and surprise meal boxes at up to 60 percent off, setting an easy pickup window before closing."
+    },
+    {
+      "id": "03",
+      "text": "On the customer side, an instant notification fires. Nearby diners browse live surplus deals, seeing great food, huge savings, and exact collection times."
+    },
+    {
+      "id": "04",
+      "text": "With a single tap, the customer reserves the meal and receives a verified 4-digit pickup code—guaranteeing their bag is held safe and ready."
+    },
+    {
+      "id": "05",
+      "text": "The merchant's terminal pings in real time. The order enters the active queue, allowing staff to prep the bag with zero friction."
+    },
+    {
+      "id": "06",
+      "text": "At pickup, the customer presents their code. The merchant enters the digits, clicks verify, and handoff is confirmed instantly."
+    },
+    {
+      "id": "07",
+      "text": "Merchants recover revenue. Customers save money. Communities reduce waste. Join FoodLink today and turn surplus into value."
+    }
+  ],
+  "bgm": {
+    "mode": "retrieve",
+    "query": "upbeat-tech",
+    "blob": "FoodLink enables merchants to sell surplus meals at a discount and customers to reserve in real-time, reducing food waste through a seamless verification code pickup.",
+    "arc": "Hook → Merchant Listing → Live Customer Discovery → Reservation & Code → Merchant Real-Time Alert → Code Verification → Win-Win Impact & CTA"
+  }
+}

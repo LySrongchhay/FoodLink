@@ -1,0 +1,188 @@
+{
+  "files": [
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAT-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAv-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAX-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAz-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuGb-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuHT-k3Yi128m0kN2.woff2",
+      "family": "Roboto",
+      "rawFamily": "Roboto",
+      "subfamily": "Italic",
+      "postscript": "Roboto-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiDyp8kv8JHgFVrJJLmr19VF9eOYktMqg.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins SemiBold",
+      "subfamily": "Italic",
+      "postscript": "Poppins-SemiBoldItalic",
+      "weight": 600,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiDyp8kv8JHgFVrJJLmr19VFteOYktMqlap.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins SemiBold",
+      "subfamily": "Italic",
+      "postscript": "Poppins-SemiBoldItalic",
+      "weight": 600,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiDyp8kv8JHgFVrJJLmr19VGdeOYktMqlap.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins SemiBold",
+      "subfamily": "Italic",
+      "postscript": "Poppins-SemiBoldItalic",
+      "weight": 600,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiGyp8kv8JHgFVrJJLucHtAOvWDSA.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins",
+      "subfamily": "Italic",
+      "postscript": "Poppins-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiGyp8kv8JHgFVrJJLucXtAOvWDSHFF.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins",
+      "subfamily": "Italic",
+      "postscript": "Poppins-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    },
+    {
+      "file": "pxiGyp8kv8JHgFVrJJLufntAOvWDSHFF.woff2",
+      "family": "Poppins",
+      "rawFamily": "Poppins",
+      "subfamily": "Italic",
+      "postscript": "Poppins-Italic",
+      "weight": 400,
+      "style": "italic",
+      "variationAxes": [],
+      "identified": true,
+      "isIcon": false
+    }
+  ],
+  "families": [
+    {
+      "family": "Poppins",
+      "weights": [
+        400,
+        600
+      ],
+      "variable": false,
+      "fileCount": 6,
+      "files": [
+        "pxiDyp8kv8JHgFVrJJLmr19VF9eOYktMqg.woff2",
+        "pxiDyp8kv8JHgFVrJJLmr19VFteOYktMqlap.woff2",
+        "pxiDyp8kv8JHgFVrJJLmr19VGdeOYktMqlap.woff2",
+        "pxiGyp8kv8JHgFVrJJLucHtAOvWDSA.woff2",
+        "pxiGyp8kv8JHgFVrJJLucXtAOvWDSHFF.woff2",
+        "pxiGyp8kv8JHgFVrJJLufntAOvWDSHFF.woff2"
+      ]
+    },
+    {
+      "family": "Roboto",
+      "weights": [
+        400
+      ],
+      "variable": false,
+      "fileCount": 6,
+      "files": [
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAT-k3Yi128m0kN2.woff2",
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAX-k3Yi128m0kN2.woff2",
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAv-k3Yi128m0kN2.woff2",
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuAz-k3Yi128m0kN2.woff2",
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuGb-k3Yi128m0kN2.woff2",
+        "KFOKCnqEu92Fr1Mu53ZEC9_Vu3r1gIhOszmOClHrs6ljXfMMLoHQuHT-k3Yi128m0kN2.woff2"
+      ]
+    }
+  ],
+  "unidentified": [],
+  "meta": {
+    "generatedAt": "2026-10-01T03:00:50.872Z",
+    "tool": "fontkit"
+  }
+}

@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UX/UI Prototyping with AI — Afternoon Session Slides</title>
+<style>
+  :root {
+    --teal: #19586A;
+    --teal-dark: #103844;
+    --teal-light: #2A7990;
+    --teal-soft: #EAF2F4;
+    --teal-border: #C5D6DD;
+    --ink: #212529;
+    --ink-muted: #556970;
+    --tint: #F4F8F9;
+    --accent: #E07A5F;
+    --accent-gold: #D97706;
+    --accent-green: #2E7D32;
+    --accent-blue: #1D4ED8;
+    --white: #FFFFFF;
+    --shadow-sm: 0 2px 8px rgba(25, 88, 106, 0.08);
+    --shadow-md: 0 8px 24px rgba(25, 88, 106, 0.12);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #0D262E;
+    color: var(--ink);
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* Top Progress Bar */
+  #progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #38BDF8, #F97316);
+    width: 0%;
+    z-index: 100;
+    transition: width 0.25s ease-out;
+  }
+
+  /* Presentation Viewport - Full Viewport */
+  #deck-container {
+    flex: 1;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .slide {
+    display: none !important;
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    background: var(--white);
+    border-radius: 0;
+    box-shadow: none;
+    padding: clamp(24px, 3.5vh, 44px) clamp(32px, 4.5vw, 72px) clamp(64px, 7.5vh, 88px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    animation: fadeIn 0.18s ease-out;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .slide.active {
+    display: flex !important;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.995); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* Slide Components */
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: clamp(14px, 2vh, 24px);
+    border-bottom: 2px solid var(--teal-soft);
+    padding-bottom: clamp(8px, 1.4vh, 16px);
+    flex-shrink: 0;
+  }
+
+  .slide-tag {
+    display: inline-block;
+    background: var(--teal-soft);
+    color: var(--teal);
+    font-size: clamp(0.8rem, 0.9vw, 1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+  }
+
+  .slide-title {
+    font-size: clamp(1.85rem, 2.5vw, 3rem);
+    color: var(--teal);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .slide-subtitle {
+    font-size: clamp(0.95rem, 1.2vw, 1.35rem);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .slide-time-badge {
+    background: var(--teal);
+    color: #fff;
+    padding: clamp(6px, 1vh, 10px) clamp(14px, 1.4vw, 22px);
+    border-radius: 24px;
+    font-size: clamp(0.88rem, 1vw, 1.12rem);
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .slide-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .slide-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--teal-soft);
+    padding-top: clamp(8px, 1.2vh, 14px);
+    margin-top: clamp(10px, 1.6vh, 18px);
+    font-size: clamp(0.82rem, 0.95vw, 1rem);
+    color: var(--ink-muted);
+    flex-shrink: 0;
+  }
+
+  /* Grid Layouts - Stretch to fill height */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(18px, 2.2vw, 36px);
+    height: 100%;
+    align-items: stretch;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 1.8vw, 30px);
+    height: 100%;
+    align-items: stretch;
+  }
+
+  .grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: clamp(10px, 1.2vw, 22px);
+    height: 100%;
+    align-items: stretch;
+  }
+
+  /* Cards - Fluid padding and content layout */
+  .card {
+    background: var(--tint);
+    border: 1.5px solid var(--teal-border);
+    border-radius: 12px;
+    padding: clamp(16px, 2.2vh, 28px) clamp(18px, 2vw, 30px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .card.accent {
+    background: #FFF8F5;
+    border-color: #FDBA74;
+  }
+
+  .card.highlight {
+    background: var(--teal-soft);
+    border-color: var(--teal);
+    border-width: 2px;
+  }
+
+  .card-title {
+    font-size: clamp(1.15rem, 1.45vw, 1.65rem);
+    font-weight: 700;
+    color: var(--teal);
+    margin-bottom: clamp(6px, 1vh, 12px);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-text {
+    font-size: clamp(0.92rem, 1.15vw, 1.3rem);
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* 5P Loop Steps */
+  .step-box {
+    background: #fff;
+    border: 1.5px solid var(--teal-border);
+    border-radius: 12px;
+    padding: clamp(14px, 2vh, 26px) clamp(10px, 1.2vw, 18px);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    justify-content: center;
+  }
+
+  .step-num {
+    width: clamp(36px, 3.2vw, 48px);
+    height: clamp(36px, 3.2vw, 48px);
+    background: var(--teal);
+    color: #fff;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: clamp(1rem, 1.25vw, 1.4rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto clamp(6px, 1vh, 12px) auto;
+  }
+
+  .step-box.active .step-num {
+    background: var(--accent);
+  }
+
+  .step-title {
+    font-weight: 800;
+    color: var(--teal);
+    font-size: clamp(1.1rem, 1.35vw, 1.5rem);
+    margin-bottom: clamp(4px, 0.8vh, 8px);
+  }
+
+  .step-desc {
+    font-size: clamp(0.82rem, 1vw, 1.12rem);
+    color: var(--ink-muted);
+    line-height: 1.45;
+  }
+
+  /* Code / Prompt box */
+  pre.code-block {
+    background: #1E293B;
+    color: #F8FAFC;
+    padding: clamp(14px, 1.8vh, 22px) clamp(16px, 1.8vw, 26px);
+    border-radius: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: clamp(0.85rem, 1.05vw, 1.15rem);
+    line-height: 1.55;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    border-left: 4px solid #38BDF8;
+  }
+
+  .highlight-var {
+    color: #38BDF8;
+    font-weight: 600;
+  }
+
+  .highlight-key {
+    color: #FBBF24;
+    font-weight: 600;
+  }
+
+  /* Bullet lists */
+  ul.clean-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.clean-list li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: clamp(6px, 1vh, 12px);
+    font-size: clamp(0.95rem, 1.2vw, 1.3rem);
+    line-height: 1.5;
+  }
+
+  ul.clean-list li::before {
+    content: "•";
+    color: var(--teal);
+    font-size: 1.4rem;
+    position: absolute;
+    left: 4px;
+    top: -4px;
+  }
+
+  /* Schedule Table */
+  table.agenda-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: clamp(0.88rem, 1.05vw, 1.18rem);
+  }
+
+  table.agenda-table th {
+    background: var(--teal);
+    color: #fff;
+    padding: clamp(6px, 1.1vh, 12px) clamp(10px, 1.2vw, 16px);
+    text-align: left;
+    font-weight: 700;
+  }
+
+  table.agenda-table td {
+    padding: clamp(6px, 0.95vh, 10px) clamp(10px, 1.2vw, 16px);
+    border-bottom: 1px solid var(--teal-soft);
+    color: var(--ink);
+  }
+
+  table.agenda-table tr:nth-child(even) td {
+    background: #F8FBFC;
+  }
+
+  table.agenda-table td.time-col {
+    font-weight: 700;
+    color: var(--teal);
+    white-space: nowrap;
+  }
+
+  table.agenda-table tr.break-row td {
+    background: var(--teal-soft);
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  /* Title Slide Styling - Full Viewport */
+  .title-slide {
+    background: linear-gradient(135deg, #103844 0%, #19586A 60%, #2A7990 100%);
+    color: #fff;
+    border-radius: 0;
+    padding: clamp(40px, 5.5vh, 70px) clamp(44px, 5.5vw, 88px);
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .title-slide h1 {
+    font-size: clamp(2.8rem, 4.4vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    color: #FFFFFF;
+    margin-bottom: 14px;
+  }
+
+  .title-slide h2 {
+    font-size: clamp(1.4rem, 2.1vw, 2.3rem);
+    color: #7DD3FC;
+    font-weight: 500;
+    margin-bottom: 24px;
+  }
+
+  .title-meta-box {
+    display: inline-flex;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    padding: clamp(12px, 1.5vh, 18px) clamp(18px, 2vw, 28px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: clamp(0.95rem, 1.2vw, 1.3rem);
+    color: #E0F2FE;
+  }
+
+  .title-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 18px;
+    font-size: 0.88rem;
+    color: #BAE6FD;
+  }
+
+  /* Big stat / callout */
+  .big-stat {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .badge-orange { background: #FFEDD5; color: #C2410C; }
+  .badge-green { background: #DCFCE7; color: #166534; }
+  .badge-blue { background: #DBEAFE; color: #1E40AF; }
+
+  /* Navigation Bar Controls */
+  #nav-bar {
+    position: fixed;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(16, 56, 68, 0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 18px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    z-index: 1000;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.15s ease;
+  }
+
+  .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  #slide-counter {
+    color: #BAE6FD;
+    font-size: 0.86rem;
+    font-weight: 600;
+    min-width: 65px;
+    text-align: center;
+  }
+
+  .key-hint {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    color: #E0F2FE;
+    margin-left: 2px;
+  }
+
+  /* Overview Grid Modal */
+  #overview-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(13, 38, 46, 0.95);
+    backdrop-filter: blur(8px);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    padding: 30px;
+    overflow-y: auto;
+  }
+
+  #overview-modal.open {
+    display: flex;
+  }
+
+  .overview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #fff;
+  }
+
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .thumbnail-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 120px;
+  }
+
+  .thumbnail-card:hover {
+    transform: translateY(-3px);
+    border-color: #38BDF8;
+  }
+
+  .thumbnail-card.active {
+    border-color: #F97316;
+    box-shadow: 0 0 12px rgba(249, 115, 22, 0.6);
+  }
+
+  .thumb-num {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--teal);
+  }
+
+  .thumb-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+
+  /* Print Styles */
+  @media print {
+    body {
+      background: #fff !important;
+      color: #000 !important;
+    }
+    #progress-bar, #nav-bar, #overview-modal {
+      display: none !important;
+    }
+    #deck-container {
+      display: block !important;
+      padding: 0 !important;
+    }
+    .slide {
+      display: flex !important;
+      break-after: page;
+      page-break-after: always;
+      width: 100% !important;
+      max-width: none !important;
+      aspect-ratio: auto !important;
+      min-height: 98vh;
+      border: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+      padding: 30px !important;
+    }
+    .title-slide {
+      background: #103844 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .slide {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+      height: auto;
+      aspect-ratio: auto;
+      padding: 24px 20px 80px 20px;
+      overflow-y: auto;
+    }
+    #deck-container {
+      overflow-y: auto;
+    }
+    .grid-2, .grid-3, .grid-5 {
+      grid-template-columns: 1fr;
+      height: auto;
+    }
+    .title-slide h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<div id="deck-container">
+
+  <!-- ==================== SLIDE 1: TITLE ==================== -->
+  <section class="slide title-slide active" data-title="Title">
+    <div>
+      <div class="slide-tag" style="background: rgba(255,255,255,0.2); color: #FFF;">UX/UI Design Fundamentals Workshop</div>
+      <h1>UX/UI Prototyping with AI</h1>
+      <h2>From Paper to Prototype — Afternoon Practical Session</h2>
+      <div class="title-meta-box">
+        <div>🕒 <strong>1:00 PM – 5:00 PM</strong></div>
+        <div>📍 Practical Lab</div>
+        <div>👤 <strong>Trainer: San</strong></div>
+      </div>
+    </div>
+    <div class="title-footer">
+      <div>Turn morning paper sketches into working, clickable prototypes developers can build on.</div>
+      <div style="font-weight: 700;">Google Stitch · Google AI Studio · Gemini</div>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 2: TRAINER INTRO ==================== -->
+  <section class="slide" data-title="Trainer Biography">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Trainer Profile</div>
+        <div class="slide-title">Meet Your Afternoon Trainer</div>
+        <div class="slide-subtitle">Bridging UX wireframes with engineering execution</div>
+      </div>
+      <div class="slide-time-badge">San</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card highlight">
+          <div class="card-title">
+            <span>San</span>
+          </div>
+          <p style="font-size: 0.95rem; font-weight: 600; color: var(--teal); margin-bottom: 12px;">
+            Senior .NET Engineer &amp; Startup Tech Mentor
+          </p>
+          <ul class="clean-list">
+            <li><strong>Okoone:</strong> Leading core logistics system modernization, .NET Core migration &amp; CI/CD automation.</li>
+            <li><strong>Impact Hub Phnom Penh:</strong> Curriculum developer, workshop trainer &amp; hands-on startup mentor (SmartStart, SAAMBAT2).</li>
+            <li><strong>5+ Years Experience:</strong> System architecture, cloud solutions, and rapid MVP prototyping.</li>
+            <li><strong>Passion:</strong> Helping teams turn ideas into working, testable software with modern AI tools.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-title">My Philosophy for Today</div>
+          <div style="font-size: 1.15rem; font-style: italic; color: var(--teal); margin: 16px 0; line-height: 1.4;">
+            "A prototype is worth a thousand meetings. But an AI-generated clickable prototype with real HTML/CSS is worth ten thousand."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>UX/UI Prototyping with AI</span>
+      <span>Session Trainer: San</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 3: THE DAY'S ARC ==================== -->
+  <section class="slide" data-title="The Day's Arc">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Context &amp; Big Picture</div>
+        <div class="slide-title">The Full Day Journey: Morning to Afternoon</div>
+        <div class="slide-subtitle">How Uy's morning foundations feed San's afternoon lab</div>
+      </div>
+      <div class="slide-time-badge">1:00 PM</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card" style="border-left: 4px solid var(--teal-border);">
+          <div class="card-title">
+            <span class="badge badge-blue">Morning</span>
+            <span>UX/UI Fundamentals (Mr. Ear Uy)</span>
+          </div>
+          <ul class="clean-list" style="margin-top: 10px;">
+            <li><strong>UX vs UI:</strong> Adoption, retention &amp; user psychology.</li>
+            <li><strong>Core Principles:</strong> Clear visual hierarchy, simplicity, trust, feedback.</li>
+            <li><strong>Paper Wireframing:</strong> Low-fidelity sketching on A4.</li>
+            <li><strong>Outcome:</strong> 4–6 connected paper screens representing one critical outcome.</li>
+          </ul>
+        </div>
+        <div class="card highlight" style="border-left: 4px solid var(--teal);">
+          <div class="card-title">
+            <span class="badge badge-orange">Afternoon</span>
+            <span>From Paper to Prototype (San)</span>
+          </div>
+          <ul class="clean-list" style="margin-top: 10px;">
+            <li><strong>Structured Prompting:</strong> Translating sketches into AI prompts.</li>
+            <li><strong>AI Screen Generation:</strong> Using Google Stitch to build UI fast.</li>
+            <li><strong>Clickable Prototype:</strong> Interactive user flow via web link.</li>
+            <li><strong>Outcome:</strong> Real HTML/CSS code + developer handoff notes.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>From Paper to Prototype</span>
+      <span>Step 1: Your morning paper is the fuel for afternoon AI</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 4: AFTERNOON AGENDA ==================== -->
+  <section class="slide" data-title="Afternoon Agenda">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Timeline</div>
+        <div class="slide-title">Afternoon Master Schedule (1:00 – 5:00 PM)</div>
+        <div class="slide-subtitle">Fast-paced, hands-on, sprint-driven practicals</div>
+      </div>
+      <div class="slide-time-badge">4 Hours Total</div>
+    </div>
+    <div class="slide-body">
+      <table class="agenda-table">
+        <thead>
+          <tr>
+            <th style="width: 18%;">Time</th>
+            <th style="width: 32%;">Session Block</th>
+            <th>Deliverable / Goal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="time-col">1:00 – 1:10 PM</td>
+            <td><strong>Welcome &amp; Morning Recap</strong></td>
+            <td>Connect morning paper sketches to afternoon digital prototype</td>
+          </tr>
+          <tr>
+            <td class="time-col">1:10 – 1:40 PM</td>
+            <td><strong>The Replicable Prototyping Flow</strong></td>
+            <td>Trainer live demo: paper → Stitch → clickable prototype → HTML/CSS</td>
+          </tr>
+          <tr>
+            <td class="time-col">1:40 – 2:10 PM</td>
+            <td><strong>Prompt Writing Lab</strong></td>
+            <td>Convert wireframes into 1 structured prompt (fill-in template)</td>
+          </tr>
+          <tr>
+            <td class="time-col">2:10 – 2:40 PM</td>
+            <td><strong>Build Sprint 1: Generate Screens</strong></td>
+            <td>Photograph sketches, upload to Stitch, generate 4–6 screens</td>
+          </tr>
+          <tr class="break-row">
+            <td class="time-col">2:40 – 2:50 PM</td>
+            <td><strong>Break</strong></td>
+            <td>Recharge coffee &amp; stretch (10 mins)</td>
+          </tr>
+          <tr>
+            <td class="time-col">2:50 – 3:30 PM</td>
+            <td><strong>Build Sprint 2: Refine &amp; Make Clickable</strong></td>
+            <td>Micro-prompts + link screens into interactive prototype + export HTML</td>
+          </tr>
+          <tr>
+            <td class="time-col">3:30 – 4:00 PM</td>
+            <td><strong>Peer Testing</strong></td>
+            <td>Swap prototypes &amp; test: "Can a first-time user complete the flow?"</td>
+          </tr>
+          <tr>
+            <td class="time-col">4:00 – 4:30 PM</td>
+            <td><strong>Iterate &amp; Developer Handoff</strong></td>
+            <td>Fix #1 feedback item, write handoff note, download HTML/CSS</td>
+          </tr>
+          <tr>
+            <td class="time-col">4:30 – 4:45 PM</td>
+            <td><strong>Record Video Demo</strong></td>
+            <td>1–2 min screen capture walk-through &amp; Google Veo promo clip</td>
+          </tr>
+          <tr>
+            <td class="time-col">4:45 – 5:00 PM</td>
+            <td><strong>Q&amp;A and Closing</strong></td>
+            <td>Troubleshooting, 5P loop summary card, MVP next steps</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="slide-footer">
+      <span>Reference: full-day-outline.pdf</span>
+      <span>Afternoon Session Schedule</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 5: 4 TANGIBLE TAKEAWAYS ==================== -->
+  <section class="slide" data-title="What You Leave With">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Target Outcomes</div>
+        <div class="slide-title">What Every Team Leaves With at 5:00 PM</div>
+        <div class="slide-subtitle">Not just conceptual slides — real working digital assets</div>
+      </div>
+      <div class="slide-time-badge">Tangible Output</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card accent">
+          <div class="big-stat">01</div>
+          <div class="card-title">Shareable Prototype Link</div>
+          <p class="card-text">
+            A clickable web link you can open on any smartphone or browser to demonstrate the exact user journey to stakeholders, investors, or users.
+          </p>
+        </div>
+        <div class="card accent">
+          <div class="big-stat">02</div>
+          <div class="card-title">Clean HTML / CSS / JS Code</div>
+          <p class="card-text">
+            Exported codebase files that front-end developers can immediately open, inspect, modify, or embed into their production repository.
+          </p>
+        </div>
+        <div class="card highlight">
+          <div class="big-stat">03</div>
+          <div class="card-title">Developer Handoff Note</div>
+          <p class="card-text">
+            A standardized, 1-page technical memo documenting the critical flow, working interactions, known limitations, and next engineering priorities.
+          </p>
+        </div>
+        <div class="card highlight">
+          <div class="big-stat">04</div>
+          <div class="card-title">1–2 Min Video Demo</div>
+          <p class="card-text">
+            A screen-capture walk-through proof of concept + Google Veo promotional clip ready for pitch decks and team social media.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Goal: Move from idea to tangible digital software in 4 hours</span>
+      <span>Outcome Checklist</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 6: THE 5P LOOP ==================== -->
+  <section class="slide" data-title="The 5P Loop">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">The Framework</div>
+        <div class="slide-title">The Replicable Flow: The 5P Loop</div>
+        <div class="slide-subtitle">A repeatable system you can run on any product idea forever</div>
+      </div>
+      <div class="slide-time-badge">Core Model</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-5">
+        <div class="step-box">
+          <div class="step-num">1</div>
+          <div class="step-title">Paper</div>
+          <div class="step-desc">Sketch 4–6 connected screens. One screen = one clear step toward the goal. (Done in Morning!)</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num">2</div>
+          <div class="step-title">Prompt</div>
+          <div class="step-desc">Convert sketches into structured specs: Context, User Flow, Screens &amp; Constraints.</div>
+        </div>
+        <div class="step-box active">
+          <div class="step-num">3</div>
+          <div class="step-title">Prototype</div>
+          <div class="step-desc">Feed prompt + photo into Stitch / Gemini. Generate screens and make flow clickable.</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num">4</div>
+          <div class="step-title">Prove</div>
+          <div class="step-desc">Peer test against UX principles: clear hierarchy, primary actions, zero friction.</div>
+        </div>
+        <div class="step-box">
+          <div class="step-num">5</div>
+          <div class="step-title">Pass</div>
+          <div class="step-desc">Export HTML/CSS, write handoff note, hand over to software developers.</div>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 20px; background: var(--teal-soft); border-color: var(--teal);">
+        <div style="font-weight: 700; color: var(--teal); font-size: 0.9rem;">
+          💡 Why this matters: AI tools change every 6 months, but this 5P engineering methodology stays the same.
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>The 5P Loop</span>
+      <span>Paper → Prompt → Prototype → Prove → Pass</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 7: SECTION 1 OPENER ==================== -->
+  <section class="slide title-slide" data-title="S1: Design Language">
+    <div>
+      <div class="slide-tag" style="background: rgba(255,255,255,0.2); color: #FFF;">Section 1 · 1:00 – 1:35 PM</div>
+      <h1 style="font-size: 2.8rem;">Building a Design Language</h1>
+      <h2 style="color: #7DD3FC; font-size: 1.35rem;">Give the AI rules before you ask it to build</h2>
+      <div class="grid-3" style="margin-top: 24px;">
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🎯 In This Section</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            • Why AI needs a design language<br>
+            • Real examples from big companies<br>
+            • Write yours with Gemini (planning tool)
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">📦 What Is a Design Language?</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            A rulebook every screen follows:<br>
+            • Colors &amp; typography<br>
+            • Spacing &amp; components<br>
+            • Tone of voice
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🍔 Running Case Study</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            Campus Canteen Ordering App<br>
+            A fast food ordering app for university students during lunch rush.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="title-footer">
+      <div>Plan first, build second — a rulebook makes every later step predictable.</div>
+      <div style="font-weight: 700;">Gemini · Planning Phase</div>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 8: WHY AI NEEDS A DESIGN LANGUAGE ==================== -->
+  <section class="slide" data-title="Why a Design Language">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 1 · Design Language</div>
+        <div class="slide-title">Why AI Needs a Design Language</div>
+        <div class="slide-subtitle">AI is a fast builder with no memory of your brand — the rulebook is the memory</div>
+      </div>
+      <div class="slide-time-badge">1:00 – 1:35 PM</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card accent">
+          <div class="card-title" style="color: #C2410C;">❌ Without a Design Language</div>
+          <ul class="clean-list">
+            <li>Every generation invents <strong>new colors, fonts, and buttons</strong> — no two screens match.</li>
+            <li>The app looks like it was built by <strong>five different designers</strong>.</li>
+            <li>You burn time re-prompting the same fixes on every single screen.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title" style="color: var(--teal);">✅ With a Design Language</div>
+          <ul class="clean-list">
+            <li><strong>One rulebook:</strong> palette, type scale, spacing, components, tone.</li>
+            <li>Paste it into any prompt — every screen comes out <strong>consistent</strong>.</li>
+            <li>Change the rulebook once, and the whole app follows.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 14px; background: var(--teal-soft); border-color: var(--teal); text-align: center;">
+        <span style="font-weight: 700; color: var(--teal); font-size: 0.95rem;">
+          A design language is a rulebook, not a picture: anyone (or any AI) who follows it builds screens that look like family.
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 1: Building Design Language</span>
+      <span>Rules before screens</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 9: DESIGN LANGUAGE EXAMPLES ==================== -->
+  <section class="slide" data-title="Design Language Examples">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 1 · Design Language</div>
+        <div class="slide-title">Design Languages in the Wild</div>
+        <div class="slide-subtitle">Every major product you use is guided by a written design rulebook</div>
+      </div>
+      <div class="slide-time-badge">Examples</div>
+    </div>
+    <div class="slide-body">
+      <table class="agenda-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">Design Language</th>
+            <th style="width: 22%;">Created By</th>
+            <th>What the Rulebook Defines</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: 700; color: var(--teal);">Material Design 3</td>
+            <td>Google</td>
+            <td>Color roles, dynamic theming, component shapes, elevation &amp; motion rules.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--teal);">Human Interface Guidelines</td>
+            <td>Apple</td>
+            <td>Typography scale, spacing system, navigation patterns, platform feel.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--teal);">Fluent 2</td>
+            <td>Microsoft</td>
+            <td>Type ramp, depth &amp; layering, color and iconography across Windows &amp; Office.</td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--teal);">Atlassian Design System</td>
+            <td>Atlassian</td>
+            <td>Design tokens, component library, product tone of voice and content rules.</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="card highlight" style="margin-top: 14px; text-align: center;">
+        <span style="font-weight: 700; color: var(--teal); font-size: 0.95rem;">
+          Notice the pattern: colors + typography + spacing + components + tone. Today you write the same kind of rulebook — in 5 minutes with Gemini.
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 1: Building Design Language</span>
+      <span>Great products have rulebooks — so will yours</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 10: GEMINI PROMPT LAB ==================== -->
+  <section class="slide" data-title="Gemini Prompt Lab">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 1 · Hands-On With Gemini</div>
+        <div class="slide-title">Prompt Lab: Build Your Design Language With Gemini</div>
+        <div class="slide-subtitle">Gemini is your planning partner — strong at reasoning about brand, mood, and structure</div>
+      </div>
+      <div class="slide-time-badge">gemini.google.com</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">Why Gemini for Planning?</div>
+          <ul class="clean-list">
+            <li><strong>Reasons, not just renders:</strong> it discusses mood, audience, and trade-offs before deciding.</li>
+            <li><strong>Structured output:</strong> asks it for a spec and you get a clean, paste-ready rulebook.</li>
+            <li><strong>Conversational refinement:</strong> "make it friendlier", "more contrast" — it rewrites the spec with you.</li>
+            <li><strong>Tell it where the spec goes:</strong> the prompt says the answer will be pasted into AI Studio — so Gemini writes explicit, paste-ready values.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Fill-In Prompt (Copy &amp; Use)</div>
+          <pre class="code-block" style="font-size: 0.66rem;">
+Act as a senior brand &amp; product designer.
+Create a design language for a <span class="highlight-var">[mobile + web]</span> app
+called <span class="highlight-var">[Name]</span> that helps <span class="highlight-var">[target user]</span>
+to <span class="highlight-var">[main goal]</span>. Mood: <span class="highlight-var">[e.g., friendly, fast]</span>.
+
+This spec will be pasted into Google AI Studio to
+build ONE HTML/CSS/JS app (web + mobile screens).
+Write every value explicitly — exact hex codes,
+px sizes, real font names — no chat references.
+
+The spec must include:
+1. Color palette — 5 hex codes (primary, secondary,
+   background, surface, accent) with usage notes
+2. Typography — font pairing + 3 sizes
+   (heading, body, caption)
+3. Spacing &amp; shape — base unit, corner radius, shadow
+4. Components — primary/secondary button, card,
+   input field, nav bar
+5. Tone of voice — 3 adjectives + example labels</pre>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 1: Building Design Language</span>
+      <span>Gemini plans · AI Studio builds</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 11: SECTION 2 OPENER ==================== -->
+  <section class="slide title-slide" data-title="S2: AI Studio Demo">
+    <div>
+      <div class="slide-tag" style="background: rgba(255,255,255,0.2); color: #FFF;">Section 2 · 1:35 – 2:20 PM</div>
+      <h1 style="font-size: 2.6rem;">Live Demo: Building the Skeleton</h1>
+      <h2 style="color: #7DD3FC; font-size: 1.35rem;">Watch San turn the design language into real HTML/CSS/JS in Google AI Studio</h2>
+      <div class="grid-3" style="margin-top: 24px;">
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">👀 What to Watch Closely</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            • Pasting the Gemini spec in<br>
+            • The skeleton prompt &amp; result<br>
+            • Extending to full look &amp; feel<br>
+            • Fixing issues together, live
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🧱 The App Being Built</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            Campus Canteen Ordering App<br>
+            Browse → Item Detail →<br>
+            Cart &amp; Checkout → Confirmation<br>
+            As web + mobile screens
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🏁 End Result</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            One self-contained HTML/CSS/JS file — running in the browser, styled by your rulebook.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="title-footer">
+      <div>Observation first: see the whole build process before you repeat it yourself.</div>
+      <div style="font-weight: 700;">Google AI Studio · 45-Min Demo</div>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 12: STEPS 1-2 - GEMINI TO AI STUDIO ==================== -->
+  <section class="slide" data-title="Gemini to AI Studio">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 2 · Live Demo · Steps 1–2</div>
+        <div class="slide-title">From Gemini to Google AI Studio</div>
+        <div class="slide-subtitle">Carry the design language over, then ask for the structure first</div>
+      </div>
+      <div class="slide-time-badge">aistudio.google.com</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">
+            <span class="badge badge-blue">1</span> Bring the Design Over
+          </div>
+          <p class="card-text">
+            Open <strong>Google AI Studio</strong> in a new tab. Copy the <strong>entire design language spec</strong> from Gemini — every hex code, font size, spacing rule, and tone word — and paste it as the first message.
+          </p>
+          <p class="card-text" style="margin-top: 10px;">
+            This spec now acts as the <strong>constitution</strong>: every future prompt in this chat must obey it.
+          </p>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">
+            <span class="badge badge-blue">2</span> Prompt for the Skeleton
+          </div>
+          <pre class="code-block" style="font-size: 0.72rem;">
+Using the design language above, build the
+app skeleton as ONE self-contained
+HTML/CSS/JS file.
+
+- Screens as full-page views, in order:
+  Browse → Item Detail → Cart &amp; Checkout
+  → Confirmation
+- Simple JS navigation: primary buttons
+  move to the next screen
+- Placeholder content only — do not style
+  deeply yet. Structure first.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 2: Live Demo — Skeleton in Google AI Studio</span>
+      <span>Spec first, skeleton second, style last</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 13: STEP 3 - FULL LOOK AND FEEL ==================== -->
+  <section class="slide" data-title="Full Look &amp; Feel">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 2 · Live Demo · Step 3</div>
+        <div class="slide-title">Extend to the Full Look &amp; Feel — Web + Mobile</div>
+        <div class="slide-subtitle">Now the rulebook gets applied everywhere, on both screen sizes</div>
+      </div>
+      <div class="slide-time-badge">Build &amp; Style</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">What "Full Look &amp; Feel" Means</div>
+          <ul class="clean-list">
+            <li>Real <strong>palette, type scale, and spacing</strong> replace all placeholders.</li>
+            <li>Buttons, cards, inputs, and nav restyled as the spec's <strong>components</strong>.</li>
+            <li>Tone of voice applied to every label and message.</li>
+            <li><strong>Both targets:</strong> a desktop web layout and a mobile layout of every screen.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">The Follow-Up Prompt</div>
+          <pre class="code-block" style="font-size: 0.72rem;">
+Now apply the design language fully.
+
+- Desktop web layout AND a mobile layout
+  for every screen
+- Same palette, type scale, spacing and
+  components everywhere
+- Responsive: cards stack and nav collapses
+  on small screens
+- Keep the JS screen navigation working</pre>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 2: Live Demo — Skeleton in Google AI Studio</span>
+      <span>One rulebook · every screen · web + mobile</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 14: STEP 4 - REVIEW AND FIX ==================== -->
+  <section class="slide" data-title="Review &amp; Fix Together">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 2 · Live Demo · Step 4</div>
+        <div class="slide-title">See the Result &amp; Fix It Together</div>
+        <div class="slide-subtitle">Nothing is ever perfect on the first generation — fixing live is the real skill</div>
+      </div>
+      <div class="slide-time-badge">Live Fixes</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">What We Check Together</div>
+          <ul class="clean-list">
+            <li>Click through the whole flow — any dead ends?</li>
+            <li>Does every screen match the <strong>palette and type scale</strong> from the spec?</li>
+            <li>Is the <strong>primary button</strong> obvious on every screen?</li>
+            <li>Does the <strong>mobile layout</strong> really work at phone width?</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Micro-Prompts That Fix It</div>
+          <div style="font-size: 0.82rem; background: #fff; padding: 10px 14px; border-radius: 4px; margin-top: 6px; border: 1px solid var(--teal-border); line-height: 1.7;">
+            <em>"Use only the palette from the design language."</em><br>
+            <em>"Increase spacing between sections to the base unit."</em><br>
+            <em>"Make the primary button accent-colored and larger."</em><br>
+            <em>"Stack the cards vertically at phone width."</em>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 2: Live Demo — Skeleton in Google AI Studio</span>
+      <span>Generate → review → micro-prompt → repeat</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 15: BREAK ==================== -->
+  <section class="slide" data-title="Break (10 Mins)">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2:20 – 2:30 PM</div>
+        <div class="slide-title">10-Minute Recharge Break</div>
+        <div class="slide-subtitle">Rest your eyes, grab coffee, stretch before your turn</div>
+      </div>
+      <div class="slide-time-badge">Break Time</div>
+    </div>
+    <div class="slide-body" style="text-align: center; justify-content: center; align-items: center;">
+      <div style="font-size: 4.5rem; margin-bottom: 12px;">☕ ⚡ 🏃‍♂️</div>
+      <h2 style="font-size: 2rem; color: var(--teal); margin-bottom: 10px;">Step Away From Your Screens</h2>
+      <p style="font-size: 1.1rem; color: var(--ink-muted); max-width: 600px;">
+        Hydrate, bookmark gemini.google.com and aistudio.google.com, and get ready to build the Campus Canteen app yourself.
+      </p>
+      <div class="card accent" style="margin-top: 24px; max-width: 500px;">
+        <div style="font-weight: 700; font-size: 0.9rem; color: #C2410C;">
+          Up next at 2:30 PM: Practice — Replicate the Demo Yourself!
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Demo complete — you've seen the whole flow</span>
+      <span>Resume promptly at 2:30 PM</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 16: SECTION 4 OPENER ==================== -->
+  <section class="slide title-slide" data-title="S4: Practice">
+    <div>
+      <div class="slide-tag" style="background: rgba(255,255,255,0.2); color: #FFF;">Section 4 · 2:30 – 3:40 PM</div>
+      <h1 style="font-size: 2.8rem;">Your Turn: Practice</h1>
+      <h2 style="color: #7DD3FC; font-size: 1.35rem;">Replicate the demo — then download it and prove it runs locally</h2>
+      <div class="grid-3" style="margin-top: 24px;">
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🎯 Goal</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            Repeat the exact flow you just watched: design language → skeleton → full look &amp; feel.
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🧰 You Have</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            • The Gemini prompt (Slide 10)<br>
+            • The AI Studio prompts (Slides 12–13)<br>
+            • The Canteen app as reference
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🏁 Done Means</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            Your own HTML file open in your browser — web + mobile views working.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="title-footer">
+      <div>70 minutes on the clock — trainer walks around, ask anything.</div>
+      <div style="font-weight: 700;">Gemini · Google AI Studio</div>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 17: TASK 1 - REPLICATE ==================== -->
+  <section class="slide" data-title="Task 1: Replicate">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2:30 – 3:40 PM · Task 1</div>
+        <div class="slide-title">Task 1: Replicate What We Just Did</div>
+        <div class="slide-subtitle">Same three moves as the demo — plan, skeleton, style</div>
+      </div>
+      <div class="slide-time-badge">~50 Mins</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-3">
+        <div class="card">
+          <div class="step-num">1</div>
+          <div class="card-title" style="justify-content: center;">Plan in Gemini</div>
+          <p class="card-text" style="text-align: center;">
+            Use the fill-in prompt to generate your design language spec. Refine it until you like the palette and mood.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-num">2</div>
+          <div class="card-title" style="justify-content: center;">Skeleton in AI Studio</div>
+          <p class="card-text" style="text-align: center;">
+            Paste the spec into Google AI Studio and run the skeleton prompt — one HTML/CSS/JS file, all screens, JS navigation.
+          </p>
+        </div>
+        <div class="card">
+          <div class="step-num">3</div>
+          <div class="card-title" style="justify-content: center;">Full Look &amp; Feel</div>
+          <p class="card-text" style="text-align: center;">
+            Run the follow-up prompt: apply the rulebook everywhere, desktop web + mobile layouts, responsive.
+          </p>
+        </div>
+      </div>
+      <div class="card highlight" style="margin-top: 18px;">
+        <div style="font-weight: 700; color: var(--teal); font-size: 0.9rem; margin-bottom: 6px;">
+          Checklist Before Moving On:
+        </div>
+        <div style="display: flex; gap: 24px; font-size: 0.82rem; flex-wrap: wrap;">
+          <div>☑️ Spec has hex codes + fonts + spacing?</div>
+          <div>☑️ All 4 screens linked by buttons?</div>
+          <div>☑️ Mobile layout looks right?</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 4: Practice</span>
+      <span>Use the Canteen app or your own app idea</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 18: TASK 2 - DOWNLOAD AND TEST ==================== -->
+  <section class="slide" data-title="Task 2: Download &amp; Test">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">2:30 – 3:40 PM · Task 2</div>
+        <div class="slide-title">Task 2: Download the Result &amp; Test Locally</div>
+        <div class="slide-subtitle">A prototype that only lives in a chat window isn't a prototype yet</div>
+      </div>
+      <div class="slide-time-badge">~20 Mins</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-title">How to Download &amp; Run</div>
+          <ul class="clean-list">
+            <li>Ask AI Studio to <strong>download / export the file</strong> (or copy the code) and save it as <code>canteen.html</code>.</li>
+            <li><strong>Double-click the file</strong> — it opens in Chrome/Edge. No server, no install.</li>
+            <li>Press <code>F12</code> → toggle the <strong>device toolbar</strong> to test the <strong>mobile layout</strong>.</li>
+            <li>Click through <strong>all 4 screens</strong> start to finish.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Local Test Checklist</div>
+          <ul class="clean-list">
+            <li>☑️ File opens offline with no errors?</li>
+            <li>☑️ Every primary button navigates?</li>
+            <li>☑️ Colors/fonts match your Gemini spec?</li>
+            <li>☑️ Phone width: content stacks cleanly?</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card accent" style="margin-top: 14px; padding: 10px 16px;">
+        <span style="font-size: 0.82rem; font-weight: 600; color: #C2410C;">
+          📝 Found something broken? Write it down — that list becomes your fix list and your developer handoff notes.
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 4: Practice</span>
+      <span>Target: one file, running on your machine</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 19: SECTION 5 - VEO DEMO VIDEO ==================== -->
+  <section class="slide" data-title="S5: Veo Demo Video">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Section 5 · 3:40 – 4:30 PM</div>
+        <div class="slide-title">Promote It: Demo Video with Google Veo</div>
+        <div class="slide-subtitle">A working app deserves a story — capture proof, then generate the cinematic intro</div>
+      </div>
+      <div class="slide-time-badge">50 Mins</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-2">
+        <div class="card accent">
+          <div class="card-title">A. Record Your Walkthrough (~20 Mins)</div>
+          <ul class="clean-list">
+            <li>Open your <code>canteen.html</code> in the browser.</li>
+            <li>Screen record one complete user journey — Browse to Confirmation (Windows: <code>Win + Alt + R</code>, Mac: <code>Cmd + Shift + 5</code>).</li>
+            <li>Keep it <strong>under 90 seconds</strong> — show, don't tell.</li>
+            <li>Record both <strong>desktop and mobile</strong> views if you can.</li>
+          </ul>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">B. Veo Promo Clip (~25 Mins)</div>
+          <ul class="clean-list">
+            <li><strong>Google Veo</strong> = Google's generative video model (free with a Google account).</li>
+            <li>Generate a cinematic 5–10 second intro clip that sets the scene for your app.</li>
+            <li><strong>Sample prompt:</strong> <em>"Cinematic over-the-shoulder shot of a college student in a bustling campus cafe, smiling while ordering lunch on a modern smartphone app, warm sunlight, 4k."</em></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card" style="margin-top: 14px; background: var(--teal-soft); border-color: var(--teal); text-align: center;">
+        <span style="font-weight: 700; color: var(--teal); font-size: 0.95rem;">
+          Final 5 mins: play your clip for a neighboring team — walkthrough video + Veo intro = instant pitch.
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>Section 5: Demo Video with Google Veo</span>
+      <span>Show the app, then sell the story</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 20: TAKE-HOME CHEATSHEET ==================== -->
+  <section class="slide" data-title="Take-Home Cheatsheet">
+    <div class="slide-header">
+      <div>
+        <div class="slide-tag">Summary Card</div>
+        <div class="slide-title">The Take-Home Cheatsheet: The 5-Step Loop</div>
+        <div class="slide-subtitle">Keep this workflow on your desk for every future idea</div>
+      </div>
+      <div class="slide-time-badge">The Master Framework</div>
+    </div>
+    <div class="slide-body">
+      <div class="grid-5">
+        <div class="card" style="border-top: 4px solid #38BDF8;">
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--teal); margin-bottom: 6px;">1. PLAN</div>
+          <p class="card-text" style="font-size: 0.8rem;">Write your design language with Gemini. Colors, type, spacing, components, tone.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #F59E0B;">
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--teal); margin-bottom: 6px;">2. SKELETON</div>
+          <p class="card-text" style="font-size: 0.8rem;">Paste the spec into AI Studio. One HTML/CSS/JS file, all screens, working nav.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #10B981;">
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--teal); margin-bottom: 6px;">3. POLISH</div>
+          <p class="card-text" style="font-size: 0.8rem;">Apply the full look &amp; feel — web + mobile. Fix live with micro-prompts.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #EC4899;">
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--teal); margin-bottom: 6px;">4. PRACTICE</div>
+          <p class="card-text" style="font-size: 0.8rem;">Download the file. Test locally, web + mobile. Note every bug you find.</p>
+        </div>
+        <div class="card" style="border-top: 4px solid #6366F1;">
+          <div style="font-weight: 800; font-size: 1.1rem; color: var(--teal); margin-bottom: 6px;">5. PROMOTE</div>
+          <p class="card-text" style="font-size: 0.8rem;">Record a 90-second walkthrough, add a Veo intro clip. Share the pitch.</p>
+        </div>
+      </div>
+      <div class="card highlight" style="margin-top: 18px; text-align: center;">
+        <span style="font-weight: 700; color: var(--teal); font-size: 0.95rem;">
+          🚀 From blank rulebook to demo video in one afternoon: Plan → Skeleton → Polish → Practice → Promote!
+        </span>
+      </div>
+    </div>
+    <div class="slide-footer">
+      <span>The 5-Step Replicable Prototyping Loop</span>
+      <span>Plan → Skeleton → Polish → Practice → Promote</span>
+    </div>
+  </section>
+
+  <!-- ==================== SLIDE 21: Q&A & CLOSING ==================== -->
+  <section class="slide title-slide" data-title="Q&amp;A &amp; Closing">
+    <div>
+      <div class="slide-tag" style="background: rgba(255,255,255,0.2); color: #FFF;">4:30 – 5:00 PM · Wrap-Up</div>
+      <h1 style="font-size: 2.8rem;">Questions &amp; Discussion</h1>
+      <h2 style="color: #7DD3FC; font-size: 1.35rem;">What questions do you have about the tools, workflow, or your MVP?</h2>
+      <div class="grid-3" style="margin-top: 24px;">
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🛠️ Tools Used Today</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            • gemini.google.com<br>
+            • aistudio.google.com<br>
+            • deepmind.google/technologies/veo
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">📌 Next Steps for Teams</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            • Save exported HTML files to Git<br>
+            • Share prototype link with mentor<br>
+            • Test with 3 target users this week
+          </div>
+        </div>
+        <div style="background: rgba(255,255,255,0.12); padding: 14px 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: 700; font-size: 0.95rem; color: #FFF; margin-bottom: 4px;">🤝 Trainer Contact</div>
+          <div style="font-size: 0.82rem; color: #BAE6FD;">
+            <strong>San</strong><br>
+            Senior .NET Engineer &amp; Tech Mentor
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="title-footer">
+      <div>UX/UI Design Fundamentals Workshop — Full Day Program</div>
+      <div style="font-weight: 700;">Thank you and happy prototyping! 🚀</div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Presentation Floating Controls -->
+<nav id="nav-bar">
+  <button id="btn-prev" class="nav-btn" title="Previous Slide (← / PageUp)">
+    ◀ Prev <span class="key-hint">←</span>
+  </button>
+  <span id="slide-counter">1 / 21</span>
+  <button id="btn-next" class="nav-btn" title="Next Slide (→ / Space)">
+    Next ▶ <span class="key-hint">→</span>
+  </button>
+  <div style="width: 1px; height: 18px; background: rgba(255,255,255,0.25); margin: 0 4px;"></div>
+  <button id="btn-overview" class="nav-btn" title="Slide Overview (O)">
+    📑 Overview <span class="key-hint">O</span>
+  </button>
+  <button id="btn-fullscreen" class="nav-btn" title="Fullscreen (F)">
+    ⛶ Fullscreen <span class="key-hint">F</span>
+  </button>
+</nav>
+
+<!-- Overview Grid Modal -->
+<div id="overview-modal">
+  <div class="overview-header">
+    <h2 style="font-size: 1.4rem;">Slide Navigation Grid</h2>
+    <button id="btn-close-overview" class="nav-btn" style="background: rgba(255,255,255,0.2); font-size: 1rem;">✕ Close (Esc)</button>
+  </div>
+  <div id="overview-thumbnails" class="overview-grid"></div>
+</div>
+
+<script>
+  (function() {
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress-bar');
+    const counter = document.getElementById('slide-counter');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnOverview = document.getElementById('btn-overview');
+    const btnFullscreen = document.getElementById('btn-fullscreen');
+    const overviewModal = document.getElementById('overview-modal');
+    const btnCloseOverview = document.getElementById('btn-close-overview');
+    const thumbnailsContainer = document.getElementById('overview-thumbnails');
+
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    function updateSlide(newIndex) {
+      if (newIndex < 0 || newIndex >= totalSlides) return;
+      
+      slides[currentSlide].classList.remove('active');
+      currentSlide = newIndex;
+      slides[currentSlide].classList.add('active');
+
+      // Update counter and progress bar
+      counter.textContent = `${currentSlide + 1} / ${totalSlides}`;
+      const pct = ((currentSlide) / (totalSlides - 1)) * 100;
+      progressBar.style.width = `${pct}%`;
+
+      // Update button disabled state
+      btnPrev.disabled = currentSlide === 0;
+      btnNext.disabled = currentSlide === totalSlides - 1;
+
+      // Update overview active highlight
+      document.querySelectorAll('.thumbnail-card').forEach((thumb, idx) => {
+        thumb.classList.toggle('active', idx === currentSlide);
+      });
+    }
+
+    // Build thumbnails for overview modal
+    slides.forEach((slide, idx) => {
+      const thumb = document.createElement('div');
+      thumb.className = 'thumbnail-card';
+      if (idx === currentSlide) thumb.classList.add('active');
+      
+      const titleText = slide.getAttribute('data-title') || `Slide ${idx + 1}`;
+      thumb.innerHTML = `
+        <div class="thumb-num">SLIDE ${String(idx + 1).padStart(2, '0')}</div>
+        <div class="thumb-title">${titleText}</div>
+      `;
+
+      thumb.addEventListener('click', () => {
+        updateSlide(idx);
+        overviewModal.classList.remove('open');
+      });
+
+      thumbnailsContainer.appendChild(thumb);
+    });
+
+    btnPrev.addEventListener('click', () => updateSlide(currentSlide - 1));
+    btnNext.addEventListener('click', () => updateSlide(currentSlide + 1));
+
+    btnOverview.addEventListener('click', () => {
+      overviewModal.classList.toggle('open');
+    });
+
+    btnCloseOverview.addEventListener('click', () => {
+      overviewModal.classList.remove('open');
+    });
+
+    btnFullscreen.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.warn('Fullscreen request failed', err);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (overviewModal.classList.contains('open')) {
+        if (e.key === 'Escape' || e.key === 'o' || e.key === 'O') {
+          overviewModal.classList.remove('open');
+        }
+        return;
+      }
+
+      switch(e.key) {
+        case 'ArrowRight':
+        case 'PageDown':
+        case ' ':
+          e.preventDefault();
+          updateSlide(currentSlide + 1);
+          break;
+        case 'ArrowLeft':
+        case 'PageUp':
+        case 'Backspace':
+          e.preventDefault();
+          updateSlide(currentSlide - 1);
+          break;
+        case 'Home':
+          e.preventDefault();
+          updateSlide(0);
+          break;
+        case 'End':
+          e.preventDefault();
+          updateSlide(totalSlides - 1);
+          break;
+        case 'o':
+        case 'O':
+          overviewModal.classList.add('open');
+          break;
+        case 'f':
+        case 'F':
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen();
+          }
+          break;
+      }
+    });
+
+    // Touch swipe navigation for tablets/phones
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    window.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    window.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) > 50) {
+        if (swipeDistance < 0) {
+          updateSlide(currentSlide + 1);
+        } else {
+          updateSlide(currentSlide - 1);
+        }
+      }
+    }
+
+    // Initialize
+    updateSlide(0);
+  })();
+</script>
+
+</body>
+</html>

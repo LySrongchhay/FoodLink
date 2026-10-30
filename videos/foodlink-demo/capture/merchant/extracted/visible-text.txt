@@ -1,0 +1,91 @@
+[h1] CAD Bakery
+[p] Artisan Bakery • Partner
+[span] Orders
+[h3] CAD Bakery • Accepting Rescues
+[p] Live on FoodLink customer discovery feed
+[h2] Daily Highlights
+[span] Updated 2m ago
+[span] Bags Listed
+[span] total
+[span] +4 vs yesterday
+[span] Bags Sold
+[span] reserved
+[span] 78% sold out
+[span] Today's Revenue
+[span] $69.86
+[span] $14.20 pending
+[span] Create New Bag
+[span] Scan Pickup Code
+[h2] Today's Active Listings
+[span] live
+[span] View All (
+[span] Active
+[span] 1 left!
+[h3] Artisan Sourdough & Croissant Surprise Box
+[p] European artisan rustic sourdough loaves, buttery croissants, pain au chocolat, and daily fruit danishes.
+[span] Pickup 6:30 PM - 7:30 PM
+[span] $4.99
+[span] $16.00 value
+[span] sold
+[span] total
+[span] % claimed
+[span] Sold Out
+[span] Sold Out
+[h3] French Butter Croissant & Viennoiserie Bag
+[p] Pure French butter croissants, almond escargot pastries, chocolate swirls, and buttery brioche buns.
+[span] Pickup 6:00 PM - 7:30 PM
+[span] $3.99
+[span] $13.50 value
+[span] sold
+[span] total
+[span] 100
+[span] % claimed
+[span] Sold Out
+[span] Sold Out
+[h3] Sweet Tartlets, Cakes & Danish Treats
+[p] Fresh fruit tarts, custard brioches, cinnamon glazed knots, and seasonal pastry slices from today.
+[span] Pickup 7:00 PM - 8:30 PM
+[span] $4.50
+[span] $15.00 value
+[span] sold
+[span] total
+[span] 100
+[span] % claimed
+[span] Sold Out
+[span] Sold Out
+[h3] Savory Focaccia & Stuffed Brioche Box
+[p] Rosemary sea salt focaccia squares, ham and gruyere melt twists, and savory olive rolls.
+[span] Pickup 6:00 PM - 7:30 PM
+[span] $4.20
+[span] $14.00 value
+[span] sold
+[span] total
+[span] 100
+[span] % claimed
+[span] Sold Out
+[span] Sold Out
+[h3] Barista Cold Brew & Afternoon Pastry Pair
+[p] Bottled organic cold brew coffee or iced matcha latte paired with two fresh breakfast pastries.
+[span] Pickup 5:30 PM - 7:00 PM
+[span] $2.90
+[span] $9.00 value
+[span] sold
+[span] total
+[span] 100
+[span] % claimed
+[span] Sold Out
+[span] Sold Out
+[h3] Artisan Pastry & Sourdough Surprise Bag
+[p] Assortment of today's fresh unsold sourdough loaves, flaky croissants, and daily brioche buns. 100% fresh and edible surplus.
+[span] Pickup 6:30 PM - 7:30 PM
+[span] $4.99
+[span] $16.00 value
+[span] sold
+[span] total
+[span] 100
+[span] % claimed
+[h2] Recent Reservations
+[button] Manage All
+[span] Dashboard
+[span] Listings
+[span] Insights

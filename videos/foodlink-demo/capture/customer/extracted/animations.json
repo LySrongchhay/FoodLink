@@ -1,0 +1,62 @@
+{
+  "summary": {
+    "webAnimations": 1,
+    "cssDeclarations": 92,
+    "scrollTargets": 0,
+    "cdpAnimations": 22,
+    "canvases": 0
+  },
+  "namedAnimations": [
+    "pulse",
+    "cardEntrance"
+  ],
+  "scrollTriggeredElements": 0,
+  "representativeAnimations": [
+    {
+      "type": "CSSAnimation",
+      "playState": "running",
+      "animationName": "pulse",
+      "targetSelector": "span.absolute.-top-0.5.-right-0.5",
+      "targetRect": {
+        "x": 1437,
+        "y": 16,
+        "width": 12,
+        "height": 12,
+        "top": 16,
+        "right": 1449,
+        "bottom": 28,
+        "left": 1437
+      },
+      "keyframes": [
+        {
+          "offset": 0,
+          "easing": "cubic-bezier(0.4, 0, 0.6, 1)",
+          "composite": "replace",
+          "opacity": "1",
+          "computedOffset": 0
+        },
+        {
+          "offset": 0.5,
+          "easing": "cubic-bezier(0.4, 0, 0.6, 1)",
+          "composite": "auto",
+          "opacity": "0.5",
+          "computedOffset": 0.5
+        },
+        {
+          "offset": 1,
+          "easing": "cubic-bezier(0.4, 0, 0.6, 1)",
+          "composite": "replace",
+          "opacity": "1",
+          "computedOffset": 1
+        }
+      ],
+      "timing": {
+        "duration": 2000,
+        "delay": 0,
+        "iterations": null,
+        "easing": "linear",
+        "direction": "normal"
+      }
+    }
+  ]
+}

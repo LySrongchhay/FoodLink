@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FoodlinkDualPortalContracts",
+  "description": "Contracts for customer and merchant portals with dual QR hosting",
+  "definitions": {
+    "PortalRoute": {
+      "type": "string",
+      "enum": ["launcher", "customer", "merchant"]
+    },
+    "CustomerTabs": {
+      "type": "string",
+      "enum": ["discover", "explore", "orders", "profile"]
+    },
+    "MerchantTabs": {
+      "type": "string",
+      "enum": ["dashboard", "listings", "orders", "insights", "profile"]
+    },
+    "SurplusListing": {
+      "type": "object",
+      "required": ["id", "merchantId", "merchantName", "title", "originalPrice", "discountedPrice", "quantityAvailable"],
+      "properties": {
+        "id": { "type": "string" },
+        "merchantId": { "type": "string" },
+        "merchantName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": { "type": "string" },
+        "originalPrice": { "type": "number" },
+        "discountedPrice": { "type": "number" },
+        "quantityAvailable": { "type": "integer" },
+        "pickupStartTime": { "type": "string" },
+        "pickupEndTime": { "type": "string" },
+        "allergens": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["ACTIVE", "SOLD_OUT", "EXPIRED"] }
+      }
+    }
+  }
+}

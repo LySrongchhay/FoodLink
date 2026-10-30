@@ -1,0 +1,51 @@
+[
+  {
+    "id": "line-01",
+    "wav": "assets/audio/line-01.wav",
+    "mp3": "assets/audio/line-01.mp3",
+    "duration": 16.08,
+    "text": "Every day, local bakeries and restaurants discard fresh, delicious food simply because it went unsold. Meet FoodLink\u2014the smart marketplace connecting merchants with customers to turn surplus food into affordable meals."
+  },
+  {
+    "id": "line-02",
+    "wav": "assets/audio/line-02.wav",
+    "mp3": "assets/audio/line-02.mp3",
+    "duration": 13.152018,
+    "text": "It all begins with the merchant. On their mobile device, bakery staff open Create New Bag, choose from fresh pastry presets, apply seventy percent off, and set an easy evening pickup window."
+  },
+  {
+    "id": "line-03",
+    "wav": "assets/audio/line-03.wav",
+    "mp3": "assets/audio/line-03.mp3",
+    "duration": 11.808005,
+    "text": "Immediately, nearby diners receive an in-app alert. Customers explore delicious surplus bags in their neighborhood, see exact pickup hours, and save big before items sell out."
+  },
+  {
+    "id": "line-04",
+    "wav": "assets/audio/line-04.wav",
+    "mp3": "assets/audio/line-04.mp3",
+    "duration": 13.08,
+    "text": "In just a few taps, the customer reserves their surprise bag and instantly receives an authentic six-digit pickup code\u2014twenty-four, ninety-seven, twenty-six. Simple, secure, and confirmed."
+  },
+  {
+    "id": "line-05",
+    "wav": "assets/audio/line-05.wav",
+    "mp3": "assets/audio/line-05.mp3",
+    "duration": 11.064014,
+    "text": "Back on the merchant app, a live notification pings straight away. The order enters the active pickup queue with the customer details, so staff can pack the bag with zero delays."
+  },
+  {
+    "id": "line-06",
+    "wav": "assets/audio/line-06.wav",
+    "mp3": "assets/audio/line-06.mp3",
+    "duration": 11.76,
+    "text": "When the customer arrives at the counter, they present their pass. The cashier types twenty-four, ninety-seven, twenty-six into the app, confirms the live match, and hands over the meal."
+  },
+  {
+    "id": "line-07",
+    "wav": "assets/audio/line-07.wav",
+    "mp3": "assets/audio/line-07.mp3",
+    "duration": 10.536009,
+    "text": "Merchants recover revenue. Customers enjoy great savings. And communities reduce food waste. Join FoodLink today\u2014let's make every meal count."
+  }
+]

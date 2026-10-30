@@ -1,0 +1,253 @@
+<template>
+<style>
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: #1a1a17;
+    overflow: hidden;
+  }
+  .f05-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 40% 40%, #edf6eb 0%, #f7f9f6 70%);
+  }
+  .f05-pill {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    padding: 6px 16px;
+    background: #1b5e20;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .f05-narrative {
+    position: absolute;
+    top: 120px;
+    left: 80px;
+    max-width: 620px;
+  }
+  .f05-title {
+    font-size: 56px;
+    font-weight: 800;
+    color: #142312;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+  }
+  .f05-title span {
+    color: #1b5e20;
+  }
+  .f05-desc {
+    font-size: 20px;
+    color: #3b5039;
+    line-height: 1.5;
+  }
+  .f05-signals {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .f05-signal-card {
+    background: #ffffff;
+    border: 1px solid #d9e6d8;
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.03);
+  }
+  .f05-signal-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #1b5e20;
+    box-shadow: 0 0 0 4px rgba(27, 94, 32, 0.2);
+  }
+  .f05-signal-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #142312;
+  }
+
+  /* Merchant Phone Stage */
+  .f05-phone-stage {
+    position: absolute;
+    right: 160px;
+    top: 40px;
+    width: 440px;
+    height: 820px;
+  }
+  .f05-phone {
+    width: 380px;
+    height: 790px;
+    border-radius: 48px;
+    background: #000000;
+    border: 9px solid #142312;
+    box-shadow: 0 40px 90px rgba(20, 35, 18, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .f05-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 24px;
+    border-radius: 16px;
+    background: #000;
+    z-index: 50;
+  }
+  .f05-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f05-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  /* Live Incoming Order Notification Card */
+  .f05-incoming-alert {
+    position: absolute;
+    top: 50px;
+    left: 14px;
+    right: 14px;
+    background: #ffffff;
+    border: 2px solid #1b5e20;
+    border-radius: 20px;
+    padding: 16px 18px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.3);
+    z-index: 40;
+  }
+  .f05-alert-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .f05-live-pulse {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #1b5e20;
+    text-transform: uppercase;
+  }
+  .f05-pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #1b5e20;
+  }
+  .f05-order-item {
+    font-size: 15px;
+    font-weight: 800;
+    color: #142312;
+  }
+  .f05-order-code {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-weight: 800;
+    color: #1b5e20;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<div id="root" data-composition-id="05-merchant-notification" data-width="1920" data-height="1080" data-duration="11.5">
+  <div class="clip f05-bg"></div>
+
+  <div class="f05-pill" id="f05-pill">Step 04 — Synchronized Merchant Sync</div>
+
+  <div class="f05-narrative" id="f05-narrative">
+    <h1 class="f05-title">Instant Merchant <span>Alert & Queue</span>.</h1>
+    <p class="f05-desc">
+      As soon as the customer reserves, the merchant mobile app receives a live WebSocket notification. Staff prepare the bag for collection with zero friction.
+    </p>
+
+    <div class="f05-signals">
+      <div class="f05-signal-card" id="f05-s1">
+        <div class="f05-signal-dot"></div>
+        <div class="f05-signal-text">Real-time WebSocket event triggers mobile merchant notification</div>
+      </div>
+      <div class="f05-signal-card" id="f05-s2">
+        <div class="f05-signal-dot"></div>
+        <div class="f05-signal-text">Order moves automatically into "Orders & Pickups" queue</div>
+      </div>
+      <div class="f05-signal-card" id="f05-s3">
+        <div class="f05-signal-dot"></div>
+        <div class="f05-signal-text">Surplus inventory decrements with zero double-booking</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="f05-phone-stage" id="f05-phone">
+    <div class="f05-phone" data-layout-allow-overflow>
+      <div class="f05-notch"></div>
+
+      <!-- Live Incoming Alert -->
+      <div class="f05-incoming-alert" id="f05-incoming" data-layout-allow-overlap data-layout-allow-occlusion>
+        <div class="f05-alert-top">
+          <div class="f05-live-pulse">
+            <div class="f05-pulse-dot"></div>
+            New Order Reserved!
+          </div>
+          <span style="font-size: 12px; color: #555555;">Just now</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
+          <div>
+            <div class="f05-order-item">Artisan Pastry Bag</div>
+            <div style="font-size: 12px; color: #3b5039;">Customer: Dara Sok</div>
+          </div>
+          <div class="f05-order-code">Code: 249726</div>
+        </div>
+      </div>
+
+      <div class="f05-screen">
+        <img src="assets/mob-merchant-orders.png" alt="Merchant Orders Mobile App" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from("#f05-pill", { x: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#f05-narrative", { x: -40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.from("#f05-phone", { y: 60, opacity: 0, duration: 0.9, ease: "power3.out" }, 0.5);
+
+    // Incoming alert spring bounce
+    tl.from("#f05-incoming", { scale: 0.85, opacity: 0, y: -20, duration: 0.8, ease: "back.out(2)" }, 1.5);
+    tl.to("#f05-incoming", { borderColor: "#b84600", duration: 0.4, yoyo: true, repeat: 3 }, 2.5);
+
+    tl.from("#f05-s1", { x: -20, opacity: 0, duration: 0.5 }, 3.0);
+    tl.from("#f05-s2", { x: -20, opacity: 0, duration: 0.5 }, 5.5);
+    tl.from("#f05-s3", { x: -20, opacity: 0, duration: 0.5 }, 7.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["05-merchant-notification"] = tl;
+  });
+</script>
+</template>

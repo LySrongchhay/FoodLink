@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #efe7d4;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="98"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Scene 01: Hook & Dual Mobile Overview (Official Logo embedded) -->
+      <div
+        id="el-01-hook"
+        class="scene"
+        data-composition-id="01-hook"
+        data-composition-src="compositions/frames/01-hook.html"
+        data-start="0"
+        data-duration="17.5"
+        data-track-index="0"
+      ></div>
+
+      <!-- Scene 02: Merchant Create Listing Form -->
+      <div
+        id="el-02-merchant-listing"
+        class="scene"
+        data-composition-id="02-merchant-listing"
+        data-composition-src="compositions/frames/02-merchant-listing.html"
+        data-start="17.0"
+        data-duration="14.0"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 03: Customer Real In-App Alert Discovery -->
+      <div
+        id="el-03-customer-discovery"
+        class="scene"
+        data-composition-id="03-customer-discovery"
+        data-composition-src="compositions/frames/03-customer-discovery.html"
+        data-start="30.5"
+        data-duration="13.0"
+        data-track-index="0"
+      ></div>
+
+      <!-- Scene 04: Customer Reservation & 6-Digit Code -->
+      <div
+        id="el-04-reservation-code"
+        class="scene"
+        data-composition-id="04-reservation-code"
+        data-composition-src="compositions/frames/04-reservation-code.html"
+        data-start="43.0"
+        data-duration="13.5"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 05: Real-Time Merchant Notification & Queue -->
+      <div
+        id="el-05-merchant-notification"
+        class="scene"
+        data-composition-id="05-merchant-notification"
+        data-composition-src="compositions/frames/05-merchant-notification.html"
+        data-start="56.0"
+        data-duration="12.0"
+        data-track-index="0"
+      ></div>
+
+      <!-- Scene 06: In-Person 6-Digit Pickup Verification -->
+      <div
+        id="el-06-pickup-verification"
+        class="scene"
+        data-composition-id="06-pickup-verification"
+        data-composition-src="compositions/frames/06-pickup-verification.html"
+        data-start="67.5"
+        data-duration="13.0"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 07: Impact Metrics & Final CTA (Official Logo lockup) -->
+      <div
+        id="el-07-summary-cta"
+        class="scene"
+        data-composition-id="07-summary-cta"
+        data-composition-src="compositions/frames/07-summary-cta.html"
+        data-start="80.0"
+        data-duration="18.0"
+        data-track-index="0"
+      ></div>
+
+      <!-- ════════ AUDIO LAYER 1: Background Music Bed (Track 9) ════════ -->
+      <audio
+        id="bgm-music"
+        src="assets/audio/bgm-track-98.wav"
+        data-start="0"
+        data-duration="98"
+        data-track-index="9"
+        data-volume="0.25"
+      ></audio>
+
+      <!-- ════════ AUDIO LAYER 2: Natural Humanized Voice Narration (Track 10) ════════ -->
+      <audio
+        id="voice-01"
+        src="assets/audio/line-01.wav"
+        data-start="0.4"
+        data-duration="16.08"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-02"
+        src="assets/audio/line-02.wav"
+        data-start="17.4"
+        data-duration="13.15"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-03"
+        src="assets/audio/line-03.wav"
+        data-start="30.9"
+        data-duration="11.81"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-04"
+        src="assets/audio/line-04.wav"
+        data-start="43.4"
+        data-duration="13.08"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-05"
+        src="assets/audio/line-05.wav"
+        data-start="56.6"
+        data-duration="11.06"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-06"
+        src="assets/audio/line-06.wav"
+        data-start="67.9"
+        data-duration="11.76"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <audio
+        id="voice-07"
+        src="assets/audio/line-07.wav"
+        data-start="80.4"
+        data-duration="10.54"
+        data-track-index="10"
+        data-volume="1"
+      ></audio>
+
+      <!-- ════════ AUDIO LAYER 3: Interactive UI Sound Effects (Track 11) ════════ -->
+      <!-- Scene 1: Opening entrance chime -->
+      <audio
+        id="sfx-01-chime"
+        src="assets/audio/sparkle.mp3"
+        data-start="0.6"
+        data-duration="1.8"
+        data-track-index="11"
+        data-volume="0.38"
+      ></audio>
+
+      <!-- Scene 2: Merchant button tap -->
+      <audio
+        id="sfx-02-tap"
+        src="assets/audio/pop.mp3"
+        data-start="18.5"
+        data-duration="0.6"
+        data-track-index="11"
+        data-volume="0.45"
+      ></audio>
+
+      <!-- Scene 3: Customer alert arrival notification ding -->
+      <audio
+        id="sfx-03-alert"
+        src="assets/audio/notification.mp3"
+        data-start="32.0"
+        data-duration="1.5"
+        data-track-index="11"
+        data-volume="0.55"
+      ></audio>
+
+      <!-- Scene 4: Customer reservation click & code generated chime -->
+      <audio
+        id="sfx-04-reserve"
+        src="assets/audio/chime.mp3"
+        data-start="45.0"
+        data-duration="1.5"
+        data-track-index="11"
+        data-volume="0.5"
+      ></audio>
+
+      <!-- Scene 5: Merchant incoming order ping -->
+      <audio
+        id="sfx-05-ping"
+        src="assets/audio/ping.mp3"
+        data-start="57.5"
+        data-duration="1.2"
+        data-track-index="11"
+        data-volume="0.55"
+      ></audio>
+
+      <!-- Scene 6: Cashier keypad typing & verified success chime -->
+      <audio
+        id="sfx-06-typing"
+        src="assets/audio/typing.mp3"
+        data-start="69.5"
+        data-duration="1.5"
+        data-track-index="11"
+        data-volume="0.4"
+      ></audio>
+
+      <audio
+        id="sfx-06-verified"
+        src="assets/audio/chime.mp3"
+        data-start="72.0"
+        data-duration="1.8"
+        data-track-index="11"
+        data-volume="0.55"
+      ></audio>
+
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      (function () {
+        var tl = window.__timelines["main"];
+        tl.to("#el-01-hook", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 17.0);
+        tl.fromTo("#el-02-merchant-listing", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 17.0);
+        tl.to("#el-02-merchant-listing", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 30.5);
+        tl.fromTo("#el-03-customer-discovery", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 30.5);
+        tl.to("#el-03-customer-discovery", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 43.0);
+        tl.fromTo("#el-04-reservation-code", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 43.0);
+        tl.to("#el-04-reservation-code", { filter: "blur(10px)", scale: 1.03, opacity: 0, duration: 0.6, ease: "power2.inOut" }, 56.0);
+        tl.fromTo("#el-05-merchant-notification", { filter: "blur(10px)", scale: 0.97, opacity: 0 }, { filter: "blur(0px)", scale: 1, opacity: 1, duration: 0.6, ease: "power2.inOut" }, 56.0);
+        tl.to("#el-05-merchant-notification", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 67.5);
+        tl.fromTo("#el-06-pickup-verification", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 67.5);
+        tl.to("#el-06-pickup-verification", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 80.0);
+        tl.fromTo("#el-07-summary-cta", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 80.0);
+        tl.to({}, { duration: 98 }, 0); // master duration anchor (98s)
+      })();
+    </script>
+  </body>
+</html>

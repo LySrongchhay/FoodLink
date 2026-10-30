@@ -1,0 +1,247 @@
+<template>
+<style>
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: #1a1a17;
+    overflow: hidden;
+  }
+  .f06-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 45%, #eff7ed 0%, #fafbfa 75%);
+  }
+  .f06-header-strip {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .f06-pill {
+    padding: 6px 16px;
+    background: #1b5e20;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .f06-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: #142312;
+    margin: 0;
+  }
+  .f06-title span {
+    color: #1b5e20;
+  }
+
+  /* Two Phones Side-by-Side in Counter Stage */
+  .f06-stage {
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1100px;
+    height: 780px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Left: Customer Mobile Frame */
+  .f06-phone-cust {
+    width: 360px;
+    height: 730px;
+    border-radius: 46px;
+    background: #000000;
+    border: 8px solid #142312;
+    box-shadow: 0 35px 80px rgba(20, 35, 18, 0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .f06-screen-cust {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f06-screen-cust img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  .f06-notch {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95px;
+    height: 22px;
+    border-radius: 14px;
+    background: #000;
+    z-index: 50;
+  }
+
+  /* Center Connector */
+  .f06-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #1b5e20;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .f06-arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    color: #1b5e20;
+    box-shadow: 0 4px 16px rgba(27, 94, 32, 0.2);
+  }
+
+  /* Right: Merchant Mobile Frame with Authentic Matched Screen */
+  .f06-phone-merch {
+    width: 360px;
+    height: 730px;
+    border-radius: 46px;
+    background: #000000;
+    border: 8px solid #142312;
+    box-shadow: 0 35px 80px rgba(20, 35, 18, 0.28);
+    position: relative;
+    overflow: hidden;
+  }
+  .f06-screen-merch {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f06-screen-merch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  /* Highlight Ring on the Confirm Button */
+  .f06-confirm-highlight {
+    position: absolute;
+    bottom: 275px;
+    left: 12px;
+    right: 12px;
+    height: 48px;
+    border: 3px solid #2e7d32;
+    border-radius: 16px;
+    background: rgba(46, 125, 50, 0.15);
+    box-shadow: 0 0 25px rgba(46, 125, 50, 0.6);
+    pointer-events: none;
+    z-index: 45;
+    opacity: 0;
+  }
+
+  /* Completed Handoff Floating Toast */
+  .f06-toast {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1b5e20;
+    color: #ffffff;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 10px 30px rgba(27, 94, 32, 0.4);
+    z-index: 55;
+    opacity: 0;
+  }
+</style>
+
+<div id="root" data-composition-id="06-pickup-verification" data-width="1920" data-height="1080" data-duration="13.0">
+  <div class="clip f06-bg"></div>
+
+  <div class="f06-header-strip" id="f06-header">
+    <div class="f06-pill">Step 05 — In-Person Mobile Handoff</div>
+    <h1 class="f06-title">Authentic <span>6-Digit Verification & Handover</span></h1>
+  </div>
+
+  <div class="f06-stage">
+    <!-- Left: Customer Mobile Frame with Authentic Digital Pickup Pass -->
+    <div class="f06-phone-cust" id="f06-phone-cust" data-layout-allow-overflow>
+      <div class="f06-notch"></div>
+      <div class="f06-screen-cust">
+        <img src="assets/mob-customer-active-pickup-real.png" alt="Customer Active Digital Pickup Pass" />
+      </div>
+    </div>
+
+    <!-- Center Arrow Connector -->
+    <div class="f06-connector" id="f06-conn">
+      <div class="f06-arrow">➔</div>
+      <span>Verify</span>
+    </div>
+
+    <!-- Right: Merchant Mobile Frame with Authentic Matched Order UI & Confirm Button -->
+    <div class="f06-phone-merch" id="f06-phone-merch" data-layout-allow-overflow>
+      <div class="f06-notch"></div>
+
+      <!-- Highlight on Confirm Button -->
+      <div class="f06-confirm-highlight" id="f06-btn-glow" data-layout-allow-overlap data-layout-allow-occlusion></div>
+
+      <div class="f06-screen-merch">
+        <img src="assets/mob-merchant-verify-matched-real.png" alt="Merchant Mobile Matched Reservation Pass & Confirm Handover" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Floating Toast -->
+  <div class="f06-toast" id="f06-toast" data-layout-allow-overlap>
+    <span>✓</span> Handover Confirmed • Fresh Meal Rescued!
+  </div>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from("#f06-header", { y: -30, opacity: 0, duration: 0.7, ease: "power2.out" }, 0.2);
+    tl.from("#f06-phone-cust", { x: -60, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.from("#f06-conn", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(2)" }, 0.7);
+    tl.from("#f06-phone-merch", { x: 60, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.6);
+
+    // Pulse highlight on Confirm & Complete Handover button
+    tl.to("#f06-btn-glow", { opacity: 1, duration: 0.5, ease: "power2.out" }, 2.8);
+    tl.to("#f06-btn-glow", { scale: 1.04, repeat: 3, yoyo: true, duration: 0.4 }, 3.3);
+
+    // Toast appears as handover finishes
+    tl.to("#f06-toast", { opacity: 1, y: -10, duration: 0.6, ease: "back.out(1.8)" }, 6.5);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["06-pickup-verification"] = tl;
+  });
+</script>
+</template>

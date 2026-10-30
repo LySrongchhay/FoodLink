@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FoodlinkMockDataContracts",
+  "description": "Schemas and contracts for expanded Foodlink mock dataset",
+  "definitions": {
+    "ListingItem": {
+      "type": "object",
+      "required": ["id", "storeName", "title", "category", "originalPrice", "price", "photoUrl"],
+      "properties": {
+        "id": { "type": "string" },
+        "storeId": { "type": "string" },
+        "merchantId": { "type": "string" },
+        "storeName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["Pastry", "Asian", "Italian", "Healthy", "Food", "Dessert", "Drinks"]
+        },
+        "photoUrl": { "type": "string", "format": "uri" },
+        "originalPrice": { "type": "number", "minimum": 0.01 },
+        "price": { "type": "number", "minimum": 0.01 },
+        "discount": { "type": "string" },
+        "bagsAvailable": { "type": "integer", "minimum": 0 },
+        "remaining": { "type": "integer", "minimum": 0 },
+        "status": { "type": "string", "enum": ["ACTIVE", "PAUSED", "SOLD_OUT"] },
+        "pickupStart": { "type": "string" },
+        "pickupEnd": { "type": "string" },
+        "address": { "type": "string" },
+        "dietaryTags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "StoreMapPin": {
+      "type": "object",
+      "required": ["id", "storeName", "category", "position", "address", "originalPrice", "discountedPrice"],
+      "properties": {
+        "id": { "type": "string" },
+        "storeName": { "type": "string" },
+        "category": { "type": "string" },
+        "position": {
+          "type": "object",
+          "required": ["lat", "lng"],
+          "properties": {
+            "lat": { "type": "number", "minimum": 11.5, "maximum": 11.6 },
+            "lng": { "type": "number", "minimum": 104.85, "maximum": 104.98 }
+          }
+        },
+        "address": { "type": "string" },
+        "street": { "type": "string" },
+        "rating": { "type": "number", "minimum": 1.0, "maximum": 5.0 },
+        "ratingCount": { "type": "integer" },
+        "distanceKm": { "type": "number" },
+        "pickupWindow": { "type": "string" },
+        "originalPrice": { "type": "number" },
+        "discountedPrice": { "type": "number" },
+        "discountPercentage": { "type": "integer" },
+        "bagsAvailable": { "type": "integer" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "imageUrl": { "type": "string", "format": "uri" },
+        "logoIcon": { "type": "string" },
+        "badgeText": { "type": "string" },
+        "isPartner": { "type": "boolean" }
+      }
+    },
+    "MerchantOrder": {
+      "type": "object",
+      "required": ["id", "orderNumber", "pickupCode", "merchantId", "status", "totalPrice"],
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "string" },
+        "pickupCode": { "type": "string", "pattern": "^[0-9]{6}$" },
+        "listingId": { "type": "string" },
+        "listingTitle": { "type": "string" },
+        "merchantId": { "type": "string" },
+        "merchantName": { "type": "string" },
+        "customerName": { "type": "string" },
+        "quantity": { "type": "integer", "minimum": 1 },
+        "totalPrice": { "type": "number", "minimum": 0.01 },
+        "status": { "type": "string", "enum": ["RESERVED", "PENDING", "COMPLETED"] },
+        "pickupWindow": { "type": "string" }
+      }
+    }
+  }
+}
+

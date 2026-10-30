@@ -1,0 +1,261 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Poppins",
+      "fontSize": "16px",
+      "fontWeight": "700",
+      "lineHeight": "24px",
+      "letterSpacing": "-0.4px",
+      "color": "#1C1C1E",
+      "sampleText": "CAD Bakery"
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Poppins",
+      "fontSize": "14px",
+      "fontWeight": "700",
+      "lineHeight": "20px",
+      "letterSpacing": "normal",
+      "color": "#1C1C1E",
+      "sampleText": "CAD Bakery • Accepting Rescues"
+    },
+    {
+      "role": "body",
+      "fontFamily": "Roboto",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "lineHeight": "16px",
+      "letterSpacing": "normal",
+      "color": "oklch(0.553 0.013 58.071)",
+      "sampleText": "Live on FoodLink customer discovery feed"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14,
+      16,
+      20
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "12px",
+    "16px",
+    "24px",
+    "3.35544e+07px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "count": 14
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "count": 6
+    },
+    {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "label": "Orders",
+      "background": "oklch(0.979 0.021 166.113)",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#2E7D32",
+      "padding": "6px 14px",
+      "borderRadius": "3.35544e+07px",
+      "border": "1px solid oklch(0.845 0.143 164.978)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "12px",
+      "fontWeight": "700",
+      "height": "30px"
+    },
+    {
+      "label": "button",
+      "background": "#1B5E20",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#1C1C1E",
+      "padding": "0px",
+      "borderRadius": "3.35544e+07px",
+      "border": "2px solid rgba(0, 0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "24px"
+    },
+    {
+      "label": "Create New Bag",
+      "background": "#2E7D32",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "14px 0px",
+      "borderRadius": "16px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "fontSize": "14px",
+      "fontWeight": "700",
+      "height": "48px"
+    },
+    {
+      "label": "Scan Pickup Code",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.268 0.007 34.298)",
+      "padding": "12px 0px",
+      "borderRadius": "16px",
+      "border": "1px solid oklab(0.923 0.00197934 0.00225438 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "14px",
+      "fontWeight": "700",
+      "height": "46px"
+    },
+    {
+      "label": "View All (6)›",
+      "background": "transparent",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#2E7D32",
+      "padding": "0px",
+      "borderRadius": "0px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "none",
+      "fontSize": "12px",
+      "fontWeight": "700",
+      "height": "20px"
+    },
+    {
+      "label": "button",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "oklch(0.268 0.007 34.298)",
+      "padding": "0px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.1) 0px 2px 4px -2px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "36px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#1C1C1E",
+      "padding": "0px",
+      "borderRadius": "24px",
+      "border": "1px solid oklab(0.923 0.00197934 0.00225438 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "383.5px"
+    },
+    {
+      "label": "card",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#1C1C1E",
+      "padding": "0px",
+      "borderRadius": "24px",
+      "border": "1px solid oklab(0.869 0.00276943 0.00416296 / 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 0px 0px",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "383.5px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)",
+    "backgroundImage": "",
+    "backdropFilter": "blur(12px)",
+    "color": "#1C1C1E",
+    "padding": "12px 16px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "69px"
+  },
+  "chips": [
+    {
+      "label": "+4 vs yesterday",
+      "background": "#EAF7ED",
+      "color": "#2E7D32",
+      "padding": "4px 10px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "700",
+      "height": "24.5px"
+    },
+    {
+      "label": "78% sold out",
+      "background": "#FFF1E6",
+      "color": "#D96B1C",
+      "padding": "4px 10px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "700",
+      "height": "24.5px"
+    },
+    {
+      "label": "⌛ $14.20 pending",
+      "background": "oklch(0.97 0.001 106.424)",
+      "color": "oklch(0.444 0.011 73.639)",
+      "padding": "4px 10px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "none",
+      "fontSize": "11px",
+      "fontWeight": "700",
+      "height": "24.5px"
+    },
+    {
+      "label": "Active",
+      "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)",
+      "color": "#2E7D32",
+      "padding": "4px 10px",
+      "borderRadius": "3.35544e+07px",
+      "border": "0px solid rgba(226, 232, 240, 0.8)",
+      "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+      "fontSize": "12px",
+      "fontWeight": "700",
+      "height": "24px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [],
+  "glass": [
+    {
+      "backdropFilter": "blur(12px)",
+      "background": "oklab(0.999994 0.0000455678 0.0000200868 / 0.95)",
+      "border": "",
+      "borderRadius": "0px",
+      "boxShadow": "",
+      "area": 258240
+    }
+  ]
+}

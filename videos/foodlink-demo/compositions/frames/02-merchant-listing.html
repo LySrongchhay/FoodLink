@@ -1,0 +1,210 @@
+<template>
+<style>
+  #root {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Poppins', -apple-system, sans-serif;
+    color: #1a1a17;
+    overflow: hidden;
+  }
+  .f02-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 40%, #edf6eb 0%, #f7f9f6 70%);
+  }
+  .f02-step-pill {
+    position: absolute;
+    top: 60px;
+    left: 80px;
+    padding: 6px 16px;
+    background: #1b5e20;
+    color: #fff;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .f02-narrative {
+    position: absolute;
+    top: 120px;
+    left: 80px;
+    max-width: 620px;
+  }
+  .f02-title {
+    font-size: 56px;
+    font-weight: 800;
+    color: #142312;
+    line-height: 1.15;
+    margin: 0 0 16px 0;
+  }
+  .f02-title span {
+    color: #1b5e20;
+  }
+  .f02-desc {
+    font-size: 20px;
+    color: #3b5039;
+    line-height: 1.5;
+  }
+  .f02-checklist {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .f02-check-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #283e26;
+  }
+  .f02-check-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #e8f5e9;
+    color: #1b5e20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  /* Centered-Right Mobile Phone Spotlight */
+  .f02-phone-stage {
+    position: absolute;
+    right: 160px;
+    top: 40px;
+    width: 440px;
+    height: 820px;
+  }
+  .f02-phone {
+    width: 380px;
+    height: 790px;
+    border-radius: 48px;
+    background: #000000;
+    border: 9px solid #142312;
+    box-shadow: 0 40px 90px rgba(20, 35, 18, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  .f02-notch {
+    position: absolute;
+    top: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 24px;
+    border-radius: 16px;
+    background: #000;
+    z-index: 50;
+  }
+  .f02-screen {
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    overflow: hidden;
+    position: relative;
+  }
+  .f02-screen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+
+  /* Highlight on Listing Preset Form */
+  .f02-badge-pill {
+    position: absolute;
+    top: 64px;
+    left: 20px;
+    right: 20px;
+    background: rgba(27, 94, 32, 0.92);
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    z-index: 45;
+  }
+</style>
+
+<div id="root" data-composition-id="02-merchant-listing" data-width="1920" data-height="1080" data-duration="13.5">
+  <div class="clip f02-bg"></div>
+
+  <div class="f02-step-pill" id="f02-pill">Step 01 — Merchant Mobile Action</div>
+
+  <div class="f02-narrative" id="f02-narrative">
+    <h1 class="f02-title">Create Listing in <span>Under 60 Seconds</span>.</h1>
+    <p class="f02-desc">
+      Bakery and kitchen staff tap "+ Create New Bag" to list unsold pastries or meals. Select items, configure deep discounts, and set the pickup window.
+    </p>
+
+    <div class="f02-checklist">
+      <div class="f02-check-item" id="f02-c1">
+        <div class="f02-check-icon">✓</div>
+        <span>Select Category Preset (Pastry, Meal, Produce)</span>
+      </div>
+      <div class="f02-check-item" id="f02-c2">
+        <div class="f02-check-icon">✓</div>
+        <span>70% FoodSaver discount pricing ($4.99 vs $16.00)</span>
+      </div>
+      <div class="f02-check-item" id="f02-c3">
+        <div class="f02-check-icon">✓</div>
+        <span>Define collection window (e.g. 7:00 PM – 9:00 PM)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="f02-phone-stage" id="f02-phone">
+    <div class="f02-phone" data-layout-allow-overflow>
+      <div class="f02-notch"></div>
+      
+      <!-- Live Form Pill Indicator -->
+      <div class="f02-badge-pill" id="f02-form-pill" data-layout-allow-overlap data-layout-allow-occlusion>
+        <span>🥐</span>
+        <span>Create Listing: Artisan Sourdough & Pastry</span>
+      </div>
+
+      <div class="f02-screen">
+        <img src="assets/mob-merchant-create-form.png" id="f02-screen-img" alt="Merchant Create Listing Form" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.fonts.ready.then(() => {
+    const tl = gsap.timeline({ paused: true });
+
+    tl.from("#f02-pill", { x: -20, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.2);
+    tl.from("#f02-narrative", { x: -40, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.4);
+    tl.from("#f02-phone", { y: 60, opacity: 0, scale: 0.95, duration: 1.0, ease: "power3.out" }, 0.6);
+
+    tl.from("#f02-form-pill", { y: -20, opacity: 0, duration: 0.6, ease: "back.out(2)" }, 1.4);
+
+    // Stagger checklist
+    tl.from("#f02-c1", { x: -20, opacity: 0, duration: 0.5 }, 2.5);
+    tl.from("#f02-c2", { x: -20, opacity: 0, duration: 0.5 }, 5.0);
+    tl.from("#f02-c3", { x: -20, opacity: 0, duration: 0.5 }, 7.5);
+
+    // Camera push-in into the phone for focus
+    tl.to("#f02-phone", { scale: 1.05, duration: 1.5, ease: "power2.out" }, 8.0);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["02-merchant-listing"] = tl;
+  });
+</script>
+</template>

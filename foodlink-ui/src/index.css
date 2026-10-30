@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@theme {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+  --color-primary: #2E7D32;
+  --color-primary-hover: #256628;
+  --color-accent: #FF8A3D;
+  --color-accent-hover: #E67628;
+  --color-app-bg: #FAFAFA;
+  --color-card-bg: #FFF8F0;
+  --color-text-main: #1C1C1E;
+  --color-text-secondary: #6E6E73;
+}
+
+:root {
+  --primary: #2E7D32;
+  --accent: #FF8A3D;
+  --bg-main: #FAFAFA;
+  --card-bg: #FFF8F0;
+  --text-main: #1C1C1E;
+  --text-secondary: #6E6E73;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1C1C1E;
+  background-color: #FAFAFA;
+}
+
+/* Leaflet & Google Map Custom Styling */
+.leaflet-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #e5e3df !important; /* Google Maps default background color */
+}
+
+.custom-map-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Google Maps Control Shadows & Buttons */
+.gmap-control-btn {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gmap-control-btn:hover {
+  background: #f8f9fa;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+.gmap-control-btn:active {
+  background: #ebebeb;
+}
+
+@keyframes pulse-radar {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.9;
+  }
+  70% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.radar-pulse-ring {
+  animation: pulse-radar 2s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+}
+
+/* Mobile-First Layout & Touch Ergonomics */
+.touch-target-44 {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Guarantee SVG icons never distort or shrink in flex layouts */
+svg {
+  flex-shrink: 0;
+}
+
+/* Hide scrollbar while preserving smooth scrolling */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+
+
