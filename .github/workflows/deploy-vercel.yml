@@ -36,14 +36,10 @@ jobs:
           VITE_PORTAL_MODE: customer
 
       - name: Deploy to Vercel (Customer)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_CUSTOMER }}
-          vercel-project-name: 'foodlink-customer'
-          working-directory: ./foodlink-ui
-          vercel-args: '--prod --yes'
+        run: npx vercel deploy --prod --yes --name foodlink-customer --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_CUSTOMER }}
 
   deploy-merchant:
     name: Deploy Merchant Portal
@@ -71,12 +67,8 @@ jobs:
           VITE_PORTAL_MODE: merchant
 
       - name: Deploy to Vercel (Merchant)
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_MERCHANT }}
-          vercel-project-name: 'foodlink-merchant'
-          working-directory: ./foodlink-ui
-          vercel-args: '--prod --yes'
+        run: npx vercel deploy --prod --yes --name foodlink-merchant --token ${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_MERCHANT }}
 
