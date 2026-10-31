@@ -86,3 +86,4 @@ Upgrade visual choreography across all scene compositions:
    `box-shadow: 0 25px 60px -15px rgba(46, 125, 50, 0.12), 0 12px 30px -10px rgba(0, 0, 0, 0.08)`.
 3. **Kinetic Typography**:
    Staggered word reveals (`y: 24, opacity: 0, stagger: 0.08, ease: "power3.out"`) synchronized with the narrator's vocal cadence.
+

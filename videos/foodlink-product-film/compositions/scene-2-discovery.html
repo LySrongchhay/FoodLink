@@ -76,6 +76,8 @@
         0 25px 45px -10px rgba(46, 125, 50, 0.15),
         inset 0 0 0 2px rgba(255, 255, 255, 0.2);
       transform-origin: center center;
+      perspective: 1400px;
+      transform-style: preserve-3d;
     }
 
     /* Dynamic Island & Screen */
@@ -287,10 +289,10 @@
 
     <!-- Narrative Column (Left) -->
     <div class="narrative-col" id="us1-narrative">
-      <div class="badge-pill">Step 1 • Customer Discovery</div>
-      <h2 class="narrative-title">Fresh Pastries at <span>70% OFF</span> Around You</h2>
+      <div class="badge-pill">Act I • Sokha in BKK1</div>
+      <h2 class="narrative-title">Meet Sokha: <span>60% OFF</span> at CAD Bakery</h2>
       <p class="narrative-desc">
-        Customers in Phnom Penh discover closing-hour surprise bags from artisan bakeries like CAD Bakery in BKK1 before end of business.
+        Finishing work in Phnom Penh, Sokha opens FoodLink and finds freshly baked artisan sourdough just 400 meters away before closing time.
       </p>
     </div>
 
@@ -352,10 +354,14 @@
     (function() {
       const tl = gsap.timeline({ paused: true });
 
-      // 0.0s: Entrance
+      // 0.0s: Entrance with 3D camera perspective
       tl.to("#root", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
       tl.from("#us1-narrative", { x: -60, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.2);
-      tl.from("#us1-phone", { y: 120, rotation: -2, opacity: 0, duration: 1.2, ease: "power3.out" }, 0.3);
+      tl.fromTo("#us1-phone", 
+        { y: 120, rotationY: -12, rotationX: 6, opacity: 0 },
+        { y: 0, rotationY: -4, rotationX: 2, opacity: 1, duration: 1.2, ease: "power3.out" },
+        0.3
+      );
 
       // Card highlight
       tl.to("#target-food-card", {
@@ -365,6 +371,14 @@
         duration: 0.6,
         ease: "back.out(1.5)"
       }, 1.5);
+
+      // Camera straightens up toward the reservation action
+      tl.to("#us1-phone", {
+        rotationY: 0,
+        rotationX: 0,
+        duration: 0.8,
+        ease: "power2.inOut"
+      }, 2.8);
 
       // Tap cursor glides in and clicks button at ~4.2s (corresponds to film time 11.2s)
       tl.to("#tap-pointer", {

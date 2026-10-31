@@ -74,6 +74,8 @@
         0 40px 100px -20px rgba(0, 0, 0, 0.25),
         0 25px 45px -10px rgba(225, 29, 72, 0.12),
         inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+      perspective: 1400px;
+      transform-style: preserve-3d;
     }
     .phone-screen {
       position: relative;
@@ -272,10 +274,10 @@
 
     <!-- Narrative Column (Left) -->
     <div class="narrative-col" id="us2-narrative">
-      <div class="badge-pill">Step 2 • Instant Pay & Pass</div>
-      <h2 class="narrative-title">Seamless Checkout with <span>Bakong KHQR</span></h2>
+      <div class="badge-pill">Act II • Instant Pay & Pass</div>
+      <h2 class="narrative-title">One Tap via <span>Bakong KHQR</span></h2>
       <p class="narrative-desc">
-        Pay instantly using any Cambodian banking app. A secure 6-digit digital pickup pass is issued immediately to show at the counter.
+        Sokha pays instantly using her mobile banking app. A secure 6-digit counter pass is generated immediately for pickup.
       </p>
     </div>
 
@@ -335,10 +337,14 @@
     (function() {
       const tl = gsap.timeline({ paused: true });
 
-      // 0.0s: Entrance
+      // 0.0s: Entrance with 3D perspective
       tl.to("#root", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
       tl.from("#us2-narrative", { x: -60, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.2);
-      tl.from("#us2-phone", { y: 120, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.3);
+      tl.fromTo("#us2-phone",
+        { y: 120, rotationY: 10, rotationX: 4, opacity: 0 },
+        { y: 0, rotationY: 2, rotationX: 1, opacity: 1, duration: 1.0, ease: "power3.out" },
+        0.3
+      );
 
       // KHQR Ray sweep
       tl.fromTo("#khqr-ray", 
@@ -352,6 +358,14 @@
         },
         1.0
       );
+
+      // Camera settles flat for confirmed pass
+      tl.to("#us2-phone", {
+        rotationY: 0,
+        rotationX: 0,
+        duration: 0.6,
+        ease: "power2.inOut"
+      }, 4.2);
 
       // Payment success & Pass reveal at ~4.8s (corresponds to film time 20.8s)
       tl.to(".checkout-body", { opacity: 0, duration: 0.3, ease: "power2.in" }, 4.7);

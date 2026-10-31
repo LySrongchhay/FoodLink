@@ -63,3 +63,4 @@ Track 2:   [Music Bed: bgm-ambient-tech.mp3 (Volume 0.18 -> 0.45)]
 Track 4:   [Narrator Voiceover: vo-1 -> vo-2 -> vo-3 -> vo-4 -> vo-5 (-14 LUFS)]
 Track 6:   [Tactile UI Effects: mouse-click (11.2s), khqr-chime (20.8s), order-ping (25.4s), verify-ding (30.8s)]
 ```
+
