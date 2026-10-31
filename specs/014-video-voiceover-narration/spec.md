@@ -78,8 +78,8 @@ Clean, minimalist subtitles or kinetic phrase cards render along the lower third
 - **FR-002**: Narration script MUST strictly adhere to the Foodlink tone of voice: professional, solution-oriented, modern, and free of hype or decorative emojis.
 - **FR-003**: System MUST declare voiceover audio clips in `videos/foodlink-product-film/index.html` using HyperFrames `<audio class="clip">` syntax with precise `data-start`, `data-duration`, `data-track-index`, and `data-volume` parameters.
 - **FR-004**: System MUST synchronize voiceover cues so the spoken words match the exact visual milestones on screen (CAD Bakery card reveal at 8s, tap at 11s, KHQR at 18s, PIN verification at 27s, impact metrics at 34s).
-- **FR-005**: Voice narration language MUST be [NEEDS CLARIFICATION: Should the narrator speak in clear international English, Khmer, or a dual bilingual approach? Defaulting to clear international English tailored for Cambodian tech ecosystem demos].
-- **FR-006**: Voice audio generation MUST use [NEEDS CLARIFICATION: Generated studio-grade natural AI narrator voice via TTS pipeline vs provided pre-recorded human WAV/MP3 files? Defaulting to studio-grade natural neutral human voiceover audio files].
+- **FR-005**: Voice narration language MUST be clear, articulate International English with accurate local Cambodian pronunciation for place names and brands (Phnom Penh, BKK1, Bakong KHQR, CAD Bakery).
+- **FR-006**: Voice audio generation MUST use a warm, natural professional product narrator persona with studio neural voice quality and balanced conversational pacing (approx. 140–150 words per minute).
 - **FR-007**: Audio balance MUST maintain voice clarity as primary focal audio while preserving tactile feedback from existing UI cues.
 - **FR-008**: All video sources and audio assets MUST reside strictly in `videos/foodlink-product-film/` with legacy applications (`customer/`, `merchant/`, `server/`) and `videos/foodlink-demo/` remaining 100% untouched.
 
