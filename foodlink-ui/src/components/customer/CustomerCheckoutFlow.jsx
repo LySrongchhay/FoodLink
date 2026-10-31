@@ -68,8 +68,8 @@ export default function CustomerCheckoutFlow({
   if (items.length === 0) {
     return (
       <div className="max-w-lg mx-auto py-12 text-center space-y-4 font-sans text-stone-900">
-        <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-2xl text-stone-400">
-          🛍️
+        <div className="w-16 h-16 rounded-full bg-stone-100 flex items-center justify-center mx-auto text-stone-400">
+          <ShoppingBag className="w-8 h-8" />
         </div>
         <div>
           <h2 className="text-lg font-black text-[#1C1C1E]">Your bag is empty</h2>
@@ -86,7 +86,7 @@ export default function CustomerCheckoutFlow({
   }
 
   return (
-    <div className="max-w-lg mx-auto space-y-4 pb-24 font-sans text-stone-900">
+    <div className="max-w-lg sm:max-w-xl mx-auto space-y-4 pb-24 font-sans text-stone-900">
       
       {/* 1. Header */}
       <div className="flex items-center justify-between pb-1">

@@ -96,7 +96,7 @@ export default function MerchantApp() {
 
       {/* Global Top App Bar */}
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200/80 px-4 py-3">
-        <div className="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto flex items-center justify-between">
+        <div className="max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto flex items-center justify-between">
           
           {/* Store Logo & Name */}
           <div className="flex items-center gap-2.5">
@@ -154,7 +154,7 @@ export default function MerchantApp() {
       </header>
 
       {/* Main Responsive Canvas */}
-      <main className="max-w-md sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto w-full px-3.5 sm:px-6 py-4">
+      <main className="max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 py-5 pb-28">
         <Suspense fallback={<MerchantPageLoader />}>
           {/* SubView: Verify Pickup */}
           {subView === 'verify-pickup' ? (
@@ -236,9 +236,9 @@ export default function MerchantApp() {
         </Suspense>
       </main>
 
-      {/* Fixed Bottom Navigation Bar (5 Persistent Tabs) */}
-      <nav className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200/80 px-2 sm:px-4 py-2 z-40">
-        <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-around">
+      {/* Fixed Bottom Navigation Bar (5 Persistent Tabs - Centered Dock on Desktop) */}
+      <nav className="fixed bottom-0 sm:bottom-4 inset-x-0 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 w-full sm:max-w-lg bg-white/95 backdrop-blur-md border-t sm:border border-stone-200/80 px-2 sm:px-4 py-2 z-40 sm:rounded-3xl sm:shadow-lg">
+        <div className="max-w-md sm:max-w-lg mx-auto flex items-center justify-around">
           
           {/* Dashboard Tab */}
           <button

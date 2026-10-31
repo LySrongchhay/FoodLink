@@ -286,10 +286,10 @@ export default function CustomerMapView({ onSelectListing, onBackToDiscover }) {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-140px)] sm:h-[calc(100vh-120px)] min-h-[500px] rounded-3xl overflow-hidden shadow-2xl flex flex-col font-sans select-none bg-[#e5e3df] border border-stone-300">
+    <div className="relative w-full h-[calc(100vh-140px)] sm:h-[calc(100vh-120px)] lg:h-[calc(100vh-130px)] min-h-[500px] lg:min-h-[620px] max-w-7xl mx-auto rounded-3xl overflow-hidden shadow-2xl flex flex-col font-sans select-none bg-[#e5e3df] border border-stone-300">
       
       {/* Top Floating Google Maps Search & Filter Controls */}
-      <div className="absolute top-3 inset-x-3 sm:inset-x-4 z-30 flex flex-col gap-2 max-w-md mx-auto pointer-events-none">
+      <div className="absolute top-3 inset-x-3 sm:inset-x-4 z-30 flex flex-col gap-2 max-w-md sm:max-w-xl mx-auto pointer-events-none">
         
         {/* Google Maps Search Pill */}
         <div className="relative flex items-center bg-white rounded-full px-4 py-2.5 shadow-xl border border-stone-200/90 pointer-events-auto">

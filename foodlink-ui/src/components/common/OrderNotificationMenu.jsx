@@ -164,7 +164,7 @@ export default function OrderNotificationMenu({ onNavigateToOrders, onOpenVerify
       }
 
       if (showToast) {
-        showToast(`🔔 New Order! ${newNotification.customerName} claimed ${newNotification.itemTitle} (${newNotification.pickupCode})`);
+        showToast(`New Order! ${newNotification.customerName} claimed ${newNotification.itemTitle} (${newNotification.pickupCode})`);
       }
     };
 
@@ -262,7 +262,7 @@ export default function OrderNotificationMenu({ onNavigateToOrders, onOpenVerify
 
       if (res?.order) {
         if (showToast) {
-          showToast(`🔔 Real Order Placed! ${picked.name} (Pickup Code: ${res.order.pickupCode})`);
+          showToast(`Real Order Placed! ${picked.name} (Pickup Code: ${res.order.pickupCode})`);
         }
         await loadOrderNotifications();
       }

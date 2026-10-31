@@ -411,7 +411,7 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
             <span className="text-xs text-stone-400">Updated 2m ago</span>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5">
             
             {/* Card 1: Bags Listed */}
             <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-sm hover:border-[#2E7D32]/40 transition-all duration-200 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
@@ -531,7 +531,7 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
           </div>
 
           {/* Listing Cards */}
-          <div className="space-y-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3.5 sm:gap-4">
             {listings.map((item, idx) => (
               <div 
                 key={item.id}

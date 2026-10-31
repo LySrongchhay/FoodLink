@@ -11,7 +11,8 @@ import {
   Store,
   ExternalLink,
   ShieldCheck,
-  Filter
+  Filter,
+  Flame
 } from 'lucide-react';
 import OptimizedImage from '../common/OptimizedImage';
 
@@ -271,7 +272,7 @@ export default function CustomerNotificationsModal({
                           {/* Orange stock pill badge matching user's request */}
                           {listing && stockBadgeText && (
                             <span className="px-2 py-0.5 rounded-full bg-orange-500 text-white text-[10px] font-bold shadow-xs flex items-center gap-0.5">
-                              🔥 {stockBadgeText}
+                              <Flame className="w-3 h-3 shrink-0" /> {stockBadgeText}
                             </span>
                           )}
                         </div>
@@ -305,7 +306,7 @@ export default function CustomerNotificationsModal({
                               <span className={`px-2 py-0.5 rounded-full ${
                                 isItemSoldOut ? 'bg-stone-800 text-stone-300' : 'bg-orange-500 text-white'
                               } text-[10px] font-bold shadow-xs flex items-center gap-0.5`}>
-                                {isItemSoldOut ? 'Sold Out' : `🔥 ${stockBadgeText}`}
+                                {isItemSoldOut ? 'Sold Out' : (<><Flame className="w-3 h-3 shrink-0 inline mr-0.5" /> {stockBadgeText}</>)}
                               </span>
                             )}
                           </div>

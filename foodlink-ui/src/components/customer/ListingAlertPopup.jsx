@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Bell, Sparkles, X, ChevronRight, ShoppingBag, Clock, ShieldCheck } from 'lucide-react';
+import { Bell, Sparkles, X, ChevronRight, ShoppingBag, Clock, ShieldCheck, Flame } from 'lucide-react';
 import OptimizedImage from '../common/OptimizedImage';
 
 export default function ListingAlertPopup({ alertData, onView, onClose }) {
@@ -107,7 +107,7 @@ export default function ListingAlertPopup({ alertData, onView, onClose }) {
               {discount}
             </span>
             <span className="px-2 py-0.5 rounded-full bg-orange-500 text-white text-[10px] font-bold shadow-xs flex items-center gap-0.5">
-              🔥 {bags <= 2 ? `Only ${bags} left` : `${bags} left`}
+              <Flame className="w-3 h-3 shrink-0" /> {bags <= 2 ? `Only ${bags} left` : `${bags} left`}
             </span>
           </div>
         </div>

@@ -162,7 +162,7 @@ export default function CustomerApp() {
         data?.notification?.title?.includes('Restock') ||
         data?.notification?.message?.includes('restocked')
       );
-      const notifTitle = data?.notification?.title || (isRestock ? 'Surplus Food Restocked! 🔥' : 'New Surplus Food Available!');
+      const notifTitle = data?.notification?.title || (isRestock ? 'Surplus Food Restocked' : 'New Surplus Food Available');
       const bags = data?.listing?.remaining ?? data?.listing?.bagsAvailable ?? 1;
       const store = data?.listing?.storeName || 'CAD Bakery';
       const notifMsg = data?.notification?.message || (isRestock
@@ -551,7 +551,7 @@ export default function CustomerApp() {
       )}
 
       {/* Main Responsive Canvas */}
-      <main className="flex-1 max-w-md mx-auto w-full px-3 sm:px-4 pt-1 pb-24">
+      <main className="flex-1 max-w-md sm:max-w-2xl md:max-w-4xl lg:max-w-6xl xl:max-w-7xl mx-auto w-full px-3.5 sm:px-6 lg:px-8 pt-1 pb-28">
         <Suspense fallback={<CustomerPageLoader />}>
           {/* Screen 1: Discover */}
           {currentScreen === 'discover' && (
@@ -651,8 +651,8 @@ export default function CustomerApp() {
       </main>
 
       {/* Fixed Bottom Navigation Bar */}
-      <nav className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200/70 px-2 py-2 z-40">
-        <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-around">
+      <nav className="fixed bottom-0 sm:bottom-4 inset-x-0 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 w-full sm:max-w-md bg-white/95 backdrop-blur-md border-t sm:border border-stone-200/80 px-2 sm:px-4 py-2 z-40 sm:rounded-3xl sm:shadow-lg">
+        <div className="max-w-md mx-auto flex items-center justify-around">
           
           {/* 1. Discover Tab */}
           <button

@@ -113,7 +113,7 @@ export default function CustomerListingDetail({
             </span>
           ) : (
             <span className="px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-bold shadow-xs">
-              🔥 {bags} left
+              {bags} left
             </span>
           )}
         </div>

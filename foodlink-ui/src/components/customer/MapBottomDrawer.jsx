@@ -118,8 +118,9 @@ export default function MapBottomDrawer({ store, onClose, onRescueDeal }) {
                 </div>
               </div>
 
-              <div className="mt-2 text-xs font-medium text-emerald-800 bg-emerald-50/80 rounded-lg px-2 py-1 truncate">
-                🔥 {store.title}
+              <div className="mt-2 text-xs font-medium text-emerald-800 bg-emerald-50/80 rounded-lg px-2 py-1 truncate flex items-center gap-1">
+                <Sparkles className="w-3.5 h-3.5 shrink-0 text-[#2E7D32]" />
+                <span className="truncate">{store.title}</span>
               </div>
             </div>
           </div>

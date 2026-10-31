@@ -508,8 +508,8 @@ export default function CustomerExploreFeed({
           </div>
         ) : filteredListings.length === 0 ? (
           <div className="p-8 text-center bg-white rounded-3xl border border-stone-200/80 shadow-2xs space-y-3">
-            <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center mx-auto text-xl">
-              🔍
+            <div className="w-12 h-12 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center mx-auto">
+              <Search className="w-5 h-5 text-stone-400" />
             </div>
             <div>
               <h3 className="font-extrabold text-sm text-[#1C1C1E]">No surplus bags found</h3>
@@ -528,7 +528,7 @@ export default function CustomerExploreFeed({
             </button>
           </div>
         ) : (
-          <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {filteredListings.map((item, idx) => {
               const isJustAdded = justAddedIds.has(item.id);
               const remainingCount = item.remaining !== undefined

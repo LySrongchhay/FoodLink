@@ -79,3 +79,4 @@ jobs:
           vercel-project-name: 'foodlink-merchant'
           working-directory: ./foodlink-ui
           vercel-args: '--prod --yes'
+

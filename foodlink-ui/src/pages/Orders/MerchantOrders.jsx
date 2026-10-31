@@ -276,7 +276,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
           </div>
 
           {/* Pending Order Cards */}
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4">
             {pendingOrders.map((order, idx) => (
               <div
                 key={order.id}
