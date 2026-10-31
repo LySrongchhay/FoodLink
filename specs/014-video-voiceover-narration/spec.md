@@ -86,9 +86,10 @@ The audio experience is rebuilt to replace artificial synthesizer tones with rea
 - **FR-003**: System MUST provide studio-grade natural human voiceover narration files synchronized to each scene's visual milestones.
 - **FR-004**: System MUST implement dynamic advertising motion choreography (3D device tilt, kinetic typography, momentum transitions) in GSAP timelines.
 - **FR-005**: Voice narration language MUST be clear, articulate International English with authentic local Cambodian pronunciation for place names and brands (Phnom Penh, BKK1, Bakong KHQR, CAD Bakery).
-- **FR-006**: Voice audio generation MUST use a warm, natural professional product narrator persona with studio neural voice quality and balanced conversational pacing.
+- **FR-006**: Voice audio generation MUST use a warm, natural professional product narrator persona (male or female, selected based on natural studio human realism) with studio neural voice quality and balanced conversational pacing.
 - **FR-007**: Audio balance MUST maintain voice clarity at -14 LUFS broadcast standard, duck background audio by 6–8 dB during active speech, and align tactile mouse clicks within $\pm 0.1$s of visual tap cues.
-- **FR-008**: All video sources, audio assets, and compositions MUST reside strictly in `videos/foodlink-product-film/` with legacy applications (`customer/`, `merchant/`, `server/`) and `videos/foodlink-demo/` remaining 100% untouched.
+- **FR-008**: System MUST integrate a subtle, modern minimal electronic tech background music bed, mixed gently beneath narration and ducked cleanly during spoken phrases.
+- **FR-009**: All video sources, audio assets, and compositions MUST reside strictly in `videos/foodlink-product-film/` with legacy applications (`customer/`, `merchant/`, `server/`) and `videos/foodlink-demo/` remaining 100% untouched.
 
 ### Key Entities *(include if feature involves data)*
 
