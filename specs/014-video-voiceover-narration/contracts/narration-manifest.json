@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NarrationManifest",
+  "description": "Schema for FoodLink commercial video narration and audio cues",
+  "type": "object",
+  "required": ["version", "totalDuration", "language", "voiceover", "soundEffects", "musicBed"],
+  "properties": {
+    "version": { "type": "string" },
+    "totalDuration": { "type": "number", "minimum": 40.0, "maximum": 40.0 },
+    "language": { "type": "string", "enum": ["en-US"] },
+    "voiceover": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "sceneId", "start", "duration", "script", "audioFile"],
+        "properties": {
+          "id": { "type": "string" },
+          "sceneId": { "type": "string" },
+          "start": { "type": "number" },
+          "duration": { "type": "number" },
+          "script": { "type": "string" },
+          "audioFile": { "type": "string" },
+          "volume": { "type": "number", "default": 1.0 }
+        }
+      }
+    },
+    "soundEffects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "duration", "audioFile", "cueType"],
+        "properties": {
+          "id": { "type": "string" },
+          "start": { "type": "number" },
+          "duration": { "type": "number" },
+          "audioFile": { "type": "string" },
+          "cueType": { "type": "string" },
+          "volume": { "type": "number" }
+        }
+      }
+    },
+    "musicBed": {
+      "type": "object",
+      "required": ["audioFile", "baseVolume", "start", "duration"],
+      "properties": {
+        "audioFile": { "type": "string" },
+        "baseVolume": { "type": "number" },
+        "start": { "type": "number" },
+        "duration": { "type": "number" }
+      }
+    }
+  }
+}
