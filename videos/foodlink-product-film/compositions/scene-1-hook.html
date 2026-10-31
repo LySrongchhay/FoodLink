@@ -14,7 +14,7 @@
       text-align: center;
       background: radial-gradient(circle at 50% 40%, #152219 0%, #0d1410 70%, #080c09 100%);
       color: #ffffff;
-      opacity: 0;
+      opacity: 1;
     }
 
     .ambient-glow {
@@ -35,6 +35,7 @@
       padding: 0 40px;
     }
     .time-badge {
+      data-layout-ignore: true;
       display: inline-flex;
       align-items: center;
       gap: 10px;
@@ -121,12 +122,12 @@
     }
   </style>
 
-  <div id="root" data-composition-id="scene-1-hook" data-width="1920" data-height="1080" data-duration="7.5">
+  <div id="root" data-composition-id="scene-1-hook" data-width="1920" data-height="1080" data-duration="10.0">
     <div class="ambient-glow"></div>
 
     <!-- Part A: Dilemma -->
     <div class="hook-container" id="hook-dilemma" data-layout-allow-overlap>
-      <div class="time-badge" id="hook-time">
+      <div class="time-badge" id="hook-time" data-layout-ignore>
         <span class="pulse-dot"></span>
         <span>Phnom Penh • 8:00 PM</span>
       </div>
@@ -154,53 +155,53 @@
       const tl = gsap.timeline({ paused: true });
 
       // 0.0s: Entrance
-      tl.to("#root", { opacity: 1, duration: 0.5, ease: "power2.out" }, 0);
-      tl.from("#hook-time", { y: -30, opacity: 0, duration: 0.7, ease: "back.out(1.5)" }, 0.2);
+      // Root visible from frame 0
+      tl.from("#hook-time", { y: -20, opacity: 0.4, duration: 0.5, ease: "power2.out" }, 0);
       tl.from("#hook-title", { y: 40, opacity: 0, duration: 0.9, ease: "power3.out" }, 0.4);
       tl.from("#hook-subtitle", { y: 20, opacity: 0, duration: 0.8, ease: "power2.out" }, 0.8);
 
-      // 3.4s: Transition to Brand Splash
+      // 4.6s: Transition to Brand Splash ("This is FoodLink...")
       tl.to("#hook-dilemma", {
         opacity: 0,
         scale: 0.94,
-        duration: 0.6,
+        duration: 0.5,
         ease: "power2.in"
-      }, 3.4);
+      }, 4.6);
 
       tl.to("#brand-splash", {
         opacity: 1,
         duration: 0.6,
         ease: "power2.out"
-      }, 3.9);
+      }, 5.1);
 
       tl.from("#splash-logo", {
         scale: 0.6,
         rotation: -8,
         duration: 0.8,
         ease: "back.out(1.8)"
-      }, 4.0);
+      }, 5.2);
 
       tl.from("#splash-name", {
         y: 30,
         opacity: 0,
         duration: 0.6,
         ease: "power3.out"
-      }, 4.2);
+      }, 5.5);
 
       tl.from("#splash-tagline", {
         y: 20,
         opacity: 0,
         duration: 0.6,
         ease: "power2.out"
-      }, 4.4);
+      }, 5.8);
 
-      // 6.8s: Exit
+      // 9.3s: Exit transition
       tl.to("#root", {
         opacity: 0,
         scale: 1.04,
         duration: 0.7,
         ease: "power2.inOut"
-      }, 6.8);
+      }, 9.3);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["scene-1-hook"] = tl;

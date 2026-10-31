@@ -295,7 +295,7 @@
     }
   </style>
 
-  <div id="root" data-composition-id="scene-4-kitchen" data-width="1920" data-height="1080" data-duration="8.5">
+  <div id="root" data-composition-id="scene-4-kitchen" data-width="1920" data-height="1080" data-duration="11.5">
     <div class="glow-spot" style="left: 65%;"></div>
 
     <!-- Narrative Column (Left) -->
@@ -308,7 +308,7 @@
     </div>
 
     <!-- Tablet Frame (Right) -->
-    <div class="tablet-wrapper" id="us3-tablet">
+    <div class="tablet-wrapper" id="us3-tablet" data-hold data-layout-ignore>
       <div class="tablet-screen">
         <!-- Tablet Header -->
         <div class="tablet-header">
@@ -341,7 +341,7 @@
           </div>
 
           <!-- PIN Verification Modal -->
-          <div class="verify-modal" id="pin-modal">
+          <div class="verify-modal" id="pin-modal" data-hold>
             <h4>Enter Customer 6-Digit Counter Pass</h4>
             <div class="pin-input-boxes">
               <div class="pin-box" id="pin-1"></div>
@@ -379,13 +379,13 @@
         0.3
       );
 
-      // Order alert drops down at 0.4s (corresponds to film time 25.4s - audio ping plays)
+      // Order alert drops down at 1.0s (corresponds to film time 33.0s - snd-ping fires)
       tl.to("#order-alert-banner", {
         opacity: 1,
         y: 0,
         duration: 0.5,
         ease: "back.out(1.5)"
-      }, 0.4);
+      }, 1.0);
 
       // Camera settles flat for PIN verification
       tl.to("#us3-tablet", {
@@ -393,38 +393,38 @@
         rotationX: 0,
         duration: 0.6,
         ease: "power2.inOut"
-      }, 1.6);
+      }, 2.6);
 
-      // Digits input simulation sequentially
-      tl.call(() => { document.getElementById("pin-1").innerText = "8"; document.getElementById("pin-1").classList.add("filled"); }, null, 2.0);
-      tl.call(() => { document.getElementById("pin-2").innerText = "4"; document.getElementById("pin-2").classList.add("filled"); }, null, 2.4);
-      tl.call(() => { document.getElementById("pin-3").innerText = "9"; document.getElementById("pin-3").classList.add("filled"); }, null, 2.8);
-      tl.call(() => { document.getElementById("pin-4").innerText = "2"; document.getElementById("pin-4").classList.add("filled"); }, null, 3.2);
-      tl.call(() => { document.getElementById("pin-5").innerText = "0"; document.getElementById("pin-5").classList.add("filled"); }, null, 3.6);
-      tl.call(() => { document.getElementById("pin-6").innerText = "1"; document.getElementById("pin-6").classList.add("filled"); }, null, 4.0);
+      // Digits input simulation sequentially (3.6s to 6.6s)
+      tl.call(() => { document.getElementById("pin-1").innerText = "8"; document.getElementById("pin-1").classList.add("filled"); }, null, 3.6);
+      tl.call(() => { document.getElementById("pin-2").innerText = "4"; document.getElementById("pin-2").classList.add("filled"); }, null, 4.2);
+      tl.call(() => { document.getElementById("pin-3").innerText = "9"; document.getElementById("pin-3").classList.add("filled"); }, null, 4.8);
+      tl.call(() => { document.getElementById("pin-4").innerText = "2"; document.getElementById("pin-4").classList.add("filled"); }, null, 5.4);
+      tl.call(() => { document.getElementById("pin-5").innerText = "0"; document.getElementById("pin-5").classList.add("filled"); }, null, 6.0);
+      tl.call(() => { document.getElementById("pin-6").innerText = "1"; document.getElementById("pin-6").classList.add("filled"); }, null, 6.6);
 
-      // Verification ding at 5.8s (corresponds to film time 30.8s)
+      // Verification ding at 8.5s (corresponds to film time 40.5s - snd-verify fires)
       tl.to("#verified-modal", {
         opacity: 1,
         scale: 1,
         duration: 0.5,
         ease: "back.out(1.4)"
-      }, 5.8);
+      }, 8.5);
 
       tl.from("#verified-check", {
         scale: 0.3,
         rotation: -45,
         duration: 0.4,
         ease: "back.out(2)"
-      }, 5.9);
+      }, 8.6);
 
-      // 7.9s: Transition exit
+      // 10.8s: Transition exit
       tl.to("#root", {
         opacity: 0,
         y: -30,
-        duration: 0.6,
+        duration: 0.7,
         ease: "power2.in"
-      }, 7.9);
+      }, 10.8);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["scene-4-kitchen"] = tl;

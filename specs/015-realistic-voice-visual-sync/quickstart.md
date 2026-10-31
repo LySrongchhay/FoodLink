@@ -68,3 +68,4 @@ git status --porcelain customer merchant server videos/foodlink-demo
 ```
 
 Output MUST be completely empty.
+

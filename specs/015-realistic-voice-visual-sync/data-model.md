@@ -46,3 +46,4 @@ Track 2:   [BGM: bgm-ambient-tech.mp3 (0.0s – 55.0s, Ducking at 0.18, Swell to
 Track 4:   [JennyNeural Studio Voiceover: vo-1 -> vo-2 -> vo-3 -> vo-4 -> vo-5]
 Track 6:   [Tactile UI SFX: mouse-click (16.5s), khqr-chime (23.8s), order-ping (33.0s), verify-ding (40.0s)]
 ```
+

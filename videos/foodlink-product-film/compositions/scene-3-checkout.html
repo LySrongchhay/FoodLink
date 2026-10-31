@@ -269,7 +269,7 @@
     }
   </style>
 
-  <div id="root" data-composition-id="scene-3-checkout" data-width="1920" data-height="1080" data-duration="9.5">
+  <div id="root" data-composition-id="scene-3-checkout" data-width="1920" data-height="1080" data-duration="11.5">
     <div class="glow-spot" style="left: 65%;"></div>
 
     <!-- Narrative Column (Left) -->
@@ -282,7 +282,7 @@
     </div>
 
     <!-- Smartphone Frame (Right) -->
-    <div class="phone-wrapper" id="us2-phone">
+    <div class="phone-wrapper" id="us2-phone" data-layout-ignore>
       <div class="phone-screen">
         <div class="island"></div>
         <div class="status-bar">
@@ -316,7 +316,7 @@
         </div>
 
         <!-- Pass Reveal Overlay -->
-        <div class="pass-overlay" id="pass-sheet" data-layout-allow-overlap>
+        <div class="pass-overlay" id="pass-sheet" data-hold data-layout-allow-overlap>
           <div class="success-icon-box" id="pass-check">
             <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           </div>
@@ -365,31 +365,31 @@
         rotationX: 0,
         duration: 0.6,
         ease: "power2.inOut"
-      }, 4.2);
+      }, 3.2);
 
-      // Payment success & Pass reveal at ~4.8s (corresponds to film time 20.8s)
-      tl.to(".checkout-body", { opacity: 0, duration: 0.3, ease: "power2.in" }, 4.7);
+      // Payment success & Pass reveal at 3.8s (corresponds to film time 24.8s - snd-khqr fires)
+      tl.to(".checkout-body", { opacity: 0, duration: 0.3, ease: "power2.in" }, 3.7);
       tl.to("#pass-sheet", {
         opacity: 1,
         scale: 1,
         duration: 0.5,
         ease: "back.out(1.4)"
-      }, 4.8);
+      }, 3.8);
 
       tl.from("#pass-check", {
         scale: 0.2,
         rotation: -45,
         duration: 0.4,
         ease: "back.out(2)"
-      }, 4.9);
+      }, 3.9);
 
-      // 8.8s: Transition exit
+      // 10.8s: Transition exit
       tl.to("#root", {
         opacity: 0,
         y: -30,
-        duration: 0.6,
+        duration: 0.7,
         ease: "power2.in"
-      }, 8.8);
+      }, 10.8);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["scene-3-checkout"] = tl;

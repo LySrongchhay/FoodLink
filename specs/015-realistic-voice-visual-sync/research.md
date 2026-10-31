@@ -67,3 +67,4 @@ Align visual milestones within $\pm 0.2$ seconds of the spoken keyword:
 
 ### Decision
 Extend `bgm-ambient-tech.mp3` to 55.0s (116 BPM, C Major / A Minor). In `index.html`, set base volume to 0.18 during active speech, with a smooth swell to 0.42 during the final QR code hold (50.5s – 55.0s).
+
