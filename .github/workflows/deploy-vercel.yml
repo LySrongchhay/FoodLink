@@ -1,0 +1,81 @@
+name: Deploy Portals to Vercel
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'foodlink-ui/**'
+      - '.github/workflows/deploy-vercel.yml'
+  workflow_dispatch:
+
+jobs:
+  deploy-customer:
+    name: Deploy Customer Portal
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: foodlink-ui
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: foodlink-ui/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Customer Bundle
+        run: npm run build:customer
+        env:
+          VITE_PORTAL_MODE: customer
+
+      - name: Deploy to Vercel (Customer)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_CUSTOMER }}
+          vercel-project-name: 'foodlink-customer'
+          working-directory: ./foodlink-ui
+          vercel-args: '--prod --yes'
+
+  deploy-merchant:
+    name: Deploy Merchant Portal
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: foodlink-ui
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: foodlink-ui/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Merchant Bundle
+        run: npm run build:merchant
+        env:
+          VITE_PORTAL_MODE: merchant
+
+      - name: Deploy to Vercel (Merchant)
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_MERCHANT }}
+          vercel-project-name: 'foodlink-merchant'
+          working-directory: ./foodlink-ui
+          vercel-args: '--prod --yes'

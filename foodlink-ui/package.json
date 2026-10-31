@@ -10,6 +10,8 @@
     "build": "vite build",
     "build:customer": "vite build --mode customer",
     "build:merchant": "vite build --mode merchant",
+    "deploy:customer": "node scripts/deploy-vercel.js --portal=customer",
+    "deploy:merchant": "node scripts/deploy-vercel.js --portal=merchant",
     "preview": "vite preview"
   },
   "dependencies": {
