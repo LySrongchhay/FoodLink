@@ -284,7 +284,7 @@
     }
   </style>
 
-  <div id="root" data-composition-id="scene-2-discovery" data-width="1920" data-height="1080" data-duration="9.5">
+  <div id="root" data-composition-id="scene-2-discovery" data-width="1920" data-height="1080" data-duration="12.0">
     <div class="glow-spot" style="left: 65%;"></div>
 
     <!-- Narrative Column (Left) -->
@@ -297,7 +297,7 @@
     </div>
 
     <!-- Smartphone Frame (Right) -->
-    <div class="phone-wrapper" id="us1-phone">
+    <div class="phone-wrapper" id="us1-phone" data-layout-ignore>
       <div class="phone-screen">
         <div class="island"></div>
         <div class="status-bar">
@@ -363,14 +363,14 @@
         0.3
       );
 
-      // Card highlight
+      // 4.0s: CAD Bakery card highlight
       tl.to("#target-food-card", {
         boxShadow: "0 16px 36px rgba(46, 125, 50, 0.25)",
         borderColor: "#2e7d32",
         scale: 1.02,
         duration: 0.6,
         ease: "back.out(1.5)"
-      }, 1.5);
+      }, 4.0);
 
       // Camera straightens up toward the reservation action
       tl.to("#us1-phone", {
@@ -378,9 +378,9 @@
         rotationX: 0,
         duration: 0.8,
         ease: "power2.inOut"
-      }, 2.8);
+      }, 5.5);
 
-      // Tap cursor glides in and clicks button at ~4.2s (corresponds to film time 11.2s)
+      // Tap cursor glides in at 7.2s and clicks button at 8.0s (corresponds to film time 17.5s)
       tl.to("#tap-pointer", {
         x: 330,
         y: 430,
@@ -388,16 +388,16 @@
         scale: 1,
         duration: 0.8,
         ease: "power2.out"
-      }, 3.4);
+      }, 7.2);
 
-      // Tap compression (click sound fires at 11.2s in master)
+      // Tap compression (click sound fires at 17.5s in master)
       tl.to("#tap-pointer", {
         scale: 0.8,
         backgroundColor: "rgba(46, 125, 50, 0.6)",
         duration: 0.15,
         yoyo: true,
         repeat: 1
-      }, 4.2);
+      }, 8.0);
 
       tl.to("#card-reserve-btn", {
         scale: 0.94,
@@ -405,20 +405,20 @@
         duration: 0.15,
         yoyo: true,
         repeat: 1
-      }, 4.2);
+      }, 8.0);
 
       tl.to("#tap-pointer", {
         opacity: 0,
         duration: 0.3
-      }, 4.6);
+      }, 8.4);
 
-      // 8.8s: Transition exit
+      // 11.3s: Transition exit
       tl.to("#root", {
         opacity: 0,
         y: -30,
-        duration: 0.6,
+        duration: 0.7,
         ease: "power2.in"
-      }, 8.8);
+      }, 11.3);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["scene-2-discovery"] = tl;
