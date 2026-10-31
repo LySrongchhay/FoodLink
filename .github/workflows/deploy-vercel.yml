@@ -36,10 +36,19 @@ jobs:
           VITE_PORTAL_MODE: customer
 
       - name: Deploy to Vercel (Customer)
-        run: npx vercel deploy --prod --yes --name foodlink-customer --token ${{ secrets.VERCEL_TOKEN }}
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        run: npx --yes vercel deploy --prod --yes --name foodlink-customer
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_CUSTOMER }}
+
+      - name: Notice (VERCEL_TOKEN not set)
+        if: ${{ env.VERCEL_TOKEN == '' }}
+        run: |
+          echo "::warning title=Vercel Token Required::VERCEL_TOKEN secret is not set in GitHub repository settings. The bundle was built successfully, but automatic Vercel deployment was skipped. To enable automatic Vercel deployment, add your token to GitHub Settings -> Secrets and variables -> Actions."
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
   deploy-merchant:
     name: Deploy Merchant Portal
@@ -67,8 +76,17 @@ jobs:
           VITE_PORTAL_MODE: merchant
 
       - name: Deploy to Vercel (Merchant)
-        run: npx vercel deploy --prod --yes --name foodlink-merchant --token ${{ secrets.VERCEL_TOKEN }}
+        if: ${{ env.VERCEL_TOKEN != '' }}
+        run: npx --yes vercel deploy --prod --yes --name foodlink-merchant
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_MERCHANT }}
+
+      - name: Notice (VERCEL_TOKEN not set)
+        if: ${{ env.VERCEL_TOKEN == '' }}
+        run: |
+          echo "::warning title=Vercel Token Required::VERCEL_TOKEN secret is not set in GitHub repository settings. The bundle was built successfully, but automatic Vercel deployment was skipped. To enable automatic Vercel deployment, add your token to GitHub Settings -> Secrets and variables -> Actions."
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
