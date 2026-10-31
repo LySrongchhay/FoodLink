@@ -360,6 +360,38 @@
       border-radius: 6px;
     }
 
+
+    /* Dynamic Island Micro-Toast */
+    .island-toast {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      background: #000000;
+      color: #ffffff;
+      padding: 7px 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      z-index: 60;
+      opacity: 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(74, 222, 128, 0.4);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .toast-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+    }
+
     /* Simulated Tap Pointer */
     .tap-cursor {
       position: absolute;
@@ -393,6 +425,12 @@
     <div class="phone-wrapper" id="us1-phone" data-layout-ignore>
       <div class="phone-screen">
         <div class="island"></div>
+        <!-- Dynamic Island Micro-Toast -->
+        <div class="island-toast" id="reserve-toast">
+          <span class="toast-dot"></span>
+          <span>Surplus Reserved • Proceeding to Payment</span>
+        </div>
+
         <div class="status-bar">
           <span>8:15</span>
           <span>5G • 100%</span>
@@ -502,7 +540,6 @@
       </div>
     </div>
   </div>
-
   <script>
     (function() {
       const tl = gsap.timeline({ paused: true });
@@ -516,28 +553,40 @@
         0.3
       );
 
-      // Stagger in the feed items to convey rich browsing experience
+      // Stagger in the feed items
       tl.from(".filter-chip", { opacity: 0, scale: 0.8, stagger: 0.08, duration: 0.4, ease: "back.out(1.5)" }, 0.6);
       tl.from("#item-2-card", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.8);
       tl.from("#item-3-card", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 1.0);
       tl.from("#item-4-card", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 1.2);
 
-      // 4.0s: Highlight the target food card
+      // 1.8s - 3.8s: Natural feed browsing scroll (shows user exploring surplus options)
+      tl.to("#feed-items-list", {
+        y: -95,
+        duration: 1.2,
+        ease: "power2.inOut"
+      }, 1.8);
+
+      tl.to("#feed-items-list", {
+        y: 0,
+        duration: 1.0,
+        ease: "power2.inOut"
+      }, 3.3);
+
+      // 4.4s: Highlight the target food card as camera straightens
       tl.to("#target-food-card", {
-        boxShadow: "0 16px 36px rgba(46, 125, 50, 0.25)",
+        boxShadow: "0 16px 36px rgba(46, 125, 50, 0.35)",
         borderColor: "#2e7d32",
-        scale: 1.02,
+        scale: 1.03,
         duration: 0.6,
         ease: "back.out(1.5)"
-      }, 4.0);
+      }, 4.4);
 
-      // Camera straightens up toward the reservation action
       tl.to("#us1-phone", {
         rotationY: 0,
         rotationX: 0,
         duration: 0.8,
         ease: "power2.inOut"
-      }, 5.5);
+      }, 5.0);
 
       // Tap cursor glides in at 7.2s and clicks button at 8.0s (corresponds to film time 17.5s)
       tl.to("#tap-pointer", {
@@ -570,6 +619,15 @@
         opacity: 0,
         duration: 0.3
       }, 8.4);
+
+      // 8.2s: Dynamic island expands with confirmation toast!
+      tl.to("#reserve-toast", {
+        opacity: 1,
+        scale: 1,
+        y: 6,
+        duration: 0.4,
+        ease: "back.out(1.6)"
+      }, 8.2);
 
       // 11.3s: Transition exit
       tl.to("#root", {
