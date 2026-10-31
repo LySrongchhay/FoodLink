@@ -34,8 +34,8 @@ export default function SplitLauncher() {
       {/* Top Bar */}
       <header className="max-w-6xl mx-auto w-full flex items-center justify-between py-4 border-b border-gray-200">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#2E7D32] text-white flex items-center justify-center font-black text-xl shadow-md">
-            FL
+          <div className="w-11 h-11 rounded-2xl bg-white border border-gray-200 overflow-hidden flex items-center justify-center shadow-xs p-1">
+            <img src="/foodlink-logo.png" alt="Foodlink Logo" className="w-full h-full object-contain" />
           </div>
           <div>
             <h1 className="text-xl font-black text-[#1C1C1E] tracking-tight">Foodlink Cambodia</h1>
