@@ -1,0 +1,413 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    /* Ambient Spotlight */
+    .glow-spot {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.12) 0%, rgba(46, 125, 50, 0) 70%);
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    /* Side Narrative Callout */
+    .narrative-col {
+      width: 600px;
+      margin-right: 90px;
+      z-index: 10;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #eaf7ed;
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .narrative-title {
+      font-size: 52px;
+      font-weight: 900;
+      color: #1c1c1e;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+    }
+    .narrative-title span {
+      color: #2e7d32;
+    }
+    .narrative-desc {
+      font-size: 20px;
+      color: #636366;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Floating Smartphone Frame */
+    .phone-wrapper {
+      position: relative;
+      width: 440px;
+      height: 900px;
+      background: #000000;
+      border-radius: 60px;
+      padding: 14px;
+      box-shadow: 
+        0 40px 100px -20px rgba(0, 0, 0, 0.25),
+        0 25px 45px -10px rgba(46, 125, 50, 0.15),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+      transform-origin: center center;
+    }
+
+    /* Dynamic Island & Screen */
+    .phone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fafafa;
+      border-radius: 48px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: #1c1c1e;
+    }
+    .island {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 32px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 50;
+    }
+    .status-bar {
+      position: absolute;
+      top: 18px;
+      width: 100%;
+      padding: 0 32px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1c1c1e;
+      z-index: 40;
+    }
+
+    /* Phone Internal UI */
+    .app-header {
+      padding: 64px 22px 14px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header-logo img {
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+    .header-logo-text {
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      color: #1c1c1e;
+    }
+    .loc-pill {
+      font-size: 11px;
+      font-weight: 700;
+      color: #2e7d32;
+      background: #eaf7ed;
+      padding: 4px 10px;
+      border-radius: 12px;
+    }
+
+    /* Feed Container */
+    .feed-body {
+      padding: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow: hidden;
+    }
+    .filter-chip {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid #e5e5ea;
+      color: #636366;
+    }
+    .filter-chip.active {
+      background: #2e7d32;
+      color: #ffffff;
+      border-color: #2e7d32;
+    }
+
+    /* Food Listing Card */
+    .food-card {
+      background: #ffffff;
+      border-radius: 28px;
+      border: 1.5px solid #e5e5ea;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+      transform-origin: center center;
+    }
+    .card-img-box {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      background: #e5e5ea;
+      overflow: hidden;
+    }
+    .card-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .discount-badge {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: #2e7d32;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 900;
+      padding: 5px 12px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(46, 125, 50, 0.35);
+    }
+    .stock-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #ff8a3d;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 10px;
+    }
+    .card-info {
+      padding: 16px;
+    }
+    .store-line {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2e7d32;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .item-title {
+      font-size: 16px;
+      font-weight: 900;
+      color: #1c1c1e;
+      line-height: 1.25;
+      margin: 4px 0 8px;
+    }
+    .price-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .current-price {
+      font-size: 22px;
+      font-weight: 900;
+      color: #2e7d32;
+    }
+    .old-price {
+      font-size: 13px;
+      color: #8e8e93;
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+    .reserve-btn {
+      background: #2e7d32;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 14px;
+      border: none;
+    }
+
+    /* Simulated Tap Pointer */
+    .tap-cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(46, 125, 50, 0.3);
+      border: 3px solid #2e7d32;
+      pointer-events: none;
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.6);
+      z-index: 99;
+    }
+  </style>
+
+  <div id="root" data-composition-id="scene-2-discovery" data-width="1920" data-height="1080" data-duration="9.5">
+    <div class="glow-spot" style="left: 65%;"></div>
+
+    <!-- Narrative Column (Left) -->
+    <div class="narrative-col" id="us1-narrative">
+      <div class="badge-pill">Step 1 • Customer Discovery</div>
+      <h2 class="narrative-title">Fresh Pastries at <span>70% OFF</span> Around You</h2>
+      <p class="narrative-desc">
+        Customers in Phnom Penh discover closing-hour surprise bags from artisan bakeries like CAD Bakery in BKK1 before end of business.
+      </p>
+    </div>
+
+    <!-- Smartphone Frame (Right) -->
+    <div class="phone-wrapper" id="us1-phone">
+      <div class="phone-screen">
+        <div class="island"></div>
+        <div class="status-bar">
+          <span>8:15</span>
+          <span>5G • 100%</span>
+        </div>
+
+        <!-- App Header -->
+        <div class="app-header">
+          <div class="header-logo">
+            <img src="assets/foodlink-logo.png" alt="FoodLink" />
+            <span class="header-logo-text">FoodLink</span>
+          </div>
+          <span class="loc-pill">Street 310, BKK1</span>
+        </div>
+
+        <!-- Feed Body -->
+        <div class="feed-body" id="phone-feed">
+          <div class="filter-row">
+            <span class="filter-chip active">Bakery</span>
+            <span class="filter-chip">Meals</span>
+            <span class="filter-chip">Groceries</span>
+            <span class="filter-chip">Healthy</span>
+          </div>
+
+          <!-- Featured Card -->
+          <div class="food-card" id="target-food-card">
+            <div class="card-img-box">
+              <img src="assets/food-sourdough.jpg" alt="Sourdough" />
+              <span class="discount-badge">69% OFF</span>
+              <span class="stock-badge">4 left</span>
+            </div>
+            <div class="card-info">
+              <span class="store-line">CAD Bakery & Cafe • 0.4 km</span>
+              <h3 class="item-title">Artisan Sourdough & Croissant Surprise Box</h3>
+              <div class="price-row">
+                <div>
+                  <span class="current-price">$4.99</span>
+                  <span class="old-price">$16.00</span>
+                </div>
+                <div class="reserve-btn" id="card-reserve-btn">Reserve Now</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tap Cursor -->
+        <div class="tap-cursor" id="tap-pointer"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const tl = gsap.timeline({ paused: true });
+
+      // 0.0s: Entrance
+      tl.to("#root", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+      tl.from("#us1-narrative", { x: -60, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.2);
+      tl.from("#us1-phone", { y: 120, rotation: -2, opacity: 0, duration: 1.2, ease: "power3.out" }, 0.3);
+
+      // Card highlight
+      tl.to("#target-food-card", {
+        boxShadow: "0 16px 36px rgba(46, 125, 50, 0.25)",
+        borderColor: "#2e7d32",
+        scale: 1.02,
+        duration: 0.6,
+        ease: "back.out(1.5)"
+      }, 1.5);
+
+      // Tap cursor glides in and clicks button at ~4.2s (corresponds to film time 11.2s)
+      tl.to("#tap-pointer", {
+        x: 330,
+        y: 430,
+        opacity: 1,
+        scale: 1,
+        duration: 0.8,
+        ease: "power2.out"
+      }, 3.4);
+
+      // Tap compression (click sound fires at 11.2s in master)
+      tl.to("#tap-pointer", {
+        scale: 0.8,
+        backgroundColor: "rgba(46, 125, 50, 0.6)",
+        duration: 0.15,
+        yoyo: true,
+        repeat: 1
+      }, 4.2);
+
+      tl.to("#card-reserve-btn", {
+        scale: 0.94,
+        backgroundColor: "#256629",
+        duration: 0.15,
+        yoyo: true,
+        repeat: 1
+      }, 4.2);
+
+      tl.to("#tap-pointer", {
+        opacity: 0,
+        duration: 0.3
+      }, 4.6);
+
+      // 8.8s: Transition exit
+      tl.to("#root", {
+        opacity: 0,
+        y: -30,
+        duration: 0.6,
+        ease: "power2.in"
+      }, 8.8);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["scene-2-discovery"] = tl;
+    })();
+  </script>
+</template>

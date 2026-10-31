@@ -1,0 +1,11 @@
+{
+  "name": "foodlink-product-film",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx --yes hyperframes preview",
+    "check": "npx --yes hyperframes check",
+    "render": "npx --yes hyperframes render -o renders/foodlink-product-film.mp4"
+  }
+}
+

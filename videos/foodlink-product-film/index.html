@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>FoodLink Cambodia - Product Film</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #0f1411;
+        font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+        color: #1c1c1e;
+        -webkit-font-smoothing: antialiased;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #fafafa;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+      /* Studio Canvas Ambience */
+      .studio-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 50% 25%, #ffffff 0%, #f4f5f3 60%, #e8eae6 100%);
+        z-index: 0;
+      }
+      .studio-vignette {
+        position: absolute;
+        inset: 0;
+        box-shadow: inset 0 0 160px rgba(0, 0, 0, 0.04);
+        pointer-events: none;
+        z-index: 1;
+      }
+      .studio-grid {
+        position: absolute;
+        inset: 0;
+        background-size: 60px 60px;
+        background-image: 
+          linear-gradient(to right, rgba(46, 125, 50, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(46, 125, 50, 0.03) 1px, transparent 1px);
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="40"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Studio Backdrop -->
+      <div class="studio-bg"></div>
+      <div class="studio-grid"></div>
+      <div class="studio-vignette"></div>
+
+      <!-- ════════ SCENE COMPOSITIONS ════════ -->
+
+      <!-- Scene 1: The Evening Dilemma Hook (0.0s – 7.5s) -->
+      <div
+        id="el-scene-1"
+        class="scene clip"
+        data-composition-id="scene-1-hook"
+        data-composition-src="compositions/scene-1-hook.html"
+        data-start="0"
+        data-duration="7.5"
+        data-track-index="0"
+      ></div>
+
+      <!-- Scene 2: Customer Discovery & BKK1 Map (7.0s – 16.5s) -->
+      <div
+        id="el-scene-2"
+        class="scene clip"
+        data-composition-id="scene-2-discovery"
+        data-composition-src="compositions/scene-2-discovery.html"
+        data-start="7.0"
+        data-duration="9.5"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 3: Bakong KHQR Instant Checkout (16.0s – 25.5s) -->
+      <div
+        id="el-scene-3"
+        class="scene clip"
+        data-composition-id="scene-3-checkout"
+        data-composition-src="compositions/scene-3-checkout.html"
+        data-start="16.0"
+        data-duration="9.5"
+        data-track-index="0"
+      ></div>
+
+      <!-- Scene 4: Merchant Kitchen Alert & PIN Handover (25.0s – 33.5s) -->
+      <div
+        id="el-scene-4"
+        class="scene clip"
+        data-composition-id="scene-4-kitchen"
+        data-composition-src="compositions/scene-4-kitchen.html"
+        data-start="25.0"
+        data-duration="8.5"
+        data-track-index="1"
+      ></div>
+
+      <!-- Scene 5: Ecological Impact & Dual QR Call-To-Action (33.0s – 40.0s) -->
+      <div
+        id="el-scene-5"
+        class="scene clip"
+        data-composition-id="scene-5-impact"
+        data-composition-src="compositions/scene-5-impact.html"
+        data-start="33.0"
+        data-duration="7.0"
+        data-track-index="0"
+      ></div>
+
+      <!-- ════════ TACTILE UI SOUND EFFECTS ════════ -->
+      <!-- 1. Tactile item tap on feed -->
+      <audio
+        id="snd-click"
+        class="clip"
+        src="assets/audio/click.mp3"
+        data-start="11.2"
+        data-duration="0.06"
+        data-track-index="8"
+        data-volume="0.8"
+      ></audio>
+
+      <!-- 2. Resonant Bakong payment confirmation chime -->
+      <audio
+        id="snd-khqr"
+        class="clip"
+        src="assets/audio/khqr-chime.mp3"
+        data-start="20.8"
+        data-duration="0.40"
+        data-track-index="8"
+        data-volume="0.9"
+      ></audio>
+
+      <!-- 3. Kitchen real-time order alert ping -->
+      <audio
+        id="snd-ping"
+        class="clip"
+        src="assets/audio/order-ping.mp3"
+        data-start="25.4"
+        data-duration="0.35"
+        data-track-index="8"
+        data-volume="0.95"
+      ></audio>
+
+      <!-- 4. PIN counter verification success ding -->
+      <audio
+        id="snd-verify"
+        class="clip"
+        src="assets/audio/verify-ding.mp3"
+        data-start="30.8"
+        data-duration="0.50"
+        data-track-index="8"
+        data-volume="0.9"
+      ></audio>
+
+    </div>
+
+    <script>
+      (function() {
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

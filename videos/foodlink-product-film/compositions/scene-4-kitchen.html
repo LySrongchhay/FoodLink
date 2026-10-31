@@ -1,0 +1,419 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .glow-spot {
+      position: absolute;
+      width: 850px;
+      height: 850px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.12) 0%, transparent 70%);
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    /* Side Narrative Callout */
+    .narrative-col {
+      width: 540px;
+      margin-right: 70px;
+      z-index: 10;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: #eaf7ed;
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .narrative-title {
+      font-size: 52px;
+      font-weight: 900;
+      color: #1c1c1e;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      margin-bottom: 18px;
+    }
+    .narrative-title span {
+      color: #2e7d32;
+    }
+    .narrative-desc {
+      font-size: 20px;
+      color: #636366;
+      line-height: 1.5;
+      font-weight: 500;
+    }
+
+    /* Floating Tablet Frame */
+    .tablet-wrapper {
+      position: relative;
+      width: 820px;
+      height: 560px;
+      background: #000000;
+      border-radius: 44px;
+      padding: 14px;
+      box-shadow: 
+        0 40px 100px -20px rgba(0, 0, 0, 0.25),
+        0 25px 45px -10px rgba(46, 125, 50, 0.15),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.2);
+    }
+    .tablet-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: #fafafa;
+      border-radius: 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      color: #1c1c1e;
+    }
+
+    /* Tablet Header */
+    .tablet-header {
+      padding: 16px 24px;
+      background: #ffffff;
+      border-bottom: 1px solid #e5e5ea;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .store-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .store-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid #e5e5ea;
+      padding: 2px;
+      object-fit: contain;
+      background: #ffffff;
+    }
+    .store-names h3 {
+      font-size: 16px;
+      font-weight: 900;
+      color: #1c1c1e;
+    }
+    .store-names p {
+      font-size: 12px;
+      color: #2e7d32;
+      font-weight: 700;
+    }
+    .live-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #eaf7ed;
+      color: #2e7d32;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      border: 1px solid rgba(46, 125, 50, 0.2);
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2e7d32;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* Tablet Body */
+    .tablet-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      flex: 1;
+    }
+
+    /* Real-Time Order Alert Banner */
+    .order-banner {
+      background: #eaf7ed;
+      border: 2px solid #2e7d32;
+      border-radius: 20px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 24px rgba(46, 125, 50, 0.15);
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    .banner-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .bell-icon-box {
+      width: 40px;
+      height: 40px;
+      background: #2e7d32;
+      color: #ffffff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bell-icon-box svg {
+      width: 20px;
+      height: 20px;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+    }
+    .banner-text h4 {
+      font-size: 14px;
+      font-weight: 900;
+      color: #1c1c1e;
+    }
+    .banner-text p {
+      font-size: 12px;
+      color: #48484a;
+      margin-top: 2px;
+    }
+    .banner-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 900;
+      color: #2e7d32;
+      background: #ffffff;
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* PIN Verification Keypad Modal */
+    .verify-modal {
+      background: #ffffff;
+      border-radius: 24px;
+      border: 1px solid #e5e5ea;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.06);
+      margin-top: 10px;
+    }
+    .verify-modal h4 {
+      font-size: 15px;
+      font-weight: 900;
+      color: #1c1c1e;
+    }
+    .pin-input-boxes {
+      display: flex;
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .pin-box {
+      width: 46px;
+      height: 52px;
+      border: 2px solid #e5e5ea;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 24px;
+      font-weight: 900;
+      color: #1c1c1e;
+      background: #fafafa;
+    }
+    .pin-box.filled {
+      border-color: #2e7d32;
+      background: #eaf7ed;
+      color: #2e7d32;
+    }
+
+    /* Verified Splash Banner */
+    .verified-splash {
+      position: absolute;
+      inset: 20px 24px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-radius: 24px;
+      border: 2px solid #2e7d32;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      opacity: 0;
+      transform: scale(0.92);
+      box-shadow: 0 20px 50px rgba(46, 125, 50, 0.2);
+    }
+    .check-circle {
+      width: 72px;
+      height: 72px;
+      background: #2e7d32;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 25px rgba(46, 125, 50, 0.35);
+    }
+    .check-circle svg {
+      width: 42px;
+      height: 42px;
+      stroke: #ffffff;
+      stroke-width: 3.5;
+    }
+    .verified-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #1c1c1e;
+    }
+    .verified-sub {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2e7d32;
+      margin-top: 6px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="scene-4-kitchen" data-width="1920" data-height="1080" data-duration="8.5">
+    <div class="glow-spot" style="left: 65%;"></div>
+
+    <!-- Narrative Column (Left) -->
+    <div class="narrative-col" id="us3-narrative">
+      <div class="badge-pill">Step 3 • Kitchen Operations</div>
+      <h2 class="narrative-title">Real-Time Queue & <span>3-Second Handover</span></h2>
+      <p class="narrative-desc">
+        CAD Bakery counter staff receive real-time reservation alerts and verify the customer's 6-digit pickup code with zero friction.
+      </p>
+    </div>
+
+    <!-- Tablet Frame (Right) -->
+    <div class="tablet-wrapper" id="us3-tablet">
+      <div class="tablet-screen">
+        <!-- Tablet Header -->
+        <div class="tablet-header">
+          <div class="store-profile">
+            <img src="assets/cad-bakery-logo.png" alt="CAD Bakery" class="store-logo" />
+            <div class="store-names">
+              <h3>CAD Bakery & Cafe</h3>
+              <p>Artisan Bakery • Partner Portal</p>
+            </div>
+          </div>
+          <div class="live-status">
+            <span class="live-dot"></span>
+            <span>Live on Discovery Feed</span>
+          </div>
+        </div>
+
+        <!-- Tablet Body -->
+        <div class="tablet-body">
+          <!-- Real-Time Order Alert Banner -->
+          <div class="order-banner" id="order-alert-banner">
+            <div class="banner-left">
+              <div class="bell-icon-box">
+                <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              </div>
+              <div class="banner-text">
+                <h4>New Customer Order Placed!</h4>
+                <p>Sokha reserved 1x Artisan Sourdough Box • Pass: <span class="banner-code">849201</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- PIN Verification Modal -->
+          <div class="verify-modal" id="pin-modal">
+            <h4>Enter Customer 6-Digit Counter Pass</h4>
+            <div class="pin-input-boxes">
+              <div class="pin-box" id="pin-1"></div>
+              <div class="pin-box" id="pin-2"></div>
+              <div class="pin-box" id="pin-3"></div>
+              <div class="pin-box" id="pin-4"></div>
+              <div class="pin-box" id="pin-5"></div>
+              <div class="pin-box" id="pin-6"></div>
+            </div>
+          </div>
+
+          <!-- Verified Splash Modal -->
+          <div class="verified-splash" id="verified-modal">
+            <div class="check-circle" id="verified-check">
+              <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <div class="verified-title">Handover Verified!</div>
+            <div class="verified-sub">1 Surplus Meal Rescued • Revenue Recorded</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const tl = gsap.timeline({ paused: true });
+
+      // 0.0s: Entrance
+      tl.to("#root", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+      tl.from("#us3-narrative", { x: -60, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.2);
+      tl.from("#us3-tablet", { y: 120, opacity: 0, duration: 1.0, ease: "power3.out" }, 0.3);
+
+      // Order alert drops down at 0.4s (corresponds to film time 25.4s - audio ping plays)
+      tl.to("#order-alert-banner", {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "back.out(1.5)"
+      }, 0.4);
+
+      // Digits input simulation sequentially
+      tl.call(() => { document.getElementById("pin-1").innerText = "8"; document.getElementById("pin-1").classList.add("filled"); }, null, 2.0);
+      tl.call(() => { document.getElementById("pin-2").innerText = "4"; document.getElementById("pin-2").classList.add("filled"); }, null, 2.4);
+      tl.call(() => { document.getElementById("pin-3").innerText = "9"; document.getElementById("pin-3").classList.add("filled"); }, null, 2.8);
+      tl.call(() => { document.getElementById("pin-4").innerText = "2"; document.getElementById("pin-4").classList.add("filled"); }, null, 3.2);
+      tl.call(() => { document.getElementById("pin-5").innerText = "0"; document.getElementById("pin-5").classList.add("filled"); }, null, 3.6);
+      tl.call(() => { document.getElementById("pin-6").innerText = "1"; document.getElementById("pin-6").classList.add("filled"); }, null, 4.0);
+
+      // Verification ding at 5.8s (corresponds to film time 30.8s)
+      tl.to("#verified-modal", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.5,
+        ease: "back.out(1.4)"
+      }, 5.8);
+
+      tl.from("#verified-check", {
+        scale: 0.3,
+        rotation: -45,
+        duration: 0.4,
+        ease: "back.out(2)"
+      }, 5.9);
+
+      // 7.9s: Transition exit
+      tl.to("#root", {
+        opacity: 0,
+        y: -30,
+        duration: 0.6,
+        ease: "power2.in"
+      }, 7.9);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["scene-4-kitchen"] = tl;
+    })();
+  </script>
+</template>

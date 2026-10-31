@@ -1,0 +1,293 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+      overflow: hidden;
+      text-align: center;
+      color: #1c1c1e;
+      opacity: 0;
+    }
+
+    .ambient-glow {
+      position: absolute;
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(46, 125, 50, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      filter: blur(60px);
+      pointer-events: none;
+    }
+
+    /* Part A: Impact Metrics */
+    .impact-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+    .impact-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: #eaf7ed;
+      color: #2e7d32;
+      border: 1px solid rgba(46, 125, 50, 0.25);
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .impact-title {
+      font-size: 64px;
+      font-weight: 900;
+      color: #1c1c1e;
+      letter-spacing: -2px;
+      margin-bottom: 40px;
+    }
+    .impact-title span {
+      color: #2e7d32;
+    }
+
+    .metrics-grid {
+      display: flex;
+      gap: 36px;
+    }
+    .metric-card {
+      width: 320px;
+      background: #ffffff;
+      border-radius: 32px;
+      padding: 32px 24px;
+      border: 1.5px solid #e5e5ea;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.05);
+      transform-origin: center center;
+    }
+    .metric-num {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      color: #2e7d32;
+      line-height: 1;
+    }
+    .metric-num.orange {
+      color: #ff8a3d;
+    }
+    .metric-label {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1c1c1e;
+      margin-top: 14px;
+    }
+    .metric-sub {
+      font-size: 13px;
+      color: #8e8e93;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* Part B: Dual QR Call-To-Action */
+    .cta-panel {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      opacity: 0;
+    }
+    .cta-logo {
+      width: 72px;
+      height: 72px;
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      margin-bottom: 16px;
+      object-fit: contain;
+    }
+    .cta-headline {
+      font-size: 48px;
+      font-weight: 900;
+      color: #1c1c1e;
+      letter-spacing: -1.5px;
+      margin-bottom: 8px;
+    }
+    .cta-headline span {
+      color: #2e7d32;
+    }
+    .cta-sub {
+      font-size: 18px;
+      color: #636366;
+      font-weight: 600;
+      margin-bottom: 36px;
+    }
+
+    .qr-container {
+      display: flex;
+      gap: 48px;
+    }
+    .qr-card {
+      background: #ffffff;
+      border-radius: 36px;
+      padding: 28px;
+      border: 2px solid #e5e5ea;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: center center;
+    }
+    .qr-card.customer {
+      border-color: rgba(46, 125, 50, 0.4);
+    }
+    .qr-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 20px;
+      object-fit: contain;
+    }
+    .qr-tag {
+      margin-top: 18px;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 6px 16px;
+      border-radius: 9999px;
+    }
+    .qr-tag.customer {
+      background: #eaf7ed;
+      color: #2e7d32;
+    }
+    .qr-tag.merchant {
+      background: #f4f4f5;
+      color: #18181b;
+    }
+
+    .footer-note {
+      margin-top: 32px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #8e8e93;
+    }
+  </style>
+
+  <div id="root" data-composition-id="scene-5-impact" data-width="1920" data-height="1080" data-duration="7.0">
+    <div class="ambient-glow"></div>
+
+    <!-- Part A: Impact Numbers -->
+    <div class="impact-panel" id="panel-impact" data-layout-ignore>
+      <div class="impact-badge" id="impact-badge">The Real Impact</div>
+      <h2 class="impact-title" id="impact-heading">One Evening. <span>Zero Food Waste.</span></h2>
+      <div class="metrics-grid">
+        <div class="metric-card" id="m-card-1">
+          <div class="metric-num">18</div>
+          <div class="metric-label">Meals Rescued</div>
+          <div class="metric-sub">CAD Bakery • BKK1</div>
+        </div>
+        <div class="metric-card" id="m-card-2">
+          <div class="metric-num orange">$69.86</div>
+          <div class="metric-label">Revenue Recovered</div>
+          <div class="metric-sub">Direct Merchant Earnings</div>
+        </div>
+        <div class="metric-card" id="m-card-3">
+          <div class="metric-num">342 kg</div>
+          <div class="metric-label">CO₂ Prevented</div>
+          <div class="metric-sub">Cleaner Phnom Penh</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part B: Dual QR CTA -->
+    <div class="cta-panel" id="panel-cta" data-layout-ignore>
+      <img src="assets/foodlink-logo.png" alt="FoodLink" class="cta-logo" id="cta-logo" />
+      <h2 class="cta-headline" id="cta-heading">Test <span>FoodLink</span> Live Today</h2>
+      <p class="cta-sub" id="cta-sub">Scan on your phone to explore the dual-portal interactive demo</p>
+
+      <div class="qr-container">
+        <!-- Customer QR -->
+        <div class="qr-card customer" id="qr-box-customer">
+          <img src="assets/qr-customer.png" alt="Customer QR" class="qr-img" />
+          <span class="qr-tag customer">Customer Food App</span>
+        </div>
+
+        <!-- Merchant QR -->
+        <div class="qr-card merchant" id="qr-box-merchant">
+          <img src="assets/qr-merchant.png" alt="Merchant QR" class="qr-img" />
+          <span class="qr-tag merchant">Merchant Portal</span>
+        </div>
+      </div>
+
+      <div class="footer-note" id="cta-footer">Built for Cambodia • Hosted on Vercel</div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const tl = gsap.timeline({ paused: true });
+
+      // 0.0s: Entrance of Impact
+      tl.to("#root", { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+      tl.from("#impact-badge", { y: -20, opacity: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.2);
+      tl.from("#impact-heading", { y: 30, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.3);
+
+      tl.from("#m-card-1", { scale: 0.8, opacity: 0, y: 40, duration: 0.6, ease: "back.out(1.6)" }, 0.5);
+      tl.from("#m-card-2", { scale: 0.8, opacity: 0, y: 40, duration: 0.6, ease: "back.out(1.6)" }, 0.7);
+      tl.from("#m-card-3", { scale: 0.8, opacity: 0, y: 40, duration: 0.6, ease: "back.out(1.6)" }, 0.9);
+
+      // 3.0s: Transition to Dual QR CTA
+      tl.to("#panel-impact", {
+        opacity: 0,
+        scale: 0.94,
+        duration: 0.5,
+        ease: "power2.in"
+      }, 3.0);
+
+      tl.to("#panel-cta", {
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out"
+      }, 3.4);
+
+      tl.from("#cta-logo", { scale: 0.5, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 3.5);
+      tl.from("#cta-heading", { y: 20, opacity: 0, duration: 0.5, ease: "power2.out" }, 3.6);
+      tl.from("#cta-sub", { y: 15, opacity: 0, duration: 0.5, ease: "power2.out" }, 3.7);
+
+      tl.from("#qr-box-customer", {
+        x: -40,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.7,
+        ease: "back.out(1.4)"
+      }, 3.8);
+
+      tl.from("#qr-box-merchant", {
+        x: 40,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.7,
+        ease: "back.out(1.4)"
+      }, 4.0);
+
+      tl.from("#cta-footer", { opacity: 0, y: 10, duration: 0.5 }, 4.3);
+
+      // Hold until end of 40s (7.0s duration in scene)
+      window.__timelines = window.__timelines || {};
+      window.__timelines["scene-5-impact"] = tl;
+    })();
+  </script>
+</template>
