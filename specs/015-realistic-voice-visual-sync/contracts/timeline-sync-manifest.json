@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TimelineSyncManifest",
+  "description": "55-second synchronized timeline specification for FoodLink commercial film",
+  "type": "object",
+  "required": ["version", "totalDuration", "voiceModel", "scenes"],
+  "properties": {
+    "version": { "type": "string" },
+    "totalDuration": { "type": "number", "minimum": 55.0, "maximum": 55.0 },
+    "voiceModel": { "type": "string", "enum": ["en-US-JennyNeural"] },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "start", "duration", "voiceStart", "voiceDuration", "script", "syncTriggers"],
+        "properties": {
+          "id": { "type": "string" },
+          "start": { "type": "number" },
+          "duration": { "type": "number" },
+          "voiceStart": { "type": "number" },
+          "voiceDuration": { "type": "number" },
+          "script": { "type": "string" },
+          "syncTriggers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["timestamp", "keyword", "visualAction"],
+              "properties": {
+                "timestamp": { "type": "number" },
+                "keyword": { "type": "string" },
+                "visualAction": { "type": "string" },
+                "sfx": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

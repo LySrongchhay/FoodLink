@@ -27,3 +27,4 @@
 
 - Mark items `[x]` only after review confirms the requirement-quality criterion is satisfied
 - Items are numbered sequentially for easy reference
+
