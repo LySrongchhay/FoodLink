@@ -39,6 +39,7 @@ import {
   markAllNotificationsAsRead,
   playNotificationSound,
   onNewListingDrop,
+  liveDropChannel,
 } from '../../services/api';
 
 import {
@@ -71,6 +72,32 @@ export default function CustomerApp() {
   const [notifications, setNotifications] = useState([]);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+
+  // Cross-tab real-time sync when merchant verifies the active pickup
+  useEffect(() => {
+    const handleChannelMsg = (event) => {
+      if (event.data?.type === 'ORDER_VERIFIED') {
+        const orderCode = event.data.code;
+        setActiveOrder((prev) => {
+          if (prev && (prev.pickupCode === orderCode || !orderCode)) {
+            const updated = {
+              ...prev,
+              status: 'COMPLETED',
+              verifiedAt: event.data.order?.verifiedAt || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
+            saveCustomerActiveOrder(currentUser?.id, updated);
+            return updated;
+          }
+          return prev;
+        });
+      }
+    };
+
+    if (liveDropChannel) {
+      liveDropChannel.addEventListener('message', handleChannelMsg);
+      return () => liveDropChannel.removeEventListener('message', handleChannelMsg);
+    }
+  }, [currentUser?.id]);
 
   const showToast = (msg) => {
     setToastMessage(msg);

@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReserveOrderContract",
+  "type": "object",
+  "required": [
+    "id",
+    "orderNumber",
+    "pickupCode",
+    "digits",
+    "status",
+    "customerName",
+    "storeName",
+    "storeAddress",
+    "pickupWindow",
+    "totalPrice",
+    "items"
+  ],
+  "properties": {
+    "id": { "type": "string" },
+    "orderNumber": { "type": "string", "pattern": "^#FS-[0-9]{6}$" },
+    "pickupCode": { "type": "string", "pattern": "^[0-9]{6}$" },
+    "digits": {
+      "type": "array",
+      "items": { "type": "string", "maxLength": 1 },
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "status": { "type": "string", "enum": ["PENDING", "COMPLETED", "CANCELLED"] },
+    "customerName": { "type": "string" },
+    "customerEmail": { "type": "string" },
+    "storeId": { "type": "string" },
+    "storeName": { "type": "string" },
+    "storeAddress": { "type": "string" },
+    "pickupWindow": { "type": "string" },
+    "totalPrice": { "type": "string" },
+    "co2SavedKg": { "type": "number" },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "price", "quantity"],
+        "properties": {
+          "listingId": { "type": "string" },
+          "title": { "type": "string" },
+          "price": { "type": "number" },
+          "quantity": { "type": "number" },
+          "photoUrl": { "type": "string" }
+        }
+      }
+    },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "verifiedAt": { "type": "string" }
+  }
+}
+

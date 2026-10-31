@@ -49,7 +49,7 @@ export function StoreProvider({ children }) {
     }
   }, []);
 
-  // Multi-tab cross-window synchronization
+  // Multi-tab cross-window synchronization & order creation listener
   useEffect(() => {
     const handleStorageEvent = (e) => {
       if (e.key === STORAGE_KEY && e.newValue) {
@@ -64,8 +64,55 @@ export function StoreProvider({ children }) {
       }
     };
 
+    const handleIncomingOrder = (incomingOrder) => {
+      if (!incomingOrder || !incomingOrder.pickupCode) return;
+      setState(prev => {
+        if (prev.orders.some(o => o.id === incomingOrder.id || o.pickupCode === incomingOrder.pickupCode)) {
+          return prev;
+        }
+        const next = {
+          ...prev,
+          orders: [incomingOrder, ...prev.orders]
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        } catch (err) {}
+        return next;
+      });
+    };
+
+    // Listen on BroadcastChannel for orders placed in other tabs/windows
+    let channel = null;
+    if (typeof window !== 'undefined' && window.BroadcastChannel) {
+      try {
+        channel = new BroadcastChannel('foodlink_live_channel');
+        channel.addEventListener('message', (ev) => {
+          if (ev.data?.type === 'ORDER_CREATED' && ev.data.order) {
+            handleIncomingOrder(ev.data.order);
+          }
+        });
+      } catch (err) {}
+    }
+
+    // Listen for local in-tab order creation event
+    const handleLocalOrderCreated = (e) => {
+      if (e.detail) {
+        handleIncomingOrder(e.detail);
+      }
+    };
+
     window.addEventListener('storage', handleStorageEvent);
-    return () => window.removeEventListener('storage', handleStorageEvent);
+    window.addEventListener('foodlink_order_created', handleLocalOrderCreated);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageEvent);
+      window.removeEventListener('foodlink_order_created', handleLocalOrderCreated);
+      if (channel) {
+        try {
+          channel.close();
+        } catch (err) {}
+      }
+    };
   }, []);
 
   const merchants = initialMerchants;
@@ -233,6 +280,17 @@ export function StoreProvider({ children }) {
       }
       return next;
     });
+
+    // Also synchronize shared merchant orders list in localStorage
+    try {
+      const raw = localStorage.getItem('foodlink_merchant_orders');
+      if (raw) {
+        const list = JSON.parse(raw);
+        const updated = list.map(o => (o.pickupCode === cleanCode ? { ...o, status: 'COMPLETED', verifiedAt: completedTime } : o));
+        localStorage.setItem('foodlink_merchant_orders', JSON.stringify(updated));
+        window.dispatchEvent(new Event('storage'));
+      }
+    } catch (err) {}
 
     // Broadcast across tabs via BroadcastChannel for real-time customer app reactivity
     if (typeof window !== 'undefined' && window.BroadcastChannel) {

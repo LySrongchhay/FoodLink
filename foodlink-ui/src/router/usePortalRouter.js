@@ -1,26 +1,49 @@
 import { useState, useEffect, useCallback } from 'react';
 
+const configuredMode = (import.meta.env.VITE_PORTAL_MODE || '').toLowerCase();
+
+export const isLockedPortal = configuredMode === 'customer' || configuredMode === 'merchant';
+
+export const isDedicatedMerchant = isLockedPortal
+  ? configuredMode === 'merchant'
+  : (typeof window !== 'undefined' && window.location.hostname.toLowerCase().includes('merchant'));
+
+export const isDedicatedCustomer = isLockedPortal
+  ? configuredMode === 'customer'
+  : (typeof window !== 'undefined' && window.location.hostname.toLowerCase().includes('customer'));
+
+export const hideRoleSwitchers = isLockedPortal || isDedicatedMerchant || isDedicatedCustomer;
+
 function detectPortalFromLocation() {
+  // 1. Check build-time or runtime environment lock (e.g. Vercel deployment)
+  if (configuredMode === 'customer') return 'customer';
+  if (configuredMode === 'merchant' || configuredMode === 'admin') return 'merchant';
+
   if (typeof window === 'undefined') return 'launcher';
+
+  // 2. Check hostname (e.g. foodlink-merchant.vercel.app or merchant.foodlink.app)
+  const hostname = window.location.hostname.toLowerCase();
+  if (hostname.includes('merchant')) return 'merchant';
+  if (hostname.includes('customer')) return 'customer';
 
   const pathname = window.location.pathname.toLowerCase();
   const searchParams = new URLSearchParams(window.location.search);
   const hash = window.location.hash.toLowerCase();
 
-  // 1. Check path
+  // 3. Check path
   if (pathname.includes('/customer')) return 'customer';
   if (pathname.includes('/merchant') || pathname.includes('/admin')) return 'merchant';
 
-  // 2. Check query params (ideal for static hosts without SPA rewrites)
+  // 4. Check query params (ideal for static hosts without SPA rewrites)
   const roleParam = searchParams.get('role') || searchParams.get('portal') || searchParams.get('view');
   if (roleParam === 'customer') return 'customer';
   if (roleParam === 'merchant' || roleParam === 'admin') return 'merchant';
 
-  // 3. Check hash fragments
+  // 5. Check hash fragments
   if (hash.includes('customer')) return 'customer';
   if (hash.includes('merchant') || hash.includes('admin')) return 'merchant';
 
-  // 4. Default root
+  // 6. Default root
   return 'launcher';
 }
 
@@ -44,6 +67,9 @@ export function usePortalRouter() {
   }, []);
 
   const navigateTo = useCallback((newPortal) => {
+    // If locked to a single portal, do not navigate away
+    if (isLockedPortal) return;
+
     let targetPath = '/';
     if (newPortal === 'customer') targetPath = '/customer';
     if (newPortal === 'merchant') targetPath = '/merchant';
@@ -68,7 +94,8 @@ export function usePortalRouter() {
     portal,
     navigateTo,
     customerUrl,
-    merchantUrl
+    merchantUrl,
+    hideRoleSwitchers,
+    isLockedPortal
   };
 }
-

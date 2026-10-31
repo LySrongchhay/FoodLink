@@ -139,7 +139,7 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
 
     const prevBags = Number(editModalItem.remaining || editModalItem.bagsAvailable || 0);
     const isRestock = count > prevBags;
-    showToast(isRestock ? `🔥 Restocked & notified customers (${count} bags)!` : `Updated "${editModalItem.title}" stock to ${count}!`);
+    showToast(isRestock ? `Restocked & notified customers (${count} bags)!` : `Updated "${editModalItem.title}" stock to ${count}!`);
     const idToUpdate = editModalItem.id;
     const itemSnapshot = { ...editModalItem };
     setEditModalItem(null);
@@ -205,7 +205,7 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
     const handleOrderCreated = (data) => {
       const order = data?.order || data;
       setNewOrderAlert(order);
-      showToast(`🔔 New Order! ${order.user?.name || 'Customer'} ordered "${order.listing?.title || 'Surplus Item'}" (${order.pickupCode || ''})`);
+      showToast(`New Order! ${order.user?.name || 'Customer'} ordered "${order.listing?.title || 'Surplus Item'}" (${order.pickupCode || ''})`);
     };
 
     const handleNewListing = (data) => {
@@ -414,10 +414,10 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
           <div className="grid grid-cols-3 gap-2 sm:gap-3">
             
             {/* Card 1: Bags Listed */}
-            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-md hover:-translate-y-1 hover:border-[#2E7D32]/40 transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
+            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-sm hover:border-[#2E7D32]/40 transition-all duration-200 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
               <div className="flex items-start justify-between gap-1">
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-600 leading-tight">Bags Listed</span>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#EAF7ED] border border-emerald-200/60 text-[#2E7D32] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#EAF7ED] border border-emerald-200/60 text-[#2E7D32] flex items-center justify-center shrink-0 transition-transform duration-200">
                   <Package className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </div>
               </div>
@@ -435,10 +435,10 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
             </div>
 
             {/* Card 2: Bags Sold */}
-            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-md hover:-translate-y-1 hover:border-orange-300 transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
+            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-sm hover:border-orange-300 transition-all duration-200 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
               <div className="flex items-start justify-between gap-1">
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-600 leading-tight">Bags Sold</span>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#FFF3E8] border border-orange-200/60 text-[#FF8A3D] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#FFF3E8] border border-orange-200/60 text-[#FF8A3D] flex items-center justify-center shrink-0 transition-transform duration-200">
                   <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </div>
               </div>
@@ -456,10 +456,10 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
             </div>
 
             {/* Card 3: Today's Revenue */}
-            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-md hover:-translate-y-1 hover:border-[#2E7D32]/40 transition-all duration-300 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
+            <div className="group bg-white rounded-2xl sm:rounded-3xl border border-stone-200/80 p-3 sm:p-4 shadow-2xs hover:shadow-sm hover:border-[#2E7D32]/40 transition-all duration-200 ease-out cursor-pointer flex flex-col justify-between space-y-2 sm:space-y-2.5">
               <div className="flex items-start justify-between gap-1">
                 <span className="text-[11px] sm:text-xs font-semibold text-stone-600 leading-tight">Today's Revenue</span>
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#EAF7ED] border border-emerald-200/60 text-[#2E7D32] flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl bg-[#EAF7ED] border border-emerald-200/60 text-[#2E7D32] flex items-center justify-center shrink-0 transition-transform duration-200">
                   <DollarSign className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                 </div>
               </div>
@@ -469,7 +469,7 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
                 </div>
                 <div>
                   <span className="inline-flex items-center gap-1 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full text-[9px] sm:text-[11px] font-bold bg-stone-100 text-stone-600 group-hover:bg-stone-200/80 transition-colors">
-                    <span>⌛</span> $14.20 pending
+                    <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-stone-500" /> $14.20 pending
                   </span>
                 </div>
               </div>
@@ -479,31 +479,31 @@ export default function MerchantDashboard({ onNavigateToProfile, onOpenCreate, o
         </div>
 
         {/* ======================================================== */}
-        {/* 6. PRIMARY CALL-TO-ACTION BUTTONS                       */}
+        {/* 6. PRIMARY CALL-TO-ACTION BUTTONS (2-Column Grid)       */}
         {/* ======================================================== */}
-        <div className="space-y-2.5 pt-1">
-          {/* Create New Bag button */}
+        <div className="grid grid-cols-2 gap-2.5 pt-1">
+          {/* Create New Bag / Batch button */}
           <button
             onClick={() => {
               if (onOpenCreate) onOpenCreate();
               else setCreateModalOpen(true);
             }}
-            className="w-full py-3.5 rounded-2xl bg-[#2E7D32] hover:bg-[#256629] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.99] cursor-pointer"
+            className="w-full min-h-[44px] py-3 px-3 rounded-2xl bg-[#2E7D32] hover:bg-[#256629] text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 shadow-2xs transition-all active:scale-[0.98] cursor-pointer"
           >
-            <Plus className="w-4 h-4 stroke-[3]" />
-            <span>Create New Bag</span>
+            <Plus className="w-4 h-4 stroke-[2.5] shrink-0" />
+            <span className="truncate">+ New Batch</span>
           </button>
 
-          {/* Scan Pickup Code button */}
+          {/* Scan Pickup Code / Verify PIN button */}
           <button
             onClick={() => {
               if (onOpenVerify) onOpenVerify();
               else setScanModalOpen(true);
             }}
-            className="w-full py-3 rounded-2xl bg-white hover:bg-stone-50 text-stone-800 font-bold text-sm flex items-center justify-center gap-2 border border-stone-200/80 shadow-2xs transition-all active:scale-[0.99] cursor-pointer"
+            className="w-full min-h-[44px] py-3 px-3 rounded-2xl bg-white hover:bg-stone-50 text-stone-800 font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 sm:gap-2 border border-stone-200/80 shadow-2xs transition-all active:scale-[0.98] cursor-pointer"
           >
-            <QrCode className="w-4 h-4 text-stone-600" />
-            <span>Scan Pickup Code</span>
+            <QrCode className="w-4 h-4 text-stone-600 shrink-0" />
+            <span className="truncate">Verify PIN</span>
           </button>
         </div>
 

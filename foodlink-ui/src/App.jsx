@@ -3,7 +3,6 @@ import { usePortalRouter } from './router/usePortalRouter';
 import SplitLauncher from './components/common/SplitLauncher';
 import CustomerApp from './components/customer/CustomerApp';
 import MerchantApp from './components/merchant/MerchantApp';
-import PortalSwitcherFloating from './components/common/PortalSwitcherFloating';
 
 export default function App() {
   const { portal } = usePortalRouter();
@@ -13,9 +12,6 @@ export default function App() {
       {portal === 'customer' && <CustomerApp />}
       {portal === 'merchant' && <MerchantApp />}
       {portal === 'launcher' && <SplitLauncher />}
-
-      {/* Floating reviewer utility to quickly switch between links or copy QR URLs */}
-      <PortalSwitcherFloating />
     </div>
   );
 }

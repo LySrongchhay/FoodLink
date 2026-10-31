@@ -5,7 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:customer": "vite --mode customer",
+    "dev:merchant": "vite --mode merchant",
     "build": "vite build",
+    "build:customer": "vite build --mode customer",
+    "build:merchant": "vite build --mode merchant",
     "preview": "vite preview"
   },
   "dependencies": {

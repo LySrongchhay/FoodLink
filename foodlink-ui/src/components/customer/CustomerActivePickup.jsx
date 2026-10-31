@@ -11,6 +11,7 @@ import {
   Award,
   CheckCheck,
   ShoppingBag,
+  Store,
   ChevronRight,
   RotateCcw,
   AlertCircle,
@@ -30,13 +31,38 @@ export default function CustomerActivePickup({
 }) {
   const [historyOrders, setHistoryOrders] = useState(() => getCustomerOrderHistory(currentUser?.id));
 
-  // Normalize current active order
-  const currentActiveOrder = order;
-  const [isVerified, setIsVerified] = useState(currentActiveOrder?.status === 'COMPLETED');
+  // Active or most recent order resolution
+  const displayOrder = order || (historyOrders && historyOrders.length > 0 ? historyOrders[0] : null);
+  const codeStr = String(displayOrder?.pickupCode || '849201');
+  const digits = displayOrder?.digits && displayOrder.digits.length === 6
+    ? displayOrder.digits
+    : codeStr.padStart(6, '0').slice(0, 6).split('');
 
-  // Load latest orders from backend API on mount
+  const items = displayOrder?.items && displayOrder.items.length > 0
+    ? displayOrder.items
+    : [{ title: 'Artisan Sourdough & Croissant Box', quantity: 1, price: 4.99 }];
+
+  const totalBags = items.reduce((acc, it) => acc + (it.quantity || 1), 0);
+  const storeName = displayOrder?.storeName || 'CAD Bakery & Cafe';
+  const storeAddress = displayOrder?.storeAddress || 'No. 42, Street 310, BKK1, Phnom Penh';
+  const pickupWindow = displayOrder?.pickupWindow || '6:30 PM - 8:30 PM';
+  const totalPaid = typeof displayOrder?.totalPrice === 'number'
+    ? displayOrder.totalPrice.toFixed(2)
+    : (displayOrder?.totalPrice || '4.99');
+  const totalSaved = (parseFloat(totalPaid) * 0.7).toFixed(2);
+  const orderId = displayOrder?.orderNumber || `#FS-${codeStr}`;
+  const co2SavedKg = displayOrder?.co2SavedKg || (Math.round((parseFloat(totalPaid) * 0.45 || 0.8) * 10) / 10);
+
+  // Reactive verification state: resets whenever order prop changes!
+  const [isVerified, setIsVerified] = useState(displayOrder?.status === 'COMPLETED');
+
   useEffect(() => {
-    const handleVerified = (data) => {
+    setIsVerified(displayOrder?.status === 'COMPLETED');
+  }, [displayOrder?.id, displayOrder?.pickupCode, displayOrder?.status]);
+
+  // Real-time synchronization for Merchant counter pickup verification
+  useEffect(() => {
+    const handleVerified = (verifiedOrder) => {
       setIsVerified(true);
       markOrderCompletedInHistory(currentUser?.id, codeStr);
       setHistoryOrders((prev) =>
@@ -45,18 +71,21 @@ export default function CustomerActivePickup({
     };
 
     if (socket && socket.on) {
-      socket.on('PICKUP_VERIFIED', handleVerified);
+      try {
+        socket.on('PICKUP_VERIFIED', handleVerified);
+      } catch (e) {}
     }
 
     // Multi-tab BroadcastChannel listener
     const handleChannelMsg = (event) => {
       if (event.data?.type === 'ORDER_VERIFIED') {
         const orderCode = event.data.code;
-        if (!orderCode || orderCode === codeStr || orderCode === '849201') {
+        if (!orderCode || orderCode === codeStr || orderCode === displayOrder?.pickupCode) {
           handleVerified(event.data.order);
         }
       }
     };
+
     if (liveDropChannel) {
       liveDropChannel.addEventListener('message', handleChannelMsg);
     }
@@ -66,20 +95,26 @@ export default function CustomerActivePickup({
       if (e.key && e.key.startsWith('foodlink_active_order_')) {
         try {
           const parsed = JSON.parse(e.newValue);
-          if (parsed && parsed.status === 'COMPLETED') {
+          if (parsed && parsed.status === 'COMPLETED' && parsed.pickupCode === codeStr) {
             setIsVerified(true);
           }
-        } catch {}
+        } catch (err) {}
       }
     };
     window.addEventListener('storage', handleStorage);
 
     return () => {
-      if (socket && socket.off) socket.off('PICKUP_VERIFIED', handleVerified);
-      if (liveDropChannel) liveDropChannel.removeEventListener('message', handleChannelMsg);
+      if (socket && socket.off) {
+        try {
+          socket.off('PICKUP_VERIFIED', handleVerified);
+        } catch (e) {}
+      }
+      if (liveDropChannel) {
+        liveDropChannel.removeEventListener('message', handleChannelMsg);
+      }
       window.removeEventListener('storage', handleStorage);
     };
-  }, [codeStr, displayOrder, currentUser?.id]);
+  }, [codeStr, displayOrder?.id, displayOrder?.pickupCode, currentUser?.id]);
 
   const customerAvatar = currentUser?.avatar || displayOrder?.avatarUrl || 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=70';
 
@@ -97,7 +132,7 @@ export default function CustomerActivePickup({
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-center text-sm shadow-2xs">
-            🛍
+            <ShoppingBag className="w-4 h-4 text-[#2E7D32]" />
           </div>
           <div>
             <h1 className="font-extrabold text-base text-[#1C1C1E]">My Reserves</h1>
@@ -128,255 +163,255 @@ export default function CustomerActivePickup({
         {displayOrder ? (
           <>
             {/* Hero Status Banner */}
-              <div className="text-center space-y-2 py-1">
-                <div className="relative inline-block">
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto shadow-md transition-all ${
-                    isVerified ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-[#2E7D32]'
-                  }`}>
-                    {isVerified ? (
-                      <CheckCheck className="w-8 h-8 text-white stroke-[2.5]" />
-                    ) : (
-                      <CheckCircle2 className="w-8 h-8 fill-[#2E7D32] text-white" />
-                    )}
-                  </div>
-                  <span className={`absolute top-0 right-0 w-3.5 h-3.5 rounded-full ring-2 ring-white ${isVerified ? 'bg-emerald-400' : 'bg-orange-500'}`} />
-                </div>
-
-                <div className="space-y-1">
-                  <span className={`inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-bold border ${
-                    isVerified
-                      ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
-                      : 'bg-[#EAF7ED] text-[#2E7D32] border-emerald-200'
-                  }`}>
-                    <Leaf className="w-3 h-3" />
-                    <span>{isVerified ? 'Pickup Completed!' : 'Active Reservation'}</span>
-                  </span>
-
-                  <h2 className="text-xl font-black text-[#1C1C1E] tracking-tight">
-                    {isVerified
-                      ? 'Order Verified & Collected!'
-                      : `You Rescued ${totalBags > 1 ? `${totalBags} Surprise Bags!` : 'a Surprise Bag!'}`}
-                  </h2>
-                  <p className="text-xs text-stone-500 font-medium">{storeName} · {items.length} item type{items.length > 1 ? 's' : ''}</p>
-                </div>
-              </div>
-
-              {/* Fulfillment Summary Card (Post-Verification) */}
-              {isVerified && (
-                <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl p-5 text-white shadow-md space-y-3.5 animate-in fade-in slide-in-from-top-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-black uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full backdrop-blur-xs">
-                      Meal Rescued! 🎉
-                    </span>
-                    <span className="text-xs font-bold text-emerald-100">
-                      Verified by Merchant
-                    </span>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-black tracking-tight">Food Rescue Complete!</h3>
-                    <p className="text-xs text-emerald-100 font-medium">
-                      Thank you for saving surplus food from CAD Bakery & Cafe and preventing food waste in Phnom Penh.
-                    </p>
-                  </div>
-
-                  {/* Impact Stats Grid */}
-                  <div className="grid grid-cols-3 gap-2 pt-1">
-                    <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
-                      <span className="text-base font-black block leading-none">0.8 kg</span>
-                      <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">CO2 Saved</span>
-                    </div>
-                    <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
-                      <span className="text-base font-black block leading-none">{totalBags}</span>
-                      <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">Meal Rescued</span>
-                    </div>
-                    <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
-                      <span className="text-base font-black block leading-none">${totalSaved}</span>
-                      <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">Money Saved</span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={onBackToHome}
-                    className="w-full py-2.5 rounded-2xl bg-white text-[#1b5e20] hover:bg-emerald-50 text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-1"
-                  >
-                    <span>Rescue Another Meal</span>
-                    <span>→</span>
-                  </button>
-                </div>
-              )}
-
-              {/* Digital Pickup Pass Card */}
-              <div className={`bg-white rounded-3xl border p-5 shadow-2xs space-y-4 relative overflow-hidden transition-all ${
-                isVerified ? 'border-emerald-300 ring-2 ring-emerald-500/20' : 'border-stone-200/80'
-              }`}>
-                <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
-                  <span className="text-[11px] font-extrabold uppercase tracking-widest text-stone-400">
-                    DIGITAL PICKUP PASS
-                  </span>
-                  <span className="text-xs font-bold text-[#2E7D32] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
-                    {orderId}
-                  </span>
-                </div>
-
-                {/* 6-Digit Code Display */}
-                <div className={`p-4 rounded-2xl border flex flex-col items-center justify-center space-y-2.5 transition-colors ${
-                  isVerified ? 'bg-emerald-50/60 border-emerald-200' : 'bg-stone-50 border-stone-200/70'
+            <div className="text-center space-y-2 py-1">
+              <div className="relative inline-block">
+                <div className={`w-14 h-14 rounded-full flex items-center justify-center mx-auto shadow-md transition-all ${
+                  isVerified ? 'bg-emerald-600 text-white' : 'bg-emerald-100 text-[#2E7D32]'
                 }`}>
-                  <div className="flex items-center justify-center gap-1.5 sm:gap-2">
-                    {digits.map((d, i) => (
-                      <div
-                        key={i}
-                        className={`w-10 h-13 sm:w-11 sm:h-14 rounded-xl bg-white border-2 flex items-center justify-center font-mono text-2xl font-black shadow-xs ${
-                          isVerified ? 'border-emerald-600 text-emerald-800' : 'border-[#1b5e20] text-[#1C1C1E]'
-                        }`}
-                      >
-                        {d}
-                      </div>
-                    ))}
-                  </div>
-                  <span className={`text-[10px] font-mono tracking-widest font-extrabold uppercase ${
-                    isVerified ? 'text-emerald-700' : 'text-stone-500'
-                  }`}>
-                    {isVerified ? '✓ VERIFIED BY MERCHANT' : 'SHOW PASS AT COUNTER'}
-                  </span>
+                  {isVerified ? (
+                    <CheckCheck className="w-8 h-8 text-white stroke-[2.5]" />
+                  ) : (
+                    <CheckCircle2 className="w-8 h-8 fill-[#2E7D32] text-white" />
+                  )}
                 </div>
-
-                {/* Pickup Window */}
-                <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-[#2E7D32]" />
-                    <div>
-                      <span className="text-[10px] text-stone-400 uppercase font-bold block">Pickup Window</span>
-                      <span className="font-extrabold text-stone-900">Today, 6:30 PM – 7:30 PM</span>
-                    </div>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-[#1b5e20] text-xs font-black">
-                    Ready
-                  </span>
-                </div>
+                <span className={`absolute top-0 right-0 w-3.5 h-3.5 rounded-full ring-2 ring-white ${isVerified ? 'bg-emerald-400' : 'bg-orange-500'}`} />
               </div>
 
-              {/* Items Summary */}
-              <div className="bg-white rounded-3xl border border-stone-200/80 p-5 shadow-2xs space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="font-extrabold text-sm text-[#1C1C1E]">Reserved Items ({items.length})</span>
-                  <span className="text-xs font-bold text-[#1b5e20] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                    {totalBags} bag{totalBags > 1 ? 's' : ''}
-                  </span>
-                </div>
-
-                <div className="space-y-2.5 divide-y divide-stone-100">
-                  {items.map((it, idx) => {
-                    const qty = it.quantity || 1;
-                    const price = typeof it.price === 'number' ? it.price : parseFloat(it.price) || 4.99;
-                    const orig = typeof it.originalPrice === 'number' ? it.originalPrice : parseFloat(it.originalPrice) || 16.00;
-                    return (
-                      <div key={idx} className={`flex items-center justify-between ${idx > 0 ? 'pt-2.5' : ''}`}>
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 border border-stone-200 shadow-2xs">
-                            <OptimizedImage
-                              src={it.photoUrl || it.image}
-                              alt={it.title}
-                              width={80}
-                              height={80}
-                              quality={70}
-                              className="w-full h-full object-cover"
-                              containerClassName="w-full h-full"
-                            />
-                          </div>
-                          <div>
-                            <h4 className="font-bold text-xs text-[#1C1C1E] line-clamp-1">{qty}× {it.title}</h4>
-                            <p className="text-[10px] text-stone-400 font-mono">${price.toFixed(2)} / bag</p>
-                          </div>
-                        </div>
-
-                        <div className="text-right">
-                          <span className="font-extrabold text-xs text-[#1b5e20] block">${(price * qty).toFixed(2)}</span>
-                          {orig > price && (
-                            <span className="text-[10px] text-stone-400 line-through">${(orig * qty).toFixed(2)}</span>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-xs">
-                  <span className="font-bold text-stone-600">Total Paid (KHQR / Bakong)</span>
-                  <span className="font-black text-base text-[#1C1C1E]">${totalPaid}</span>
-                </div>
-
-                {parseFloat(totalSaved) > 0 && (
-                  <div className="p-2.5 rounded-xl bg-[#EAF7ED] border border-emerald-200/70 flex items-center justify-between text-xs font-bold text-[#1b5e20]">
-                    <span className="flex items-center gap-1.5">
-                      <Leaf className="w-3.5 h-3.5" />
-                      <span>Total Saved</span>
-                    </span>
-                    <span>${totalSaved}</span>
-                  </div>
-                )}
-              </div>
-
-              {/* Store Address & Map Card */}
-              <div className="bg-white rounded-3xl border border-stone-200/80 p-4 sm:p-5 shadow-2xs space-y-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-2.5">
-                    <div className="w-9 h-9 rounded-xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center text-lg shrink-0">
-                      🏬
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-sm text-[#1C1C1E]">{storeName}</h4>
-                      <p className="text-xs text-stone-500">422 St 178, Daun Penh, Phnom Penh</p>
-                    </div>
-                  </div>
-                  <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 text-[10px] font-bold shrink-0">
-                    0.4 km
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 pt-1">
-                  <button
-                    type="button"
-                    className="py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
-                  >
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>Add to Calendar</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    className="py-2 rounded-xl bg-[#1b5e20] hover:bg-[#144919] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-                  >
-                    <Navigation className="w-3.5 h-3.5" />
-                    <span>Get Directions</span>
-                  </button>
-                </div>
-              </div>
-            </>
-          ) : (
-            /* Empty Active Reserves State */
-            <div className="bg-white rounded-3xl border border-stone-200/80 p-8 text-center space-y-4 shadow-2xs">
-              <div className="w-16 h-16 rounded-full bg-emerald-50 text-[#2E7D32] flex items-center justify-center text-2xl mx-auto shadow-inner">
-                🧺
-              </div>
               <div className="space-y-1">
-                <h3 className="font-black text-base text-[#1C1C1E]">No Active Reserves Right Now</h3>
-                <p className="text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
-                  You don't have any pickup passes waiting right now. You can check your past reserves in the <strong className="text-stone-700">Before</strong> tab, or explore fresh surplus bags available today!
-                </p>
-              </div>
+                <span className={`inline-flex items-center gap-1 px-3 py-0.5 rounded-full text-xs font-bold border ${
+                  isVerified
+                    ? 'bg-emerald-100 text-emerald-900 border-emerald-300'
+                    : 'bg-[#EAF7ED] text-[#2E7D32] border-emerald-200'
+                }`}>
+                  <Leaf className="w-3 h-3" />
+                  <span>{isVerified ? 'Pickup Completed!' : 'Active Reservation'}</span>
+                </span>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
+                <h2 className="text-xl font-black text-[#1C1C1E] tracking-tight">
+                  {isVerified
+                    ? 'Order Verified & Collected!'
+                    : `You Rescued ${totalBags > 1 ? `${totalBags} Surprise Bags!` : 'a Surprise Bag!'}`}
+                </h2>
+                <p className="text-xs text-stone-500 font-medium">{storeName} · {items.length} item type{items.length > 1 ? 's' : ''}</p>
+              </div>
+            </div>
+
+            {/* Fulfillment Summary Card (Post-Verification) */}
+            {isVerified && (
+              <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-3xl p-5 text-white shadow-md space-y-3.5 animate-in fade-in slide-in-from-top-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-black uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full backdrop-blur-xs">
+                    Meal Rescued!
+                  </span>
+                  <span className="text-xs font-bold text-emerald-100">
+                    Verified by Merchant
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-black tracking-tight">Food Rescue Complete!</h3>
+                  <p className="text-xs text-emerald-100 font-medium">
+                    Thank you for saving surplus food from {storeName} and preventing food waste in Phnom Penh.
+                  </p>
+                </div>
+
+                {/* Impact Stats Grid */}
+                <div className="grid grid-cols-3 gap-2 pt-1">
+                  <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
+                    <span className="text-base font-black block leading-none">{co2SavedKg} kg</span>
+                    <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">CO2 Saved</span>
+                  </div>
+                  <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
+                    <span className="text-base font-black block leading-none">{totalBags}</span>
+                    <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">Meal Rescued</span>
+                  </div>
+                  <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-2.5 text-center">
+                    <span className="text-base font-black block leading-none">${totalSaved}</span>
+                    <span className="text-[10px] text-emerald-100 font-semibold uppercase tracking-wider block mt-1">Money Saved</span>
+                  </div>
+                </div>
+
                 <button
                   onClick={onBackToHome}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#1b5e20] hover:bg-[#144919] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+                  className="w-full py-2.5 rounded-2xl bg-white text-[#1b5e20] hover:bg-emerald-50 text-xs font-extrabold shadow-sm transition-all flex items-center justify-center gap-1.5 cursor-pointer mt-1"
                 >
-                  Explore Today's Surplus
+                  <span>Rescue Another Meal</span>
+                  <span>→</span>
+                </button>
+              </div>
+            )}
+
+            {/* Digital Pickup Pass Card */}
+            <div className={`bg-white rounded-3xl border p-5 shadow-2xs space-y-4 relative overflow-hidden transition-all ${
+              isVerified ? 'border-emerald-300 ring-2 ring-emerald-500/20' : 'border-stone-200/80'
+            }`}>
+              <div className="flex items-center justify-between border-b border-stone-100 pb-2.5">
+                <span className="text-[11px] font-extrabold uppercase tracking-widest text-stone-400">
+                  DIGITAL PICKUP PASS
+                </span>
+                <span className="text-xs font-bold text-[#2E7D32] bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  {orderId}
+                </span>
+              </div>
+
+              {/* 6-Digit Code Display */}
+              <div className={`p-4 rounded-2xl border flex flex-col items-center justify-center space-y-2.5 transition-colors ${
+                isVerified ? 'bg-emerald-50/60 border-emerald-200' : 'bg-stone-50 border-stone-200/70'
+              }`}>
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                  {digits.map((d, i) => (
+                    <div
+                      key={i}
+                      className={`w-10 h-13 sm:w-11 sm:h-14 rounded-xl bg-white border-2 flex items-center justify-center font-mono text-2xl font-black shadow-xs ${
+                        isVerified ? 'border-emerald-600 text-emerald-800' : 'border-[#1b5e20] text-[#1C1C1E]'
+                      }`}
+                    >
+                      {d}
+                    </div>
+                  ))}
+                </div>
+                <span className={`text-[10px] font-mono tracking-widest font-extrabold uppercase ${
+                  isVerified ? 'text-emerald-700' : 'text-stone-500'
+                }`}>
+                  {isVerified ? '✓ VERIFIED BY MERCHANT' : 'SHOW PASS AT COUNTER'}
+                </span>
+              </div>
+
+              {/* Pickup Window */}
+              <div className="flex items-center justify-between text-xs pt-1 border-t border-stone-100">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-[#2E7D32]" />
+                  <div>
+                    <span className="text-[10px] text-stone-400 uppercase font-bold block">Pickup Window</span>
+                    <span className="font-extrabold text-stone-900">{pickupWindow}</span>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-full bg-emerald-100 text-[#1b5e20] text-xs font-black">
+                  Ready
+                </span>
+              </div>
+            </div>
+
+            {/* Items Summary */}
+            <div className="bg-white rounded-3xl border border-stone-200/80 p-5 shadow-2xs space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-extrabold text-sm text-[#1C1C1E]">Reserved Items ({items.length})</span>
+                <span className="text-xs font-bold text-[#1b5e20] bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+                  {totalBags} bag{totalBags > 1 ? 's' : ''}
+                </span>
+              </div>
+
+              <div className="space-y-2.5 divide-y divide-stone-100">
+                {items.map((it, idx) => {
+                  const qty = it.quantity || 1;
+                  const price = typeof it.price === 'number' ? it.price : parseFloat(it.price) || 4.99;
+                  const orig = typeof it.originalPrice === 'number' ? it.originalPrice : parseFloat(it.originalPrice) || 16.00;
+                  return (
+                    <div key={idx} className={`flex items-center justify-between ${idx > 0 ? 'pt-2.5' : ''}`}>
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-10 h-10 rounded-xl overflow-hidden shrink-0 border border-stone-200 shadow-2xs">
+                          <OptimizedImage
+                            src={it.photoUrl || it.image}
+                            alt={it.title}
+                            width={80}
+                            height={80}
+                            quality={70}
+                            className="w-full h-full object-cover"
+                            containerClassName="w-full h-full"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-bold text-xs text-[#1C1C1E] line-clamp-1">{qty}× {it.title}</h4>
+                          <p className="text-[10px] text-stone-400 font-mono">${price.toFixed(2)} / bag</p>
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <span className="font-extrabold text-xs text-[#1b5e20] block">${(price * qty).toFixed(2)}</span>
+                        {orig > price && (
+                          <span className="text-[10px] text-stone-400 line-through">${(orig * qty).toFixed(2)}</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="pt-2 border-t border-stone-100 flex items-center justify-between text-xs">
+                <span className="font-bold text-stone-600">Total Paid (KHQR / Bakong)</span>
+                <span className="font-black text-base text-[#1C1C1E]">${totalPaid}</span>
+              </div>
+
+              {parseFloat(totalSaved) > 0 && (
+                <div className="p-2.5 rounded-xl bg-[#EAF7ED] border border-emerald-200/70 flex items-center justify-between text-xs font-bold text-[#1b5e20]">
+                  <span className="flex items-center gap-1.5">
+                    <Leaf className="w-3.5 h-3.5" />
+                    <span>Total Saved</span>
+                  </span>
+                  <span>${totalSaved}</span>
+                </div>
+              )}
+            </div>
+
+            {/* Store Address & Map Card */}
+            <div className="bg-white rounded-3xl border border-stone-200/80 p-4 sm:p-5 shadow-2xs space-y-3">
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-2.5">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-100 text-[#2E7D32] flex items-center justify-center shrink-0">
+                    <Store className="w-4 h-4 text-[#2E7D32]" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-sm text-[#1C1C1E]">{storeName}</h4>
+                    <p className="text-xs text-stone-500">{storeAddress}</p>
+                  </div>
+                </div>
+                <span className="px-2 py-0.5 rounded-md bg-stone-100 text-stone-600 text-[10px] font-bold shrink-0">
+                  0.4 km
+                </span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2 pt-1">
+                <button
+                  type="button"
+                  className="py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                >
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>Add to Calendar</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="py-2 rounded-xl bg-[#1b5e20] hover:bg-[#144919] text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Get Directions</span>
                 </button>
               </div>
             </div>
-          )}
+          </>
+        ) : (
+          /* Empty Active Reserves State */
+          <div className="bg-white rounded-3xl border border-stone-200/80 p-8 text-center space-y-4 shadow-2xs">
+            <div className="w-16 h-16 rounded-full bg-emerald-50 text-[#2E7D32] flex items-center justify-center text-2xl mx-auto shadow-inner">
+              <ShoppingBag className="w-8 h-8 text-[#2E7D32]" />
+            </div>
+            <div className="space-y-1">
+              <h3 className="font-black text-base text-[#1C1C1E]">No Active Reserves Right Now</h3>
+              <p className="text-xs text-stone-500 max-w-xs mx-auto leading-relaxed">
+                You don't have any pickup passes waiting right now. You can check your past reserves in the <strong className="text-stone-700">Before</strong> tab, or explore fresh surplus bags available today!
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 pt-2">
+              <button
+                onClick={onBackToHome}
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-[#1b5e20] hover:bg-[#144919] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer"
+              >
+                Explore Today's Surplus
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Bottom Back Button */}
@@ -385,7 +420,7 @@ export default function CustomerActivePickup({
           onClick={onBackToHome}
           className="px-6 py-2.5 rounded-2xl bg-white border border-stone-200 hover:bg-stone-50 text-stone-800 text-xs font-bold transition-colors cursor-pointer shadow-2xs"
         >
-          ← Back to Discover Deals
+          Back to Discover Deals
         </button>
       </div>
 

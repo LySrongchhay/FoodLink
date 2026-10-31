@@ -1,15 +1,18 @@
 import { io } from 'socket.io-client';
 
-const isLocalhost = typeof window !== 'undefined' &&
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (isLocalhost ? 'http://localhost:5000' : '');
+// Only connect if explicitly configured via environment variable to prevent localhost:5000 offline spam
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;
 
 export const socket = SOCKET_URL
   ? io(SOCKET_URL, {
       autoConnect: true,
       transports: ['websocket', 'polling'],
       timeout: 3000,
+      reconnectionAttempts: 3,
     })
-  : { on: () => {}, off: () => {}, emit: () => {}, connected: false };
-
+  : {
+      on: () => {},
+      off: () => {},
+      emit: () => {},
+      connected: false,
+    };

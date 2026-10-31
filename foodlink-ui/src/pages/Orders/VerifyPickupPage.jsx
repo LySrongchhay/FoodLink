@@ -22,7 +22,7 @@ export default function VerifyPickupPage({ onBack, onCompleteHandover, initialCo
 
   const handleCodeChange = (val) => {
     // Sanitize to alphanumeric/digits, hash, dashes, spaces, up to 30 chars
-    const cleaned = val.replace(/[^0-9a-zA-Z#-\s]/g, '').slice(0, 30);
+    const cleaned = val.replace(/[^0-9a-zA-Z]/g, '').slice(0, 10).toUpperCase();
     setCode(cleaned);
   };
 
@@ -174,9 +174,6 @@ export default function VerifyPickupPage({ onBack, onCompleteHandover, initialCo
                 alt={matchedOrder.listing?.title || 'Food item'}
                 className="w-full h-full object-cover"
               />
-              <span className="absolute bottom-0 right-0 p-0.5 bg-[#2E7D32] text-white rounded-tl-lg text-[9px]">
-                🥐
-              </span>
             </div>
 
             <div className="space-y-0.5 flex-1 min-w-0">
@@ -202,7 +199,7 @@ export default function VerifyPickupPage({ onBack, onCompleteHandover, initialCo
             <div className="w-6 h-6 rounded-lg bg-emerald-200/80 flex items-center justify-center shrink-0">
               <ShoppingBag className="w-3.5 h-3.5 text-[#1b5e20]" />
             </div>
-            <span>Customer brought reusable tote bag (+10 pts awarded) 🍃</span>
+            <span>Customer brought reusable tote bag (+10 pts awarded)</span>
           </div>
 
           {/* Window Verification */}

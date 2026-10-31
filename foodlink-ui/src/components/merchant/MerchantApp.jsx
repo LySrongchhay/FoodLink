@@ -5,6 +5,7 @@ import {
   ClipboardList,
   BarChart3,
   User,
+  Store,
   LayoutDashboard,
   CheckCircle2,
   X
@@ -12,6 +13,7 @@ import {
 // Eagerly load main dashboard for instant first load
 import MerchantDashboard from '../../pages/Dashboard/MerchantDashboard';
 import OrderNotificationMenu from '../common/OrderNotificationMenu';
+import { usePortalRouter } from '../../router/usePortalRouter';
 
 // Lazy load secondary sub-pages for reduced initial bundle and faster load
 const MerchantListings = lazy(() => import('../../pages/Listings/MerchantListings'));
@@ -31,6 +33,7 @@ function MerchantPageLoader() {
 }
 
 export default function MerchantApp() {
+  const { navigateTo, hideRoleSwitchers } = usePortalRouter();
   const [activeTab, setActiveTab] = useState('dashboard'); // 'dashboard' | 'listings' | 'orders' | 'insights' | 'profile'
   const [subView, setSubView] = useState(null); // 'create-listing' | 'verify-pickup'
   const [verificationCode, setVerificationCode] = useState(null);
@@ -63,7 +66,7 @@ export default function MerchantApp() {
             setLatestListing(newListing);
             setSubView(null);
             setActiveTab('listings');
-            showToast(isEdit ? `Updated "${newListing.title}"!` : `Published "${newListing.title}"!`);
+            showToast(isEdit ? `Updated "${newListing.title}"` : `Published "${newListing.title}"`);
           }}
           onNavigateToProfile={() => {
             setEditingListing(null);
@@ -75,35 +78,8 @@ export default function MerchantApp() {
     );
   }
 
-  // If activeTab is profile
-  if (activeTab === 'profile') {
-    return (
-      <div>
-        {/* Quick Top Switcher Bar */}
-        <div className="bg-[#1C1C1E] text-white px-4 py-2 text-xs flex items-center justify-between sticky top-0 z-50">
-          <div className="flex items-center gap-2">
-            <img src="/cad-bakery-logo.png" alt="CAD Bakery Logo" className="w-5 h-5 rounded-full object-contain bg-white p-0.5" />
-            <span className="font-bold">CAD Bakery</span>
-            <span className="text-stone-400 hidden sm:inline">— Store Profile & Environmental Impact</span>
-          </div>
-          <button
-            onClick={() => setActiveTab('dashboard')}
-            className="px-3 py-1 rounded-lg bg-[#2E7D32] hover:bg-[#256629] text-white font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <LayoutDashboard className="w-3.5 h-3.5" />
-            <span>Return to Merchant Hub</span>
-          </button>
-        </div>
-
-        <Suspense fallback={<MerchantPageLoader />}>
-          <MerchantProfile onNavigateToDashboard={() => setActiveTab('dashboard')} />
-        </Suspense>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-[#F5F5F7] text-[#1C1C1E] flex flex-col font-sans pb-24 antialiased selection:bg-[#2E7D32] selection:text-white">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#1C1C1E] flex flex-col font-sans pb-24 antialiased selection:bg-[#2E7D32] selection:text-white">
       
       {/* Toast Alert */}
       {toastMessage && (
@@ -133,21 +109,32 @@ export default function MerchantApp() {
             </div>
             <div>
               <div 
-                onClick={() => setActiveTab('dashboard')}
+                onClick={() => {
+                  setSubView(null);
+                  setActiveTab('dashboard');
+                }}
                 className="flex items-center gap-1.5 cursor-pointer hover:opacity-85 transition-opacity"
               >
                 <h1 className="font-bold text-base text-[#1C1C1E] tracking-tight">CAD Bakery</h1>
-                <div className="flex flex-col text-stone-400 text-[9px] -space-y-1">
-                  <span>▲</span>
-                  <span>▼</span>
-                </div>
               </div>
               <p className="text-[11px] font-semibold text-[#2E7D32]">Artisan Bakery • Partner</p>
             </div>
           </div>
 
-          {/* Right Controls: Order Notifications Center */}
+          {/* Right Controls: Customer View toggle & Notifications Menu */}
           <div className="flex items-center gap-2">
+            {!hideRoleSwitchers && (
+            <button
+              onClick={() => navigateTo('customer')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+              title="Switch to Customer App"
+            >
+              <User className="w-3.5 h-3.5 text-[#2E7D32]" />
+              <span className="hidden sm:inline">Customer View</span>
+            </button>
+
+            )}
+
             <OrderNotificationMenu
               hasPendingPickups={hasPendingPickups}
               refreshTrigger={refreshTrigger}
@@ -237,13 +224,20 @@ export default function MerchantApp() {
                   onNavigateToProfile={() => setActiveTab('profile')}
                 />
               )}
+
+              {/* Tab 5: Store Profile */}
+              {activeTab === 'profile' && (
+                <MerchantProfile
+                  onNavigateToDashboard={() => setActiveTab('dashboard')}
+                />
+              )}
             </>
           )}
         </Suspense>
       </main>
 
-      {/* Fixed Bottom Navigation Bar (4 Main Tabs) */}
-      <nav className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200/80 px-4 py-2 z-40">
+      {/* Fixed Bottom Navigation Bar (5 Persistent Tabs) */}
+      <nav className="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-stone-200/80 px-2 sm:px-4 py-2 z-40">
         <div className="max-w-md sm:max-w-xl mx-auto flex items-center justify-around">
           
           {/* Dashboard Tab */}
@@ -252,12 +246,12 @@ export default function MerchantApp() {
               setSubView(null);
               setActiveTab('dashboard');
             }}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center gap-1 py-1 px-2.5 sm:px-3 rounded-xl transition-colors cursor-pointer ${
               activeTab === 'dashboard' && !subView ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-700'
             }`}
           >
-            <LayoutGrid className="w-5 h-5 stroke-[2.5]" />
-            <span className="text-[11px] font-bold">Dashboard</span>
+            <LayoutGrid className="w-5 h-5 stroke-[2.2]" />
+            <span className="text-[10px] sm:text-[11px] font-bold">Dashboard</span>
           </button>
 
           {/* Listings Tab */}
@@ -266,12 +260,12 @@ export default function MerchantApp() {
               setSubView(null);
               setActiveTab('listings');
             }}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center gap-1 py-1 px-2.5 sm:px-3 rounded-xl transition-colors cursor-pointer ${
               activeTab === 'listings' && !subView ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-700'
             }`}
           >
             <Package className="w-5 h-5" />
-            <span className="text-[11px] font-medium">Listings</span>
+            <span className="text-[10px] sm:text-[11px] font-medium">Listings</span>
           </button>
 
           {/* Orders Tab */}
@@ -280,12 +274,12 @@ export default function MerchantApp() {
               setSubView(null);
               setActiveTab('orders');
             }}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center gap-1 py-1 px-2.5 sm:px-3 rounded-xl transition-colors cursor-pointer ${
               activeTab === 'orders' && !subView ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-700'
             }`}
           >
             <ClipboardList className="w-5 h-5" />
-            <span className="text-[11px] font-medium">Orders</span>
+            <span className="text-[10px] sm:text-[11px] font-medium">Orders</span>
           </button>
 
           {/* Insights Tab */}
@@ -294,12 +288,26 @@ export default function MerchantApp() {
               setSubView(null);
               setActiveTab('insights');
             }}
-            className={`flex flex-col items-center gap-1 py-1 px-3 rounded-xl transition-colors cursor-pointer ${
+            className={`flex flex-col items-center gap-1 py-1 px-2.5 sm:px-3 rounded-xl transition-colors cursor-pointer ${
               activeTab === 'insights' && !subView ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-700'
             }`}
           >
             <BarChart3 className="w-5 h-5" />
-            <span className="text-[11px] font-medium">Insights</span>
+            <span className="text-[10px] sm:text-[11px] font-medium">Insights</span>
+          </button>
+
+          {/* Store Profile Tab */}
+          <button
+            onClick={() => {
+              setSubView(null);
+              setActiveTab('profile');
+            }}
+            className={`flex flex-col items-center gap-1 py-1 px-2.5 sm:px-3 rounded-xl transition-colors cursor-pointer ${
+              activeTab === 'profile' && !subView ? 'text-[#2E7D32]' : 'text-stone-400 hover:text-stone-700'
+            }`}
+          >
+            <Store className="w-5 h-5" />
+            <span className="text-[10px] sm:text-[11px] font-medium">Store</span>
           </button>
 
         </div>

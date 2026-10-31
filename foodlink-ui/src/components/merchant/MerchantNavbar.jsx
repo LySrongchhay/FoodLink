@@ -1,7 +1,9 @@
 import React from 'react';
-import { LayoutDashboard, Package, ShoppingCart, CheckCircle, Plus, Store } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, CheckCircle, Plus, Store, User } from 'lucide-react';
+import { usePortalRouter } from '../../router/usePortalRouter';
 
 export default function MerchantNavbar({ activeTab, setActiveTab, onOpenCreate, onOpenVerify }) {
+  const { navigateTo } = usePortalRouter();
   const tabs = [
     { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
     { id: 'listings', label: 'Surplus Inventory', icon: Package },
@@ -9,7 +11,7 @@ export default function MerchantNavbar({ activeTab, setActiveTab, onOpenCreate, 
   ];
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-[41px] z-40 shadow-xs">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
         {/* Merchant Store Brand */}
         <div className="flex items-center gap-3">
@@ -36,7 +38,7 @@ export default function MerchantNavbar({ activeTab, setActiveTab, onOpenCreate, 
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   isActive
                     ? 'bg-white text-[#1C1C1E] shadow-xs'
                     : 'text-gray-500 hover:text-gray-800'
@@ -53,7 +55,7 @@ export default function MerchantNavbar({ activeTab, setActiveTab, onOpenCreate, 
         <div className="flex items-center gap-2">
           <button
             onClick={onOpenVerify}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-[#2E7D32] text-[#2E7D32] text-xs font-bold hover:bg-emerald-50 transition-colors shadow-2xs"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-[#2E7D32] text-[#2E7D32] text-xs font-bold hover:bg-emerald-50 transition-colors shadow-2xs cursor-pointer"
           >
             <CheckCircle className="w-4 h-4" />
             Verify Pickup PIN
@@ -61,14 +63,22 @@ export default function MerchantNavbar({ activeTab, setActiveTab, onOpenCreate, 
 
           <button
             onClick={onOpenCreate}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FF8A3D] text-white text-xs font-bold hover:bg-[#E67628] transition-colors shadow-xs"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#FF8A3D] text-white text-xs font-bold hover:bg-[#E67628] transition-colors shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             New Surplus Batch
+          </button>
+
+          <button
+            onClick={() => navigateTo('customer')}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-xs font-bold transition-colors cursor-pointer"
+            title="Switch to Customer App"
+          >
+            <User className="w-3.5 h-3.5" />
+            <span>Customer View</span>
           </button>
         </div>
       </div>
     </header>
   );
 }
-

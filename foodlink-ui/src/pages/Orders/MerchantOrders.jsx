@@ -19,6 +19,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
   const [activeFilter, setActiveFilter] = useState('all');
   const [toastMessage, setToastMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const formattedToday = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(new Date());
 
   const showToast = (msg) => {
     setToastMessage(msg);
@@ -112,7 +113,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
         if (onPendingOrdersChange) onPendingOrdersChange(updated.length);
         return updated;
       });
-      showToast(`🔔 New Order! ${normalized.customer} reserved ${normalized.qty} bag(s) (Code: ${normalized.code})`);
+      showToast(`New Order! ${normalized.customer} reserved ${normalized.qty} bag(s) (Code: ${normalized.code})`);
     };
 
     const handlePickupVerified = (data) => {
@@ -178,7 +179,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
       onConfirmPickup(remaining.length);
     }
 
-    showToast(`✓ Order ${order.orderNumber} confirmed & handed over!`);
+    showToast(`Order ${order.orderNumber} confirmed & handed over!`);
 
     // 2. Fire backend verification asynchronously in the background
     verifyOrderPickup({ code: order.code, orderId: order.id }).catch((err) => {
@@ -216,7 +217,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
           <h1 className="text-xl font-extrabold text-[#1C1C1E] tracking-tight">Today's Reservations</h1>
           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-stone-100 border border-stone-200 text-xs font-medium text-stone-700">
             <Calendar className="w-3.5 h-3.5 shrink-0 text-stone-500" />
-            <span>Today, Nov 14</span>
+            <span>Today, {formattedToday}</span>
           </span>
         </div>
       </div>
@@ -231,7 +232,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
               : 'bg-stone-100 hover:bg-stone-200 text-stone-600'
           }`}
         >
-          All 14
+          All ({pendingOrders.length + completedOrders.length})
         </button>
 
         <button
@@ -243,7 +244,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
           }`}
         >
           <span className="w-2 h-2 rounded-full bg-amber-500" />
-          <span>Pending Pickup {pendingOrders.length}</span>
+          <span>Pending Pickup ({pendingOrders.length})</span>
         </button>
 
         <button
@@ -255,7 +256,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
           }`}
         >
           <Check className="w-3 h-3 shrink-0 text-emerald-500" />
-          <span>Completed</span>
+          <span>Completed ({completedOrders.length})</span>
         </button>
       </div>
 
@@ -377,7 +378,7 @@ export default function MerchantOrders({ onOpenVerify, onNavigateToProfile, onCo
               <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
               <span>Earlier Pickups (Completed)</span>
             </div>
-            <span className="text-xs text-stone-400">8 total today</span>
+            <span className="text-xs text-stone-400">{completedOrders.length} total today</span>
           </div>
 
           <div className="space-y-2">

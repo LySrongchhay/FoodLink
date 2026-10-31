@@ -13,6 +13,8 @@ node_modules/
 *.env
 *.local
 !.env.example
+!foodlink-ui/.env.customer
+!foodlink-ui/.env.merchant
 
 # ==========================================
 # Production Builds & Bundler Caches

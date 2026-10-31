@@ -25,11 +25,16 @@ import {
   Cloud,
   Eye,
   Globe,
+  Store,
+  ShoppingBag,
+  ArrowRight,
   X
 } from 'lucide-react';
 import OptimizedImage from '../common/OptimizedImage';
+import { usePortalRouter } from '../../router/usePortalRouter';
 
 export default function CustomerProfile({ onBackToHome, currentUser }) {
+  const { navigateTo, hideRoleSwitchers } = usePortalRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeFilter, setActiveFilter] = useState('all');
   const [showOlderRescues, setShowOlderRescues] = useState(false);
@@ -54,10 +59,10 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
       category: 'bakeries',
       status: 'Completed',
       time: 'Today 6:45 PM',
-      iconText: '🥐',
+      icon: Store,
       iconBg: 'bg-amber-100 text-amber-700',
       itemTitle: 'Artisan Pastry & Sourdough Surprise Bag',
-      co2: '2.5 kg CO₂ saved',
+      co2: '2.5 kg CO2 saved',
       verifiedPickup: true,
       price: '$4.99',
       originalPrice: '$16.00',
@@ -69,10 +74,10 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
       category: 'recent',
       status: 'Completed',
       time: 'Oct 24, 7:15 PM',
-      iconText: '🥗',
+      icon: Leaf,
       iconBg: 'bg-emerald-100 text-emerald-700',
       itemTitle: 'Fresh Prepared Lunch & Sandwich Box',
-      co2: '3.0 kg CO₂ saved',
+      co2: '3.0 kg CO2 saved',
       verifiedPickup: false,
       price: '$5.49',
       originalPrice: '$18.00',
@@ -84,10 +89,10 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
       category: 'bakeries',
       status: 'Completed',
       time: 'Oct 19, 8:10 PM',
-      iconText: '🧁',
+      icon: ShoppingBag,
       iconBg: 'bg-rose-100 text-rose-700',
       itemTitle: 'French Macarons & Seasonal Tartlets',
-      co2: '1.8 kg CO₂ saved',
+      co2: '1.8 kg CO2 saved',
       verifiedPickup: false,
       price: '$3.99',
       originalPrice: '$14.00',
@@ -99,10 +104,10 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
       category: 'bakeries',
       status: 'Completed',
       time: 'Oct 12, 6:00 PM',
-      iconText: '🍞',
+      icon: Utensils,
       iconBg: 'bg-stone-200 text-stone-700',
       itemTitle: 'Rustic Baguette & Country Loaves',
-      co2: '2.2 kg CO₂ saved',
+      co2: '2.2 kg CO2 saved',
       verifiedPickup: false,
       price: '$4.50',
       originalPrice: '$14.00',
@@ -111,7 +116,7 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
   ];
 
   return (
-    <div className="space-y-6 pb-20">
+    <div className="space-y-6 pb-24">
       
       {toastMessage && (
         <div className="fixed top-5 inset-x-4 max-w-sm mx-auto z-50 bg-[#1C1C1E] text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-xl flex items-center justify-between gap-3">
@@ -243,7 +248,7 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
 
         <div className="bg-white rounded-2xl border border-stone-200/80 p-5 shadow-xs space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500">CO₂e AVOIDED</span>
+            <span className="text-[11px] font-bold uppercase tracking-wider text-stone-500">CO2 AVOIDED</span>
             <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-600">
               <Cloud className="w-4 h-4" />
             </div>
@@ -265,27 +270,52 @@ export default function CustomerProfile({ onBackToHome, currentUser }) {
       <div className="space-y-3">
         <h2 className="text-base font-bold text-[#1C1C1E]">Order History & Rescues</h2>
         <div className="space-y-3">
-          {initialOrders.map((ord) => (
-            <div key={ord.id} className="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
-              <div className="flex items-center gap-3">
-                <div className={`w-11 h-11 rounded-2xl ${ord.iconBg} flex items-center justify-center text-xl shrink-0`}>
-                  {ord.iconText}
+          {initialOrders.map((ord) => {
+            const Icon = ord.icon;
+            return (
+              <div key={ord.id} className="p-4 bg-white rounded-2xl border border-stone-200/80 flex items-center justify-between shadow-2xs">
+                <div className="flex items-center gap-3">
+                  <div className={`w-11 h-11 rounded-2xl ${ord.iconBg} flex items-center justify-center shrink-0`}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-sm text-[#1C1C1E]">{ord.store}</h3>
+                    <p className="text-xs text-stone-600">{ord.itemTitle}</p>
+                    <span className="text-[11px] text-stone-400">{ord.co2} • {ord.time}</span>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-sm text-[#1C1C1E]">{ord.store}</h3>
-                  <p className="text-xs text-stone-600">{ord.itemTitle}</p>
-                  <span className="text-[11px] text-stone-400">{ord.co2} • {ord.time}</span>
-                </div>
-              </div>
 
-              <div className="text-right">
-                <span className="font-extrabold text-sm text-[#2E7D32] block">{ord.price}</span>
-                <span className="text-[10px] text-[#FF8A3D] font-bold">{ord.savedText}</span>
+                <div className="text-right">
+                  <span className="font-extrabold text-sm text-[#2E7D32] block">{ord.price}</span>
+                  <span className="text-[10px] text-[#FF8A3D] font-bold">{ord.savedText}</span>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
+
+      {/* Merchant Operations Switcher Card */}
+      {!hideRoleSwitchers && (
+        <div className="bg-white rounded-3xl border border-stone-200/80 p-5 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-2xl bg-emerald-50 text-[#2E7D32] border border-emerald-200 flex items-center justify-center shrink-0">
+              <Store className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="font-bold text-sm text-[#1C1C1E]">Merchant Operations Hub</h3>
+              <p className="text-xs text-stone-500">Manage CAD Bakery & Cafe listings, orders & PIN verification</p>
+            </div>
+          </div>
+          <button
+            onClick={() => navigateTo('merchant')}
+            className="px-5 py-2.5 rounded-xl bg-[#2E7D32] hover:bg-[#1b5e20] text-white text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+          >
+            <span>Switch to Merchant Hub</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
 
     </div>
   );
